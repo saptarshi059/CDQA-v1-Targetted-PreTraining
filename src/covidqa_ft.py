@@ -219,7 +219,7 @@ def seed_worker(worker_id):
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--model_checkpoint', default="csarron/roberta-base-squad-v1", type=str)
-parser.add_argument('--trained_model_name', default="test-covidqa-trained-saptarshiconnor", type=str, required=True) # So that we can KNOW for sure which folder is what.
+#parser.add_argument('--trained_model_name', default="test-covidqa-trained-saptarshiconnor", type=str, required=True) # So that we can KNOW for sure which folder is what.
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
