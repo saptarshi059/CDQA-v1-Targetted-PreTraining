@@ -89,7 +89,7 @@ num_training_steps = num_train_epochs * num_update_steps_per_epoch
 
 lr_scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=0, num_training_steps=num_training_steps)
 
-output_dir = f'trained_model/{model_checkpoint.replace('/','-')}_new_tokens'
+output_dir = f'trained_model/{model_checkpoint.replace("/","-")}_new_tokens'
 
 progress_bar = tqdm(range(num_training_steps))
 
