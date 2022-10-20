@@ -66,8 +66,8 @@ new_tokens = corpus_dataset['train']['ent']
 tokenizer.add_tokens(new_tokens)
 print(f'New number of tokens: {len(tokenizer)}')
 
-model.resize_token_embeddings(len(tokenizer)) 
 # The new vector is added at the end of the embedding matrix
+model.resize_token_embeddings(len(tokenizer)) 
 
 tokenized_datasets = corpus_dataset['train'].select([0,1,2]).map(tokenize_function, batched=True, remove_columns=['split', 'ent', 'text'])
 chunk_size = tokenizer.model_max_length
@@ -76,6 +76,7 @@ lm_datasets = tokenized_datasets.map(group_texts, batched=True)
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
 batch_size = args.batch_size
+lm_datasets.remove_columns(["word_ids"])
 train_dataloader = DataLoader(lm_datasets, shuffle=True, batch_size=batch_size, collate_fn=data_collator, worker_init_fn=seed_worker, generator=g)
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
