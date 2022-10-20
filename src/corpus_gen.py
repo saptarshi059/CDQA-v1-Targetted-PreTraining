@@ -11,16 +11,14 @@ s.drop_duplicates(inplace=True)
 
 stanza_ents = list(set(pickle.load(open('../data/stanza_ents.pkl', 'rb'))))
 texts = []
-
-'''
 ents = []
-unique_entities = list(set(s.natural_text.to_list()))
-'''
+
+#unique_entities = list(set(s.natural_text.to_list()))
 
 for ent in tqdm(stanza_ents):
     try:
         texts.append(wikipedia.page(wikipedia.search(str(ent), results=1)).content)
-        #ents.append(str(ent))
+        ents.append(str(ent))
     except:
         continue
 
