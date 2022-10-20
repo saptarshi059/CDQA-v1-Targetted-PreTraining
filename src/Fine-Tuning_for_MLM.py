@@ -42,19 +42,19 @@ def seed_worker(worker_id):
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_checkpoint', default="csarron/roberta-base-squad-v1", type=str)
 parser.add_argument('--random_state', default=42, type=int)
+parser.add_argument('--batch_size', default=40, type=int)
+parser.add_argument('--learning_rate', default=5e-5, type=float)
+parser.add_argument('--epochs', default=3, type=int)
+
 args = parser.parse_args()
-
-
-
-
-
 
 g = torch.Generator()
 g.manual_seed(args.random_state)
 torch.manual_seed(args.random_state)
 random.seed(args.random_state)
 
-corpus_dataset = load_dataset("csv", data_files="data/corpus.csv")
+corpus_dataset = load_dataset("csv", data_files="../data/corpus.csv")
+print('Corpus Loaded...')
 
 model_checkpoint = args.model_checkpoint
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
@@ -75,15 +75,15 @@ lm_datasets = tokenized_datasets.map(group_texts, batched=True)
 
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
-batch_size = 64
+batch_size = args.batch_size
 train_dataloader = DataLoader(lm_datasets, shuffle=True, batch_size=batch_size, collate_fn=data_collator, worker_init_fn=seed_worker, generator=g)
 
-optimizer = AdamW(model.parameters(), lr=5e-5)
+optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
 accelerator = Accelerator()
 model, optimizer, train_dataloader = accelerator.prepare(model, optimizer, train_dataloader)
 
-num_train_epochs = 3
+num_train_epochs = args.epochs
 num_update_steps_per_epoch = len(train_dataloader)
 num_training_steps = num_train_epochs * num_update_steps_per_epoch
 
