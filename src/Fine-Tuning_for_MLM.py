@@ -76,7 +76,7 @@ lm_datasets = tokenized_datasets.map(group_texts, batched=True)
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
 batch_size = args.batch_size
-lm_datasets.remove_columns(["word_ids"])
+lm_datasets = lm_datasets.remove_columns(["word_ids"])
 train_dataloader = DataLoader(lm_datasets, shuffle=True, batch_size=batch_size, collate_fn=data_collator, worker_init_fn=seed_worker, generator=g)
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
