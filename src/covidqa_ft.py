@@ -247,6 +247,8 @@ f1_folds = [] #F1 score for each fold
 em_folds = [] #EM score for each fold
 
 for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'])):
+    print(f'>>>Running FOLD {fold_number + 1}<<<')
+
     fold_dataset = DatasetDict({"train":raw_datasets["train"].select(train_idx), "validation":raw_datasets["train"].select(val_idx)})
   
     train_dataset = fold_dataset['train'].map(prepare_train_features, batched=True, remove_columns=fold_dataset['train'].column_names)
@@ -307,7 +309,7 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         end_logits = end_logits[: len(validation_dataset)]
 
         metrics = compute_metrics(start_logits, end_logits, validation_dataset, fold_dataset['validation'])
-        print(f"FOLD {fold_number} | EPOCH {epoch}:", metrics)
+        print(f"FOLD {fold_number + 1} | EPOCH {epoch + 1}:", metrics)
 
         f1_folds.append(metrics['f1'])
         em_folds.append(metrics['exact_match'])
