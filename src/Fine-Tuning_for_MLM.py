@@ -41,6 +41,7 @@ def seed_worker(worker_id):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_checkpoint', default="csarron/roberta-base-squad-v1", type=str)
+parser.add_argument('--corpus_file', default="../data/corpus.csv", type=str)
 parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--learning_rate', default=5e-5, type=float)
@@ -53,7 +54,7 @@ g.manual_seed(args.random_state)
 torch.manual_seed(args.random_state)
 random.seed(args.random_state)
 
-corpus_dataset = load_dataset("csv", data_files="../data/corpus.csv")
+corpus_dataset = load_dataset("csv", data_files=args.corpus_file)
 print('Corpus Loaded...')
 
 model_checkpoint = args.model_checkpoint
