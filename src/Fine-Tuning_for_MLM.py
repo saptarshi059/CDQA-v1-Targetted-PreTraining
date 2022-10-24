@@ -69,7 +69,7 @@ print(f'New number of tokens: {len(tokenizer)}')
 # The new vector is added at the end of the embedding matrix
 model.resize_token_embeddings(len(tokenizer)) 
 
-tokenized_datasets = corpus_dataset['train'].map(tokenize_function, batched=True, remove_columns=['split', 'ent', 'text'])
+tokenized_datasets = corpus_dataset['train'].map(tokenize_function, batched=True, remove_columns=['ent', 'text'])
 chunk_size = tokenizer.model_max_length
 lm_datasets = tokenized_datasets.map(group_texts, batched=True)
 
