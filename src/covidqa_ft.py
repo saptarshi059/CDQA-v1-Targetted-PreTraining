@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering, AutoConfig, logging, default_data_collator, get_scheduler, AutoModelForSeq2SeqLM
-from datasets import load_dataset, DatasetDict, concatenate_datasets
+from datasets import load_dataset, load_metric, DatasetDict, concatenate_datasets
 from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from torch.optim import AdamW
 from tqdm.auto import tqdm
-from evaluate import load
 import transformers
 import collections
 import numpy as np
@@ -210,7 +209,7 @@ def seed_worker(worker_id):
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--model_checkpoint', default="csarron/roberta-base-squad-v1", type=str)
-parser.add_argument('--trained_model_name', default="test-covidqa-trained-saptarshiconnor", type=str, required=True) # So that we can KNOW for sure which folder is what.
+parser.add_argument('--trained_model_name', default="test-covidqa-trained-saptarshiconnor", type=str) # So that we can KNOW for sure which folder is what.
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
@@ -235,7 +234,7 @@ max_length = args.max_length # The maximum length of a feature (question and con
 doc_stride = args.stride # The authorized overlap between two part of the context when splitting it is needed.
 max_answer_length = args.max_answer_length
 n_best = args.n_best
-metric = load("squad") # Since the dataset is in the same format, we can use the metrics code from squad itself
+metric = load_metric("squad") # Since the dataset is in the same format, we can use the metrics code from squad itself
 
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 pad_on_right = tokenizer.padding_side == "right"
