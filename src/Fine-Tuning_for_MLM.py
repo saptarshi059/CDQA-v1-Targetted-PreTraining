@@ -12,6 +12,18 @@ import random
 import torch
 import math
 
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() == 'none':
+        return None
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
 def tokenize_function(examples):
     result = tokenizer(examples["text"])
     if tokenizer.is_fast:
@@ -40,8 +52,10 @@ def seed_worker(worker_id):
     random.seed(worker_seed)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--model_checkpoint', default="csarron/roberta-base-squad-v1", type=str)
+parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", type=str)
 parser.add_argument('--corpus_file', default="../data/corpus.csv", type=str)
+parser.add_argument('--trained_model_name', default="distilbert-base-uncased-new_tokens", type=str, required=True) # So that we can KNOW for sure which folder is what.
+parser.add_argument('--use_new_tokens', default=True, type=str2bool)
 parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--learning_rate', default=5e-5, type=float)
@@ -61,14 +75,15 @@ model_checkpoint = args.model_checkpoint
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 
-#Adding the new tokens to the vocabulary
-print(f'Original number of tokens: {len(tokenizer)}')
-new_tokens = corpus_dataset['train']['ent']
-tokenizer.add_tokens(new_tokens)
-print(f'New number of tokens: {len(tokenizer)}')
+if args.use_new_tokens == True:
+    #Adding the new tokens to the vocabulary
+    print(f'Original number of tokens: {len(tokenizer)}')
+    new_tokens = corpus_dataset['train']['ent']
+    tokenizer.add_tokens(new_tokens)
+    print(f'New number of tokens: {len(tokenizer)}')
 
-# The new vector is added at the end of the embedding matrix
-model.resize_token_embeddings(len(tokenizer)) 
+    # The new vector is added at the end of the embedding matrix
+    model.resize_token_embeddings(len(tokenizer)) 
 
 tokenized_datasets = corpus_dataset['train'].map(tokenize_function, batched=True, remove_columns=['ent', 'text'])
 chunk_size = tokenizer.model_max_length
@@ -91,7 +106,7 @@ num_training_steps = num_train_epochs * num_update_steps_per_epoch
 
 lr_scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=0, num_training_steps=num_training_steps)
 
-output_dir = f'trained_model/{model_checkpoint.replace("/","-")}_new_tokens'
+output_dir = args.trained_model_name
 
 progress_bar = tqdm(range(num_training_steps))
 
