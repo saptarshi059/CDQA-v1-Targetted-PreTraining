@@ -62,6 +62,7 @@ parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", typ
 parser.add_argument('--corpus_file', default="../../data/mini_corpus.csv", type=str)
 parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
+parser.add_argument('--learning_rate', default=5e-5, type=float)
 
 args = parser.parse_args()
 
