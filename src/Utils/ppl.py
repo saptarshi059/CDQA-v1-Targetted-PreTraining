@@ -59,7 +59,7 @@ def seed_worker(worker_id):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", type=str)
-parser.add_argument('--corpus_file', default="../data/mini_corpus.csv", type=str)
+parser.add_argument('--corpus_file', default="../../data/mini_corpus.csv", type=str)
 parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
 
