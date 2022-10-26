@@ -113,7 +113,7 @@ for step, batch in enumerate(eval_dataloader):
     losses.append(accelerator.gather(loss.repeat(batch_size)))
 
 losses = torch.cat(losses)
-losses = losses[: len(eval_dataset)]
+losses = losses[: len(lm_dataset)]
 try:
     perplexity = math.exp(torch.mean(losses))
 except OverflowError:
