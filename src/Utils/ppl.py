@@ -82,7 +82,7 @@ chunk_size = tokenizer.model_max_length
 lm_dataset = tokenized_dataset.map(group_texts, batched=True)
 lm_dataset = lm_dataset.remove_columns(["word_ids"])
 
-lm_dataset = lm_dataset.map(insert_random_mask, batched=True, remove_columns=lm_dataset["train"].column_names)
+lm_dataset = lm_dataset.map(insert_random_mask, batched=True, remove_columns=lm_dataset.column_names)
 lm_dataset = lm_dataset.rename_columns(
     {
         "masked_input_ids": "input_ids",
