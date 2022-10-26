@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from transformers import AutoModelForMaskedLM, AutoTokenizer, default_data_collator
+from transformers import AutoModelForMaskedLM, AutoTokenizer, default_data_collator, DataCollatorForLanguageModeling
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from datasets import load_dataset
@@ -81,6 +81,8 @@ tokenized_dataset = corpus_dataset['train'].map(tokenize_function, batched=True,
 chunk_size = tokenizer.model_max_length
 lm_dataset = tokenized_dataset.map(group_texts, batched=True)
 lm_dataset = lm_dataset.remove_columns(["word_ids"])
+
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
 lm_dataset = lm_dataset.map(insert_random_mask, batched=True, remove_columns=lm_dataset.column_names)
 lm_dataset = lm_dataset.rename_columns(
