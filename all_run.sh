@@ -2,6 +2,6 @@ accelerate launch src/FineTuning_Scripts/Fine-Tuning_for_MLM.py --model_checkpoi
 
 accelerate launch src/Utils/ppl.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T1CpT --corpus_file src/Utils/Saptarshi7-covid_qa_cleaned_CS_for_PPL_eval.csv
 
-accelerate launch ../generalization-hypothesis/src/model_analysis/squad_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T1CpT --trained_model_name distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T1CpT-squad
+accelerate launch ../generalization-hypothesis/src/model_analysis/squad_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T1CpT --trained_model_name distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T1CpT-squad --trial_mode True
 
 accelerate launch src/FineTuning_Scripts/covidqa_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T1CpT-squad --trained_model_name distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T1CpT-squad-covidqa
