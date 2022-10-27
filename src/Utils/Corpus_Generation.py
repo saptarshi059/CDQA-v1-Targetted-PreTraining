@@ -38,7 +38,7 @@ s = Counter(stanza_ents)
 sorted_ent_counts = dict(sorted(s.items(), key=lambda item: item[1], reverse=True))
 
 no_of_ents_to_select = args.num_of_ents
-no_of_results_per_entity = num_of_ctx_per_ent
+no_of_results_per_entity = args.num_of_ctx_per_ent
 
 selected_ents_text_dict = defaultdict(list)
 
