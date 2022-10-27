@@ -62,6 +62,6 @@ print(f'Entities that were selected: {selected_ents_text_dict.keys()}')
 print('Saving mini_corpus...')
 
 final_ents = [val for val in selected_ents_text_dict.keys() for _ in range(no_of_results_per_entity)]
-texts = [val for val in ctx for ctx in selected_ents_text_dict.values()]
+texts = [item for sublist in selected_ents_text_dict.values() for item in sublist]
 
 pd.DataFrame(zip(final_ents, texts), columns = ['ent', 'text']).to_csv(f'mini_corpus-{no_of_ents_to_select}T{no_of_results_per_entity}CpT.csv', index=False)
