@@ -60,4 +60,4 @@ for ent in tqdm(sorted_ent_counts.keys()):
 print(f'Entities that were selected: {selected_ents_text_dict.keys()}') 
 
 print('Saving mini_corpus...')
-pd.DataFrame(zip(selected_ents, texts), columns = ['ent', 'text']).to_csv(f'mini_corpus-{no_of_ents_to_select}T{no_of_results_per_entity}CpT.csv', index=False)
+pd.DataFrame(zip(selected_ents_text_dict.keys(), texts), columns = ['ent', 'text']).to_csv(f'mini_corpus-{no_of_ents_to_select}T{no_of_results_per_entity}CpT.csv', index=False)
