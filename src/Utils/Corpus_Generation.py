@@ -43,7 +43,7 @@ no_of_results_per_entity = args.num_of_ctx_per_ent
 selected_ents_text_dict = defaultdict(list)
 
 for ent in tqdm(sorted_ent_counts.keys()):
-    if len(selected_ents_text_dict) == no_of_ents_to_select * no_of_results_per_entity:
+    if len(selected_ents_text_dict) == no_of_ents_to_select:
         break
     
     search_results = wikipedia.search(str(ent), results=no_of_results_per_entity)
