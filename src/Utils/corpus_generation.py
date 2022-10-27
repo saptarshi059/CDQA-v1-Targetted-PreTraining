@@ -13,10 +13,9 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", type=str)
-parser.add_argument('--corpus_name', default="mini_corpus-10T1CpT.csv", type=str)
 parser.add_argument('--stanza_ent_file', default="../../data/stanza_ents-from_questions.pkl", type=str)
 parser.add_argument('--num_of_ents', default=10, type=int)
-parser.add_argument('--num_of_ctx_per_ent', default=1, type=str)
+parser.add_argument('--num_of_ctx_per_ent', default=1, type=int)
 
 args = parser.parse_args()
 
