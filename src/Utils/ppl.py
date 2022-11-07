@@ -86,13 +86,25 @@ lm_dataset = lm_dataset.remove_columns(["word_ids"])
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
 lm_dataset = lm_dataset.map(insert_random_mask, batched=True, remove_columns=lm_dataset.column_names)
+#if 'masked_token_type_ids' in lm_dataset.column_names:
 lm_dataset = lm_dataset.rename_columns(
-    {
+        {
         "masked_input_ids": "input_ids",
         "masked_attention_mask": "attention_mask",
         "masked_labels": "labels",
+        'masked_token_type_ids': "token_type_ids"
     }
 )
+'''
+else:
+    lm_dataset = lm_dataset.rename_columns(
+        {
+        "masked_input_ids": "input_ids",
+        "masked_attention_mask": "attention_mask",
+        "masked_labels": "labels",
+        }
+)
+'''
 
 batch_size = args.batch_size
 eval_dataloader = DataLoader(lm_dataset, batch_size=batch_size, collate_fn=default_data_collator, worker_init_fn=seed_worker, generator=g)
