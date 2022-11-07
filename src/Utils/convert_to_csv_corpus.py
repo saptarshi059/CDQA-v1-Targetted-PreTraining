@@ -6,7 +6,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default="Saptarshi7/covid_qa_cleaned_CS", type=str)
 args = parser.parse_args()
 
-dataset = load_dataset(args.dataset, use_auth_token=True)
+if args.dataset == 'duorc':
+  raw_datasets = load_dataset('duorc', 'SelfRC')
+else:
+  raw_datasets = load_dataset(args.dataset, use_auth_token=True)
 
 contexts = list(set(dataset['train']['context']))
 
