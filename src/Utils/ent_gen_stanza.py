@@ -17,8 +17,11 @@ nlp = stanza.Pipeline('en', package=None, processors={'ner':['anatem',
 dataset = load_dataset("Saptarshi7/covid_qa_cleaned_CS", use_auth_token=True)
 
 new_ents = []
-for i in tqdm(range(dataset['train'].num_rows)):
-    doc = nlp(dataset['train'][i]['context'])
+
+all_contexts = list(set(dataset['train']['context']))
+
+for ctx in tqdm(all_contexts):
+    doc = nlp(ctx)
     for ent_dict in doc.entities:
         new_ents.append(ent_dict.text)
 
