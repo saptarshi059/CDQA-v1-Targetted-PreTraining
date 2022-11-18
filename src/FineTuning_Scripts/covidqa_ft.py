@@ -217,7 +217,7 @@ parser.add_argument('--learning_rate', default=2e-5, type=float)
 parser.add_argument('--weight_decay', default=0.01, type=float)
 parser.add_argument('--epochs', default=3, type=int)
 parser.add_argument('--n_best', default=20, type=int)
-parser.add_argument('--max_answer_length', default=30, type=int)
+parser.add_argument('--max_answer_length', default=1000, type=int)
 parser.add_argument('--random_state', default=42, type=int)
 
 args = parser.parse_args()
