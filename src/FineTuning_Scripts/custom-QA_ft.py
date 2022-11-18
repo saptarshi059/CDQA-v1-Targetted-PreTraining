@@ -216,7 +216,7 @@ parser.add_argument('--weight_decay', default=0.01, type=float)
 parser.add_argument('--epochs', default=3, type=int)
 parser.add_argument('--n_best', default=20, type=int)
 parser.add_argument('--max_answer_length', default=30, type=int)
-parser.add_argument('--trial_mode', default=False, type=str2bool)
+parser.add_argument('--use_new_tokens', default=True, type=str2bool)
 parser.add_argument('--random_state', default=42, type=int)
 
 args = parser.parse_args()
@@ -262,6 +262,16 @@ eval_dataloader = DataLoader(validation_set, collate_fn=data_collator, batch_siz
 
 model = AutoModelForQuestionAnswering.from_pretrained(model_checkpoint)
 output_dir = args.trained_model_name
+
+if args.use_new_tokens == True:
+    #Adding the new tokens to the vocabulary
+    print(f'Original number of tokens: {len(tokenizer)}')
+    new_tokens = raw_datasets['train']['title']
+    tokenizer.add_tokens(new_tokens)
+    print(f'New number of tokens: {len(tokenizer)}')
+
+    # The new vector is added at the end of the embedding matrix
+    model.resize_token_embeddings(len(tokenizer)) 
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
