@@ -209,7 +209,7 @@ parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", typ
 parser.add_argument('--corpus_file', default="../../data/our-wikipedia-corpus/mini-corpus-for-extended-QA", type=str)
 parser.add_argument('--trained_model_name', default="distilbert-base-uncased-custom-QA", type=str)
 parser.add_argument('--batch_size', default=16, type=int)
-parser.add_argument('--max_length', default=384, type=int)
+parser.add_argument('--max_length', default=1000, type=int)
 parser.add_argument('--stride', default=128, type=int)
 parser.add_argument('--learning_rate', default=2e-5, type=float)
 parser.add_argument('--weight_decay', default=0.01, type=float)
