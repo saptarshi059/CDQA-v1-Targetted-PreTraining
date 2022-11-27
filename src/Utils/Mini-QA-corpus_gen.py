@@ -62,7 +62,7 @@ import wikipedia
 from collections import defaultdict
 
 no_of_ents_to_select = 1000
-no_of_results_per_entity = 1
+no_of_results_per_entity = 2
 
 selected_ents_text_dict = defaultdict(list)
 
