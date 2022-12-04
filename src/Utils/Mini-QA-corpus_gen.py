@@ -62,7 +62,7 @@ for key in keys_to_remove:
 import wikipedia
 from collections import defaultdict
 
-no_of_ents_to_select = 10000
+no_of_ents_to_select = 5000
 no_of_results_per_entity = 1
 
 selected_ents_text_dict = defaultdict(list)
