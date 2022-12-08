@@ -5,6 +5,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline, set_seed
 from collections import Counter
 from tqdm.auto import tqdm
 import pickle5 as pickle
+import pandas as pd
 import argparse
 import os
 
