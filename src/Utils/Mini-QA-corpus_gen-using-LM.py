@@ -12,6 +12,9 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
 parser.add_argument('--student_model', default="bert-base-uncased", type=str)
+parser.add_argument('--no_new_question_tokens', default=10, type=int)
+parser.add_argument('--no_new_context_tokens', default=10000, type=int)
+parser.add_argument('--no_new_answer_tokens', default=100, type=int)
 args = parser.parse_args()
 
 tokenizer = AutoTokenizer.from_pretrained(args.student_model)
@@ -50,15 +53,15 @@ def triple_gen(ent, ques_type):
     #Have to reseed everytime for reproducible results.
     set_seed(42)
     ques = generator(f"Question: {ques_type} {ent},", renormalize_logits=True, do_sample=True, 
-        forced_eos_token_id=[generator_model_question_mark_ID], max_new_tokens=10)[0]['generated_text'].strip('Question: ')
+        forced_eos_token_id=[generator_model_question_mark_ID], max_new_tokens=args.no_new_question_tokens)[0]['generated_text'].strip('Question: ')
     questions.append(ques[0: ques.find('?') + 1]) #If there are other tokens beyond the first '?' we don't want to include them.
     
     set_seed(42)
     ans_prefix = ques[ques.find(',')+1: ques.find('?')].strip()
-    ans_text = generator(ans_prefix, renormalize_logits=True, do_sample=True, max_new_tokens=100)[0]['generated_text']
+    ans_text = generator(ans_prefix, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens)[0]['generated_text']
     
     set_seed(42)
-    ctx_body = generator(ent, renormalize_logits=True, do_sample=True, max_new_tokens=2000)[0]['generated_text']
+    ctx_body = generator(ent, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_context_tokens)[0]['generated_text']
     total_context = ctx_body + '' + ans_text
     
     contexts.append(total_context)
@@ -98,3 +101,4 @@ for ent in tqdm(stanza_ents_main):
     
 #Saving the dataframe as parquet since it was messing up formats.
 pd.DataFrame(zip(sample_id, title, contexts, questions, answers), columns = ['id', 'title', 'context', 'question', 'answers']).to_parquet('mini-corpus-for-extended-QA-with-LM')
+print('Dataset created and saved...')
