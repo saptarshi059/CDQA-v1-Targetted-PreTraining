@@ -16,6 +16,10 @@ args = parser.parse_args()
 tokenizer = AutoTokenizer.from_pretrained(args.student_model)
 model_vocab = list(tokenizer.vocab.keys())
 
+stanza_ents_file_path = os.path.abspath('../../data/stanza_ents-from_questions.pkl')
+with open(stanza_ents_file_path, 'rb') as f:
+    stanza_ents_main = pickle.load(f)
+
 #Removing those entities that are also in the model vocab since we don't want 2 of the same token embedding.
 ent_in_model_vocab = []
 
