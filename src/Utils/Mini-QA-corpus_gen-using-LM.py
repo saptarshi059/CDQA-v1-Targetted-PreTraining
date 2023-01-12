@@ -8,6 +8,7 @@ import pickle5 as pickle
 import pandas as pd
 import argparse
 import os
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
