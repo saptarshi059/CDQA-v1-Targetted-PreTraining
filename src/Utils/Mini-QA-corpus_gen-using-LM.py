@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from transformers import AutoTokenizer, OPTForCausalLM, pipeline, set_seed
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline, set_seed
 from collections import Counter
 from tqdm.auto import tqdm
 import pickle5 as pickle
@@ -45,8 +45,8 @@ contexts = []
 questions = []
 answers = []
 
-generator_model = OPTForCausalLM.from_pretrained(args.teacher_model)
-generator_model_tokenizer = AutoTokenizer.from_pretrained(args.teacher_model, use_fast=False) #only set use_fast=False when using OPTForCausalLM
+generator_model = AutoModelForCausalLM.from_pretrained(args.teacher_model)
+generator_model_tokenizer = AutoTokenizer.from_pretrained(args.teacher_model)
 generator_model_question_mark_ID = generator_model_tokenizer.get_vocab()['?'] #Since each model will have a different index for '?'
 
 generator = pipeline('text-generation', model = generator_model, tokenizer=generator_model_tokenizer, device=0) 
