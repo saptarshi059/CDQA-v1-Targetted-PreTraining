@@ -57,13 +57,13 @@ def triple_gen(ent, ques_type):
     #Generating question for given entity.
     set_seed(42)
     ques = generator(f"QUESTION: {ques_type} {ent}", renormalize_logits=True, do_sample=True, 
-        forced_eos_token_id=[generator_model_question_mark_ID], max_new_tokens=args.no_new_question_tokens, top_p=0.9, temperature=0.9, use_cache=True)[0]['generated_text']
+        forced_eos_token_id=[generator_model_question_mark_ID], max_new_tokens=args.no_new_question_tokens, top_p=0.9, temperature=0.9, use_cache=True, num_beams=1)[0]['generated_text']
     ques = re.sub('QUESTION: ','', ques[0: ques.find('?') + 1]) #If there are other tokens beyond the first '?' we don't want to include them.
     questions.append(ques)
     
     #Generating answer for given entity.
     set_seed(42)
-    ans_text = generator(ques, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens, top_p=0.9, temperature=0.9, use_cache=True)[0]['generated_text']
+    ans_text = generator(ques, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens, top_p=0.9, temperature=0.9, use_cache=True, num_beams=1)[0]['generated_text']
     ans_text = re.sub(re.escape(ques), '', ans_text)
 
     #Generating context for given entity.
@@ -78,12 +78,12 @@ def triple_gen(ent, ques_type):
       #print(len(tokenizer(final_string)['input_ids']))
       if final_string == '':
         set_seed(42)
-        final_string = generator(f'Title: {init_string}', renormalize_logits=True, do_sample=True, max_length=args.no_new_context_tokens, use_cache=True)[0]['generated_text']
+        final_string = generator(f'Title: {init_string}', renormalize_logits=True, do_sample=True, max_length=args.no_new_context_tokens, use_cache=True, num_beams=1)[0]['generated_text']
       else:
         final_string_tokenized = tokenizer(final_string)
         last_N_tokens_string = tokenizer.decode(final_string_tokenized['input_ids'][-N:])
         set_seed(42)
-        new_text = generator(last_N_tokens_string, renormalize_logits=True, do_sample=True, max_length=args.no_new_context_tokens, use_cache=True)[0]['generated_text']
+        new_text = generator(last_N_tokens_string, renormalize_logits=True, do_sample=True, max_length=args.no_new_context_tokens, use_cache=True, num_beams=1)[0]['generated_text']
         
         if prev_new_text == new_text:
           break
