@@ -15,7 +15,7 @@ parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=s
 parser.add_argument('--student_model', default="bert-base-uncased", type=str)
 parser.add_argument('--no_new_question_tokens', default=20, type=int)
 parser.add_argument('--no_new_context_tokens', default=2048, type=int)
-parser.add_argument('--no_new_answer_tokens', default=1000, type=int)
+parser.add_argument('--no_new_answer_tokens', default=100, type=int)
 parser.add_argument('--last_N_tokens_for_context', default=80, type=int)
 args = parser.parse_args()
 
@@ -110,14 +110,12 @@ for ent in tqdm(stanza_ents_main):
     title.append('IN ' + ent)
     triple_gen(ent, 'IN')
     
-    '''
     #Question-3 (WHY)
     sample_id.append(str(c))
     c += 1
     title.append('WHY ' + ent)
     triple_gen(ent, 'WHY')
-    '''
-
+    
     '''
     Let's include this for ablations
     #Question-4 (DURING)
