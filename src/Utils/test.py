@@ -42,7 +42,7 @@ while len(tokenizer(final_string)['input_ids']) < 5000:
     input_text = tokenizer.decode(final_string_tokenized['input_ids'][-N:])
     input_ids = tokenizer(input_text, return_tensors="pt", padding='max_length').input_ids.to("cuda")
 	set_seed(42)
-    outputs = model.generate(input_ids,
+	outputs = model.generate(input_ids,
                         max_new_tokens=2000,
                         do_sample=True,
                         temperature=0.9,
