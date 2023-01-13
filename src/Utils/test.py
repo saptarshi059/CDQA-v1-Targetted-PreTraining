@@ -34,8 +34,8 @@ while len(tokenizer(final_string)['input_ids']) < 5000:
                         use_cache=True)
 
     final_string = tokenizer.decode(outputs[0]).lstrip('<pad>')
-  	gc.collect()
-	torch.cuda.empty_cache()
+    gc.collect()
+    torch.cuda.empty_cache()
 
   else:
     final_string_tokenized = tokenizer(final_string)
