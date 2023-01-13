@@ -7,7 +7,7 @@ tokenizer.pad_token_id = 1
 tokenizer.padding_side = 'left'
 tokenizer.model_max_length = 2048
 
-model = OPTForCausalLM.from_pretrained("facebook/galactica-1.3b", device_map="auto", load_in_8bit=True)
+model = OPTForCausalLM.from_pretrained("facebook/galactica-1.3b", device_map="auto", torch_dtype=torch.float16)
 
 final_string = ''
 prev_new_text = ''
