@@ -12,7 +12,7 @@ import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
-parser.add_argument('--student_model', default="bert-base-uncased", type=str)
+parser.add_argument('--student_model', default="distilbert-base-uncased", type=str)
 parser.add_argument('--no_new_question_tokens', default=20, type=int)
 parser.add_argument('--no_new_context_tokens', default=2048, type=int)
 parser.add_argument('--no_new_answer_tokens', default=100, type=int)
@@ -30,7 +30,7 @@ with open(stanza_ents_file_path, 'rb') as f:
 ent_in_model_vocab = []
 
 #Keeping only unique enitities
-stanza_ents_main = list(set(stanza_ents_main))
+#stanza_ents_main = list(set(stanza_ents_main))
 
 for ent in tqdm(stanza_ents_main):
     if ent in model_vocab:
@@ -38,6 +38,14 @@ for ent in tqdm(stanza_ents_main):
 
 for ent in ent_in_model_vocab:
     stanza_ents_main.remove(ent)
+
+counted_ents = Counter(stanza_ents_main)
+most_common_ents = counted_ents.most_common()[:10]
+
+
+
+
+
 
 sample_id = []
 title = []
@@ -72,7 +80,7 @@ def triple_gen(ent, ques_type):
     N = args.last_N_tokens_for_context
 
     question_prefix = ques_type + ' ' + ent
-    init_string = re.sub(question_prefix, '', ques).strip().replace('?','')
+    init_string = re.sub(re.escape(question_prefix), '', re.escape(ques)).strip().replace('?','')
 
     while len(tokenizer(final_string)['input_ids']) < 5000:
       #print(len(tokenizer(final_string)['input_ids']))
@@ -124,8 +132,7 @@ for ent in tqdm(stanza_ents_main):
     title.append('DURING ' + ent)
     triple_gen(ent, 'DURING')
     '''
-
-    '''
+    
     #Question-4 (WHERE)
     sample_id.append(str(c))
     c += 1
@@ -137,8 +144,7 @@ for ent in tqdm(stanza_ents_main):
     c += 1
     title.append('WHICH ' + ent)
     triple_gen(ent, 'WHICH')
-    '''
-
+    
 #Saving the dataframe as parquet since it was messing up formats.
 pd.DataFrame(zip(sample_id, title, contexts, questions, answers), columns = ['id', 'title', 'context', 'question', 'answers']).to_parquet('mini-corpus-for-extended-QA-with-LM')
 print('Dataset created and saved...')
