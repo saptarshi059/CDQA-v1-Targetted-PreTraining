@@ -19,7 +19,7 @@ while len(tokenizer(final_string)['input_ids']) < 5000:
   print(len(tokenizer(final_string)['input_ids']))
   if final_string == '':
     input_text = f'Title: {init_string}'
-    input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to("cuda")
+    input_ids = tokenizer(input_text, return_tensors="pt", padding=True).input_ids.to("cuda")
     set_seed(42)
     outputs = model.generate(input_ids,
                         max_length=2000,
@@ -39,7 +39,7 @@ while len(tokenizer(final_string)['input_ids']) < 5000:
   else:
     final_string_tokenized = tokenizer(final_string)
     input_text = tokenizer.decode(final_string_tokenized['input_ids'][-N:])
-    input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to("cuda")
+    input_ids = tokenizer(input_text, return_tensors="pt", padding=True).input_ids.to("cuda")
     set_seed(42)
     outputs = model.generate(input_ids,
                         max_length=2000,
