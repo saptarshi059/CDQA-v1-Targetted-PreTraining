@@ -3,9 +3,11 @@ from transformers import AutoTokenizer, OPTForCausalLM, set_seed
 import re
 
 tokenizer = AutoTokenizer.from_pretrained("facebook/galactica-1.3b")
+'''
 tokenizer.pad_token_id = 1
 tokenizer.padding_side = 'right'
 tokenizer.model_max_length = 2048
+'''
 
 model = OPTForCausalLM.from_pretrained("facebook/galactica-1.3b", device_map="auto", torch_dtype=torch.float16)
 
