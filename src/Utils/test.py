@@ -62,7 +62,7 @@ while len(tokenizer(final_string)['input_ids']) < 5000:
     
     final_string = final_string + '' + re.sub(re.escape(input_text), '', new_text)
     gc.collect()
-	torch.cuda.empty_cache()
+    torch.cuda.empty_cache()
 
 with open('output.txt', 'w') as f:
 	f.write(final_string)
