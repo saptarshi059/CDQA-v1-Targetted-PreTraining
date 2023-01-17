@@ -111,6 +111,7 @@ for ent in tqdm(stanza_ents_main):
     title.append('IS ' + ent)
     triple_gen(ent, 'IS')
     
+    '''
     #Question-2 (IN)
     sample_id.append(str(c))
     c += 1
@@ -123,14 +124,14 @@ for ent in tqdm(stanza_ents_main):
     title.append('WHY ' + ent)
     triple_gen(ent, 'WHY')
     
-    '''
+    
     Let's include this for ablations
     #Question-4 (DURING)
     sample_id.append(str(c))
     c += 1
     title.append('DURING ' + ent)
     triple_gen(ent, 'DURING')
-    '''
+    
     
     #Question-4 (WHERE)
     sample_id.append(str(c))
@@ -143,6 +144,7 @@ for ent in tqdm(stanza_ents_main):
     c += 1
     title.append('WHICH ' + ent)
     triple_gen(ent, 'WHICH')
+    '''
     
 #Saving the dataframe as parquet since it was messing up formats.
 pd.DataFrame(zip(sample_id, title, contexts, questions, answers), columns = ['id', 'title', 'context', 'question', 'answers']).to_parquet('mini-corpus-for-extended-QA-with-LM')
