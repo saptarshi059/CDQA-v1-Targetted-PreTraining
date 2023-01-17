@@ -15,7 +15,7 @@ parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=s
 parser.add_argument('--student_model', default="distilbert-base-uncased", type=str)
 parser.add_argument('--no_new_question_tokens', default=20, type=int)
 parser.add_argument('--no_new_context_tokens', default=2048, type=int)
-parser.add_argument('--no_new_answer_tokens', default=100, type=int)
+parser.add_argument('--no_new_answer_tokens', default=512, type=int)
 parser.add_argument('--last_N_tokens_for_context', default=80, type=int)
 args = parser.parse_args()
 
@@ -30,7 +30,7 @@ with open(stanza_ents_file_path, 'rb') as f:
 ent_in_model_vocab = []
 
 #Keeping only unique enitities
-#stanza_ents_main = list(set(stanza_ents_main))
+stanza_ents_main = list(set(stanza_ents_main))
 
 for ent in tqdm(stanza_ents_main):
     if ent in model_vocab:
@@ -38,14 +38,6 @@ for ent in tqdm(stanza_ents_main):
 
 for ent in ent_in_model_vocab:
     stanza_ents_main.remove(ent)
-
-counted_ents = Counter(stanza_ents_main)
-most_common_ents = counted_ents.most_common()[:10]
-
-
-
-
-
 
 sample_id = []
 title = []
@@ -64,17 +56,23 @@ def triple_gen(ent, ques_type):
     #Have to reseed everytime for reproducible results.
     #Generating question for given entity.
     set_seed(42)
-    ques = generator(f"QUESTION: {ques_type} {ent}", renormalize_logits=True, do_sample=True, 
+    ques = generator(f"QUESTION: {ques_type} {re.escape(ent)}", renormalize_logits=True, do_sample=True, 
         forced_eos_token_id=[generator_model_question_mark_ID], max_new_tokens=args.no_new_question_tokens, top_p=0.9, temperature=0.9, use_cache=True)[0]['generated_text']
     ques = re.sub('QUESTION: ','', ques[0: ques.find('?') + 1]) #If there are other tokens beyond the first '?' we don't want to include them.
     questions.append(ques)
     
     #Generating answer for given entity.
     set_seed(42)
-    ans_text = generator(ques, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens, top_p=0.9, temperature=0.9, use_cache=True)[0]['generated_text']
+    ans_text = generator(re.escape(ques), renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens, top_p=0.9, temperature=0.9, use_cache=True)[0]['generated_text']
     ans_text = re.sub(re.escape(ques), '', ans_text)
 
-    #Generating context for given entity.
+    #Generating context - single shot method.
+    ques = ques.capitalize() #I'm seeing that converting from IS to Is etc. gives better contexts.
+    final_string = re.sub(re.escape(ques), '', 
+        generator(f'{ques} Title:', renormalize_logits=True, do_sample=True, max_length=args.no_new_context_tokens, top_p=0.9, temperature=0.9, use_cache=True)[0]['generated_text']).strip()
+
+    '''
+    #Generating context for given entity. - Using sliding window method (extremely slow)
     final_string = ''
     prev_new_text = ''
     N = args.last_N_tokens_for_context
@@ -99,6 +97,7 @@ def triple_gen(ent, ques_type):
           prev_new_text = new_text
         
         final_string = final_string + '' + re.sub(re.escape(last_N_tokens_string), '', new_text)
+    '''
 
     total_context = final_string + '' + ans_text    
     contexts.append(total_context)
