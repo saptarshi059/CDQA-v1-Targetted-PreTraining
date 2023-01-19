@@ -21,7 +21,7 @@ if __name__ == '__main__':
     print('Reading and concatenating...')
     dfs = [pd.read_parquet(fp) for fp in data_files]
     agg_df = pd.concat(dfs, axis=0)
-    print('agg_df: {}'.format(agg_df))
+    print('agg_df:\n{}'.format(agg_df))
     agg_df.to_parquet(
         os.path.join(args.data_dir, 'agg_gens.parquet')
     )
