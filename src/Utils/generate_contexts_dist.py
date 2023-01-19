@@ -11,7 +11,25 @@ import pickle5 as pickle
 
 from tqdm.auto import tqdm
 from collections import Counter
+from torch.utils.data import Dataset, DataLoader
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline, set_seed
+
+
+class PromptDataset(Dataset):
+    def __init__(self, entities, n_context_per_entity):
+        self.items = []
+        for entity in entities:
+            for _ in range(n_context_per_entity):
+                self.items.append([entity, 'Title: {}'.format(entity)])
+
+    def __len__(self):
+        return len(self.items)
+
+    def __getitem__(self, idx):
+        entity_str, prompt = self.items[idx]
+
+        return {'entity': entity_str, 'prompt': prompt}
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -33,10 +51,10 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if args.batch_size > 0:
+    if args.batch_size < 0:
         args.batch_size = args.n_context_per_entity
 
-    if not os.path.exists(args.out):
+    if not os.path.exists(args.out) and args.rank == 0:
         os.makedirs(args.out)
 
     out_fp = os.path.join(args.out, 'rank{}_gens.parquet'.format(args.rank))
@@ -71,41 +89,40 @@ if __name__ == '__main__':
                          device=args.rank)
     generator.tokenizer.pad_token_id = generator_model.config.eos_token_id
 
-    print('[rank {}] Beginning to iterate over entities...'.format(args.rank))
+    print('[rank {}] Making dataset...'.format(args.rank))
+    dataset = PromptDataset(entities=rank_ents, n_context_per_entity=args.n_context_per_entity)
+    print('[rank {}] len(dataset): {}'.format(args.rank, len(dataset)))
+    n_iters = int(math.ceil(len(dataset) / args.batch_size))
+
+    data_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False)
     write_data = []
     start_time = time.time()
-    for entity_idx, entity in enumerate(rank_ents):
-        prompts = ['Title: {}'.format(entity) for _ in range(args.n_context_per_entity)]
-        # print('len(prompts): {}'.format(len(prompts)))
+    for batch_idx, batch_data in enumerate(data_loader):
+        entity_strs = batch_data['entity']
+        entity_prompts = batch_data['prompt']
 
         set_seed(42)
         generations = generator(
-            prompts, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens,
+            entity_prompts, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens,
             top_p=0.9, temperature=0.9, use_cache=True, batch_size=args.batch_size
         )
         generations = [gen[0]['generated_text'] for gen in generations]
-        # print('\n*********************************\n'.join(generations))
+        batch_write_data = list(zip(entity_strs, entity_prompts, generations))
+        write_data.extend(batch_write_data)
 
-        for generation in generations:
-            write_data.append(
-                [entity_idx, 'Title: {}'.format(entity), generation]
-            )
-
-        if entity_idx % args.summary_every == 0:
+        if batch_idx % args.summary_every == 0:
             elapsed_time = time.time() - start_time
-            avg_time_per_entity = elapsed_time / (entity_idx + 1)
+            avg_time_per_batch = elapsed_time / (batch_idx + 1)
             avg_time_per_context = elapsed_time / (len(write_data))
-            print_str = '[rank {0}] Generated contexts for {1}/{2} entities - {3:.2f}s/entity {4:.2f}s/context'.format(
-                args.rank, entity_idx + 1, len(rank_ents), avg_time_per_entity, avg_time_per_context
+            print_str = '[rank {0}] Generated contexts for batch {1}/{2} - {3:.2f}s/batch {4:.2f}s/context'.format(
+                args.rank, batch_idx + 1, n_iters, avg_time_per_batch, avg_time_per_context
             )
             print(print_str)
 
     print('[rank {}] Saving data... out_fp={}'.format(args.rank, out_fp))
     entity_idxs, titles, generations = map(list, zip(*write_data))
     write_df = pd.DataFrame(zip(entity_idxs, titles, generations),
-                            columns=['id', 'title', 'context'])
+                            columns=['entity', 'prompt', 'context'])
     # print(write_df)
     write_df.to_parquet(out_fp)
     print('[rank {}] Done :)'.format(args.rank))
-
-
