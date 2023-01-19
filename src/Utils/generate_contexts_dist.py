@@ -29,11 +29,11 @@ if __name__ == '__main__':
     parser.add_argument('--out', default='../../out/gen_v1')
     parser.add_argument('--summary_every', default=1, type=int)
 
-    parser.add_argument('--batch_size', default=None, type=int)
+    parser.add_argument('--batch_size', default=-1, type=int)
 
     args = parser.parse_args()
 
-    if args.batch_size is None:
+    if args.batch_size > 0:
         args.batch_size = args.n_context_per_entity
 
     if not os.path.exists(args.out):
@@ -69,6 +69,7 @@ if __name__ == '__main__':
 
     generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer,
                          device=args.rank)
+    generator.tokenizer.pad_token_id = generator_model.config.eos_token_id
 
     print('[rank {}] Beginning to iterate over entities...'.format(args.rank))
     write_data = []
@@ -78,10 +79,10 @@ if __name__ == '__main__':
         # print('len(prompts): {}'.format(len(prompts)))
 
         set_seed(42)
-        generations = generator(prompts, renormalize_logits=True, do_sample=True,
-                                max_new_tokens=args.no_new_answer_tokens,
-                                top_p=0.9, temperature=0.9, use_cache=True,
-                                )
+        generations = generator(
+            prompts, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens,
+            top_p=0.9, temperature=0.9, use_cache=True, batch_size=args.batch_size
+        )
         generations = [gen[0]['generated_text'] for gen in generations]
         # print('\n*********************************\n'.join(generations))
 
