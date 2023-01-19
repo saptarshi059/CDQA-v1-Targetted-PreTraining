@@ -29,7 +29,12 @@ if __name__ == '__main__':
     parser.add_argument('--out', default='../../out/gen_v1')
     parser.add_argument('--summary_every', default=1, type=int)
 
+    parser.add_argument('--batch_size', default=None, type=int)
+
     args = parser.parse_args()
+
+    if args.batch_size is None:
+        args.batch_size = args.n_context_per_entity
 
     if not os.path.exists(args.out):
         os.makedirs(args.out)
@@ -47,7 +52,7 @@ if __name__ == '__main__':
     # Keeping only unique enitities
     stanza_ents_main = list(sorted(set(stanza_ents_main)))
     # stanza_ents_main = stanza_ents_main[:2]
-    print('stanza_ents_main: {}'.format(stanza_ents_main))
+    print('stanza_ents_main[:10]: {}'.format(stanza_ents_main[:10]))
 
     n_ents = len(stanza_ents_main)
     ents_per_rank = int(math.ceil(n_ents / args.world_size))
@@ -70,12 +75,13 @@ if __name__ == '__main__':
     start_time = time.time()
     for entity_idx, entity in enumerate(rank_ents):
         prompts = ['Title: {}'.format(entity) for _ in range(args.n_context_per_entity)]
-        print('len(prompts): {}'.format(len(prompts)))
+        # print('len(prompts): {}'.format(len(prompts)))
 
         set_seed(42)
         generations = generator(prompts, renormalize_logits=True, do_sample=True,
                                 max_new_tokens=args.no_new_answer_tokens,
-                                top_p=0.9, temperature=0.9, use_cache=True)
+                                top_p=0.9, temperature=0.9, use_cache=True,
+                                )
         generations = [gen[0]['generated_text'] for gen in generations]
         # print('\n*********************************\n'.join(generations))
 
@@ -99,6 +105,6 @@ if __name__ == '__main__':
                             columns=['id', 'title', 'context'])
     # print(write_df)
     write_df.to_parquet(out_fp)
-    print('[rank {0}] Done :)'.format(args.rank))
+    print('[rank {}] Done :)'.format(args.rank))
 
 
