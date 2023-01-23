@@ -35,6 +35,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--student_model', default="distilbert-base-uncased", type=str)
+    parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
     parser.add_argument('--no_new_question_tokens', default=20, type=int)
     parser.add_argument('--no_new_context_tokens', default=2048, type=int)
     parser.add_argument('--no_new_answer_tokens', default=512, type=int)
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     model_vocab = list(tokenizer.vocab.keys())
 
     print('[rank {}] Reading entities'.format(args.rank))
-    stanza_ents_file_path = os.path.abspath('../../data/stanza_ents-from_questions.pkl')
+    stanza_ents_file_path = os.path.abspath(args.entity_file)
     with open(stanza_ents_file_path, 'rb') as f:
         stanza_ents_main = pickle.load(f)
 
