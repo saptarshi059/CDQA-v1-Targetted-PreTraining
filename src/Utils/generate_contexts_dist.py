@@ -39,6 +39,7 @@ if __name__ == '__main__':
     parser.add_argument('--no_new_question_tokens', default=20, type=int)
     parser.add_argument('--no_new_context_tokens', default=2048, type=int)
     parser.add_argument('--no_new_answer_tokens', default=512, type=int)
+    parser.add_argument('--top_N_entities_to_select', type=int)
     parser.add_argument('--last_N_tokens_for_context', default=80, type=int)
 
     parser.add_argument('--n_context_per_entity', default=5, type=int)
@@ -64,18 +65,27 @@ if __name__ == '__main__':
     model_vocab = list(tokenizer.vocab.keys())
 
     print('[rank {}] Reading entities'.format(args.rank))
-    stanza_ents_file_path = os.path.abspath(args.entity_file)
-    with open(stanza_ents_file_path, 'rb') as f:
-        stanza_ents_main = pickle.load(f)
+    ents_file_path = os.path.abspath(args.entity_file)
+    with open(ents_file_path, 'rb') as f:
+        ents_main = pickle.load(f)
 
-    # Keeping only unique enitities
-    stanza_ents_main = list(sorted(set(stanza_ents_main)))
-    # stanza_ents_main = stanza_ents_main[:2]
-    print('stanza_ents_main[:10]: {}'.format(stanza_ents_main[:10]))
+    ent_in_model_vocab = []
+    for ent in tqdm(ents_main):
+        if ent in model_vocab:
+            ent_in_model_vocab.append(ent)
 
-    n_ents = len(stanza_ents_main)
+    for ent in ent_in_model_vocab:
+        ents_main.remove(ent)
+
+    if args.top_N_entities_to_select == '':
+        args.top_N_entities_to_select = len(ents_main)
+
+    ents_main = Counter(ents_main).most_common()[:args.top_N_entities_to_select]
+    print('ents_main[:10]: {}'.format(ents_main[:10]))
+
+    n_ents = len(ents_main)
     ents_per_rank = int(math.ceil(n_ents / args.world_size))
-    rank_ents = stanza_ents_main[args.rank * ents_per_rank: (args.rank + 1) * ents_per_rank]
+    rank_ents = ents_main[args.rank * ents_per_rank: (args.rank + 1) * ents_per_rank]
     print('[rank {}] n_ents: {}'.format(args.rank, n_ents))
     print('[rank {}] ents_per_rank: {}'.format(args.rank, ents_per_rank))
     print('[rank {}] len(rank_ents): {}'.format(args.rank, len(rank_ents)))
