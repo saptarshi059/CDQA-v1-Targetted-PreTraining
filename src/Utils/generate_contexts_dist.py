@@ -80,7 +80,7 @@ if __name__ == '__main__':
     if args.top_N_entities_to_select == '':
         args.top_N_entities_to_select = len(ents_main)
 
-    ents_main = Counter(ents_main).most_common()[:args.top_N_entities_to_select]
+    ents_main = [x[0] for x in Counter(ents_main).most_common()[:args.top_N_entities_to_select]]
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
     n_ents = len(ents_main)
