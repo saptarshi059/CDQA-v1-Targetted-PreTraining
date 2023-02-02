@@ -12,18 +12,26 @@ nlp = stanza.Pipeline('en', package=None, processors={'ner':['anatem',
                                                             'ncbi_disease',
                                                             's800',
                                                             'i2b2',
-                                                            'radiology'], 'tokenize':'default'})
+                                                            'radiology'], 'tokenize':'default'}, use_gpu=True)
 
 dataset = load_dataset("Saptarshi7/covid_qa_cleaned_CS", use_auth_token=True)
 
 new_ents = []
 
+all_questions = dataset['train']['question']
 all_contexts = list(set(dataset['train']['context']))
 
-for ctx in tqdm(all_contexts):
-    doc = nlp(ctx)
-    for ent_dict in doc.entities:
-        new_ents.append(ent_dict.text)
+for ques in tqdm(all_questions):
+  doc = nlp(ques)
+  for ent_dict in doc.entities:
+    new_ents.append(ent_dict.text)
 
-with open('stanza_ents-from_context.pkl', 'wb') as f:
+for ctx in tqdm(all_contexts):
+  doc = nlp(ctx)
+  for ent_dict in doc.entities:
+    new_ents.append(ent_dict.text)
+
+print(f'Total Entities: {len(new_ents)} | Unique Entities: {len(list(set(new_ents)))}')
+
+with open('stanza_ents-covidqa.pkl', 'wb') as f:
     pickle.dump(new_ents, f)
