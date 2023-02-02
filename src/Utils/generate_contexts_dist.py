@@ -69,9 +69,8 @@ if __name__ == '__main__':
     with open(ents_file_path, 'rb') as f:
         ents_main = pickle.load(f)
 
-    ent_in_model_vocab = []
-
     '''
+    ent_in_model_vocab = []
     for ent in tqdm(ents_main):
         if ent in model_vocab:
             ent_in_model_vocab.append(ent)
