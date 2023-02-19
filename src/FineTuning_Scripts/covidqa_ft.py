@@ -6,10 +6,12 @@ from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from torch.optim import AdamW
+from timm.optim import Lamb
 from tqdm.auto import tqdm
 import transformers
 import collections
 import numpy as np
+import itertools
 import argparse
 import random
 import torch
@@ -158,6 +160,7 @@ def compute_metrics(start_logits, end_logits, features, examples):
         example_to_features[feature["example_id"]].append(idx)
 
     predicted_answers = []
+    predicted_answers_top5 = []
     for example in tqdm(examples):
         example_id = example["id"]
         context = example["context"]
@@ -198,8 +201,18 @@ def compute_metrics(start_logits, end_logits, features, examples):
         else:
             predicted_answers.append({"id": example_id, "prediction_text": ""})
 
-    theoretical_answers = [{"id": ex["id"], "answers": ex["answers"]} for ex in examples]
-    return metric.compute(predictions=predicted_answers, references=theoretical_answers)
+        #top-5 
+        if len(answers) > 0:
+            top5_answers = sorted(answers, key= lambda x: x['logit_score'], reverse=True)[:5]
+            predicted_answers_top5.extend({"id": example_id, "prediction_text": pred["text"]} for pred in top5_answers)
+        else:
+            predicted_answers_top5.extend(list(repeat({"id": example_id, "prediction_text": ""}, 5)))
+
+        theoretical_answers = [{"id": ex["id"], "answers": ex["answers"]} for ex in examples]
+        theoretical_answers_top5 = [list(repeat({"id": ex["id"], "answers": ex["answers"]}, 5)) for ex in examples]
+        theoretical_answers_top5_flat = list(itertools.chain.from_iterable(theoretical_answers_top5))
+
+    return metric.compute(predictions=predicted_answers, references=theoretical_answers), metric.compute(predictions=predicted_answers_top5, references=theoretical_answers_top5_flat)
 
 def seed_worker(worker_id):
     worker_seed = torch.initial_seed() % 2**32
@@ -219,6 +232,8 @@ parser.add_argument('--epochs', default=3, type=int)
 parser.add_argument('--n_best', default=20, type=int)
 parser.add_argument('--max_answer_length', default=1000, type=int)
 parser.add_argument('--random_state', default=42, type=int)
+parser.add_argument('--optimizer_type', default='AdamW', type=str)
+parser.add_argument('--freeze_PT_layers', default=False, type=str)
 
 args = parser.parse_args()
 
@@ -242,8 +257,11 @@ pad_on_right = tokenizer.padding_side == "right"
 raw_datasets = load_dataset("Saptarshi7/covid_qa_cleaned_CS", use_auth_token=True)
 
 kf = KFold(n_splits=5, shuffle=True, random_state=args.random_state)
-f1_folds = [] #F1 score for each fold
-em_folds = [] #EM score for each fold
+f1_1_folds = [] #F1@1 score for each fold
+em_1_folds = [] #EM@1 score for each fold
+
+f1_5_folds = [] #F1@5 score for each fold
+em_5_folds = [] #EM@5 score for each fold
 
 for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'])):
     print(f'>>>Running FOLD {fold_number + 1}<<<')
@@ -264,7 +282,17 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
 
     output_dir = f'{args.trained_model_name}-finetuned-covidqa-fold-{fold_number}'
 
-    optimizer = AdamW(model.parameters(), lr=args.learning_rate)
+    if args.freeze_PT_layers == True:
+        print('Freezing base layers and only training span head...')
+        base_module_name = list(model.named_children())[0][0]
+        for param in getattr(model, base_module_name).parameters():
+            param.requires_grad = False
+
+    if args.optimizer_type == 'AdamW':
+        optimizer = AdamW(model.parameters(), lr=args.learning_rate)
+    elif args.optimizer_type == 'LAMB':
+        print('Using Lamb optimizer...')
+        optimizer = Lamb(model.parameters(), lr=args.learning_rate)
 
     accelerator = Accelerator(fp16=True)
     model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader, eval_dataloader)
@@ -308,10 +336,13 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         end_logits = end_logits[: len(validation_dataset)]
 
         metrics = compute_metrics(start_logits, end_logits, validation_dataset, fold_dataset['validation'])
-        print(f"FOLD {fold_number + 1} | EPOCH {epoch + 1}:", metrics)
+        print(f"FOLD {fold_number + 1} | EPOCH {epoch + 1}: EM@1: {metrics[0]['exact_match']:.3} F1@1: {metrics[0]['f1']:.3} || EM@5: {metrics[1]['exact_match']:.3} F1@5: {metrics[1]['f1']:.3}")
 
-        f1_folds.append(metrics['f1'])
-        em_folds.append(metrics['exact_match'])
+        f1_1_folds.append(metrics[0]['f1'])
+        em_1_folds.append(metrics[0]['exact_match'])
+
+        f1_5_folds.append(metrics[1]['f1'])
+        em_5_folds.append(metrics[1]['exact_match'])
 
         # Save and upload
         accelerator.wait_for_everyone()
@@ -320,16 +351,30 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         if accelerator.is_main_process:
             tokenizer.save_pretrained(output_dir)
 
-#Printing Avg. EM across all folds trained till a given epoch
+#Printing Avg. EM@1 across all folds trained till a given epoch
 for e in range(num_train_epochs):
   e_em = []
-  for v in range(e, len(em_folds), num_train_epochs):
-    e_em.append(em_folds[v])
-  print(f'Average EM for epoch {e} across all folds: {np.mean(e_em)}')
+  for v in range(e, len(em_1_folds), num_train_epochs):
+    e_em.append(em_1_folds[v])
+  print(f'Average EM@1 for epoch {e} across all folds: {np.mean(e_em)}')
 
-#Printing Avg. F1 across all folds trained till a given epoch
+#Printing Avg. F1@1 across all folds trained till a given epoch
 for e in range(num_train_epochs):
   e_f1 = []
-  for v in range(e, len(f1_folds), num_train_epochs):
-    e_f1.append(f1_folds[v])
-  print(f'Average F1 for epoch {e} across all folds: {np.mean(e_f1)}')
+  for v in range(e, len(f1_1_folds), num_train_epochs):
+    e_f1.append(f1_1_folds[v])
+  print(f'Average F1@1 for epoch {e} across all folds: {np.mean(e_f1)}')
+
+#Printing Avg. EM@5 across all folds trained till a given epoch
+for e in range(num_train_epochs):
+  e_em = []
+  for v in range(e, len(em_5_folds), num_train_epochs):
+    e_em.append(em_5_folds[v])
+  print(f'Average EM@5 for epoch {e} across all folds: {np.mean(e_em)}')
+
+#Printing Avg. F1@5 across all folds trained till a given epoch
+for e in range(num_train_epochs):
+  e_f1 = []
+  for v in range(e, len(f1_5_folds), num_train_epochs):
+    e_f1.append(f1_5_folds[v])
+  print(f'Average F1@5 for epoch {e} across all folds: {np.mean(e_f1)}')

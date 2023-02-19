@@ -51,8 +51,8 @@ def main(metam):
 	for item in tqdm(total_covidqa_ctx_and_ques):
 		cons, errs = metam.extract_concepts([item],
                                 word_sense_disambiguation = True,
-                                composite_phrase = 1, # for memory issues
-                                prune = 30)
+                                composite_phrase = 4, # for memory issues
+                                prune = 10)
 
 		keys_of_interest = ['cui', 'preferred_name']
 		cols = [get_keys_from_mm(cc, keys_of_interest) for cc in cons]
