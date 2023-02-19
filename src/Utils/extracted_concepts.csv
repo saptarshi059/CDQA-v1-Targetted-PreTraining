@@ -1,0 +1,2752 @@
+cui,preferred_name
+C0211067,PAVe protocol 1
+C0029347,influenza A virus
+C0035243,Respiratory Tract Infections
+C0004611,Bacteria
+C1880253,Data Port
+C0282111,Internet
+C1513843,NIH Mouse
+C1705803,National Center for Biotechnology Information
+C0027470,National Library of Medicine (U.S.)
+C0221055,Paramyotonia Congenita (disorder)
+C1419208,RAB3D gene
+C1706852,Article
+C3812881,Author
+C1551744,Nikolai Indians
+C1551054,Units Of Measure - Siemens
+C0011008,Date in time
+C4724436,Dogri Language
+C3842590,10%
+C3538933,C-Circle
+C1550439,Entity Name Use - License
+C0086418,Homo sapiens
+C0009450,Communicable Diseases
+C0521009,Bacterial
+C3245499,Colombia
+C2603343,Study
+C0819757,Structure of parenchyma of lung
+C0032285,Pneumonia
+C0376554,Knowledge
+C3161035,Model
+C0877203,Viral Respiratory Tract Infection
+C0729531,Viral respiratory infection
+C0597295,Protein Biosynthesis
+C2825142,Experimental Result
+C1880355,Discover
+C1704913,TAF1 wt Allele
+C0600678,Abstract Summary
+C0003062,Animals
+C0085979,Cavia
+C0012634,Disease
+C0878517,Engineer
+C2826244,Life Threatening
+C0449295,Limitation
+C0458579,Lower respiratory tract structure
+C0026809,Mus
+C0324889,Old World rabbit
+C0150312,Present
+C0034721,Rattus
+C0282443,Review [Publication Type]
+C1318973,Staphylococcus aureus infection
+C0038410,Streptococcus pneumoniae
+C0038411,Streptococcus pyogenes
+C0041260,Tryptophanase
+C0029347,influenza A virus
+C1705535,suggestion
+C0035243,Respiratory Tract Infections
+C0275524,Coinfection
+C0440744,Human tissue
+C0470187,Availability of
+C0015859,Ferrets
+C0018684,Health
+C1709743,Protein Turn
+C0042776,Virus
+C1518422,Negation
+C0033147,Primates
+C4055445,Approved for Human Use Product
+C2986594,Mouse Model
+C0725066,Advance -- medical device
+C3900053,Amenable
+C0162340,Comprehension
+C0040722,disease transmission qualifier
+C2348269,Dietary Lead
+C0205221,Disseminated
+C1517378,Gain
+C4084912,Importance Rating Score 0
+C1708698,Light Emitting Diode Device
+C0947630,Scientific Study
+C0205082,Severe (severity modifier)
+C1880177,Contribution
+C1704243,Greater
+C1285542,Has focus
+C1397014,Imbalance
+C2828008,Burden
+C0039005,Family suidae
+C0439601,Seasonal course
+C2348480,ex vivo
+C0521346,respiratory
+C0458578,Upper respiratory tract
+C0086272,Experimental Model
+C0024109,Lung
+C1706701,Acquisition (action)
+C0521116,Current (present time)
+C3245505,Potential
+C0009462,Community
+C0332183,Frequently
+C2348867,Global
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C1956108,Microbiome
+C0486616,Composition
+C1542147,Main
+C0521009,Bacterial
+C0027442,Nasopharynx
+C0205172,More
+C0041260,Tryptophanase
+C0012634,Disease
+C1521761,Factor
+C1000792,Microbiota (plant)
+C1705920,Species
+C0038410,Streptococcus pneumoniae
+C0014406,Environment
+C0445623,Microorganism
+C0729333,Dynamic
+C0032285,Pneumonia
+C3840556,Murphy
+C0332185,Recent
+C0086418,Homo sapiens
+C1167395,Host (organism)
+C0450254,Pathogenic organism
+C1442457,2 Weeks
+C0001721,Affect (mental function)
+C0009450,Communicable Diseases
+C0332256,Containing (qualifier)
+C0600138,Does play
+C1522492,Formation
+C4704695,Host Bacteria Interactions
+C0332257,Including (qualifier)
+C3828954,Most of the time
+C1554111,Text - MDFAttributeType
+C0332289,Transmitted by
+C0458578,Upper respiratory tract
+C0683454,internal-external locus of control scale
+C1547282,Show
+C0020962,Immune system
+C1148523,Childbirth
+C0541749,Does turn (finding)
+C0231290,Status post
+C0521026,Viral
+C0439231,month
+C0439234,year
+C0332281,Associated with
+C2061911,Mixed Flora
+C0035204,Respiration Disorders
+C0038172,Staphylococcus aureus
+C2242554,Streptococcus colonisation
+C0001792,Elderly (population group)
+C0178685,human morbidity
+C4484138,week 1
+C1706701,Acquisition (action)
+C0205265,Initially
+C3887843,Microbiota (environment)
+C0023175,lead
+C2699153,Cell Invasion
+C4289767,Colonization
+C0009462,Community
+C1707903,Embedding
+C0680063,Offspring
+C1273518,Responsible to
+C0947630,Scientific Study
+C0231202,Symbiotic
+C0035820,Social Role
+C1140704,Streptococcus viridans
+C1397014,Imbalance
+C0038170,Genus staphylococcus
+C0205250,High
+C0205314,New
+C0205082,Severe (severity modifier)
+C0521346,respiratory
+C0392747,Changing
+C0205252,Immature
+C0402830,Miller
+C0392674,Exhaustion
+C0021289,"Infant, Newborn"
+C0750554,MOSTLY
+C0026565,Mortality Vital Statistics
+C3245505,Potential
+C0001779,Age
+C0699748,Pathogenesis
+C0750503,around
+C0004611,Bacteria
+C0205296,Natural
+C1704913,TAF1 wt Allele
+C1979963,Profile (lab procedure)
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0030705,Patients
+C0751985,Proteobacteria
+C2825142,Experimental Result
+C2986479,Healthy Control
+C0936012,Analysis
+C0486616,Composition
+C0003232,Antibiotics
+C0205171,Singular
+C0032285,Pneumonia
+C0580264,H1N1
+C1456432,Actinobacteria phylum
+C0001779,Age
+C0332282,Following
+C0079399,Gender
+C0332257,Including (qualifier)
+C0026809,Mus
+C1441672,Observed
+C0443289,Revealed
+C2603343,Study
+C0392366,Tests (qualifier value)
+C0439828,Variable (uniformity)
+C0001563,"Administration, Oral"
+C0020964,Immunity
+C1000792,Microbiota (plant)
+C0199779,Administration of antibiotic
+C1615608,Pandemics
+C0009450,Communicable Diseases
+C1397014,Imbalance
+C2346714,Abundance
+C1707455,Comparison
+C0178602,Dosage
+C0205217,Increased
+C1956108,Microbiome
+C3842396,No difference
+C0456079,Disease classification level
+C0221099,Impaired
+C1518422,Negation
+C1709533,Phylum (taxon)
+C2347509,Physical Shift
+C0445247,Same
+C1704324,Scientific Publication
+C4048280,"T-Cell Surface Glycoprotein CD4, human"
+C0439508,per year
+C0012652,Disease Outbreaks
+C0237881,Statistical Significance
+C0183683,"Support, device"
+C1292748,Introduces
+C0004561,B-Lymphocytes
+C0521009,Bacterial
+C3538720,CD8 Expressing Cell Count
+C0029347,influenza A virus
+C0231202,Symbiotic
+C0521346,respiratory
+C1707959,Example
+C0205447,One
+C1956109,Human Microbiome
+C3843765,65+
+C0442027,Oral
+C1547282,Show
+C0521367,Oropharyngeal
+C1517320,From
+C0439662,Immune
+C1519068,Phylogenetic Analysis
+C1704675,Interaction
+C1285542,Has focus
+C0521009,Bacterial
+C1947900,"Death Due to Disease Progression Not Associated with More Specific Term NOS, CTCAE"
+C2584313,Discussion (communication)
+C1171285,Enabling
+C0127400,Mediator brand of benfluorex hydrochloride
+C1999230,Providing (action)
+C0282443,Review [Publication Type]
+C0557651,Room of building - Study
+C0041260,Tryptophanase
+C1261959,Bacterial infections of the respiratory tract
+C0686907,Consequence of
+C0679199,Strategy
+C0948192,primary infection nos
+C0301872,Immune response
+C0233820,Insight
+C3900053,Amenable
+C0392673,Adaptation
+C0205470,immunologic
+C0521026,Viral
+C0599779,Animal Model
+C0275524,Coinfection
+C1880177,Contribution
+C1167395,Host (organism)
+C0332287,In addition to
+C0441712,Mechanism (attribute)
+C0687676,Post
+C0231221,Asymptomatic
+C4289767,Colonization
+C1517331,Further
+C3245505,Potential
+C0175668,Secondary to
+C0205250,High
+C3151529,Lethal
+,
+,
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0021403,Influenza virus vaccine
+C0018909,Hemagglutinin
+C0027803,Neuraminidase
+C0029347,influenza A virus
+C0001779,Age
+C0237401,Individual
+C0439601,Seasonal course
+C0439858,Conventional
+C3843765,65+
+C0005595,Aves
+C0001792,Elderly (population group)
+C0019944,Equus caballus
+C0750572,Estimated
+C1704243,Greater
+C0086418,Homo sapiens
+C0332257,Including (qualifier)
+C0205447,One
+C0029341,Orthomyxoviridae
+C0162735,Point Mutation
+C0033011,Pregnant Women
+C0035647,Risk
+C0339952,Secondary bacterial pneumonia
+C1135183,Sus scrofa
+C0041260,Tryptophanase
+C3538928,Usual
+C0043528,Zoonoses
+C1881534,Make - Instruction Imperative
+C1883712,Add - instruction imperative
+C3898900,Healthy
+C3245505,Potential
+C0011065,Cessation of life
+C0449560,Subtype (attribute)
+C0332294,Resulting in
+C0205419,Variant
+C0003062,Animals
+C0686907,Consequence of
+C0014499,Epidemic
+C1518614,Organism Strain
+C2699488,Resolution
+C0242781,disease transmission
+C1705938,Base - General Qualifier
+C0015576,Family
+C0680063,Offspring
+C2698667,Other Toxicity Studies: Antigenicity
+C1880022,Characterization
+C0008902,Classification
+C1546944,Event Seriousness - Significant
+C0678558,Plasticity
+C4517521,10.5
+C0017428,Genome
+C1280500,Effect
+C0032659,geographic population
+C4484002,Influenza season
+C1615608,Pandemics
+C3816747,500
+C0332181,Annual
+C2346866,Assortment
+C1441547,Derivation
+C0441471,Event
+C1708004,FAT1 wt Allele
+C0574447,Kongo language
+C0205314,New
+C0556581,Retinol equivalents
+C0557775,Van (physical object)
+C0009488,Comorbidity
+C0441635,Anatomical segmentation
+,
+,
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0021400,Influenza
+C0444675,Shank
+C1615608,Pandemics
+C0032285,Pneumonia
+C0027361,Persons
+C0521009,Bacterial
+C0038410,Streptococcus pneumoniae
+C1306577,Death (finding)
+C1524003,Science of Etiology
+C1709305,Occur (action)
+C0205393,Most
+C0450254,Pathogenic organism
+C0078988,Asians
+C0205082,Severe (severity modifier)
+C0019907,Hong Kong
+C2987742,Hong Kong Zebrafish
+C0220888,increasing incidence
+C0038172,Staphylococcus aureus
+C0038411,Streptococcus pyogenes
+C0205419,Variant
+C1615607,"Influenza A Virus, H1N1 Subtype"
+C4738113,Fatalities
+C0332183,Frequently
+C1533148,Case unit dose
+C0439234,year
+C0175668,Secondary to
+C1542147,Main
+C1707455,Comparison
+C3843766,<50
+C0017446,Geographic Locations
+C1517892,Links List
+C1705232,Death Related to Adverse Event
+C0086409,Hispanics
+C1704913,TAF1 wt Allele
+C0700364,Appearance
+C0005595,Aves
+C0011065,Cessation of life
+C0746102,Chronic lung disease
+C0205848,Death Rate
+C1947931,Direct (qualifier)
+C0750572,Estimated
+C0018483,Haemophilus influenzae
+C0020538,Hypertensive disease
+C0205396,Identified
+C0332257,Including (qualifier)
+C0205409,Isolated
+C0026565,Mortality Vital Statistics
+C0282416,Overall Publication Type
+C0004626,"Pneumonia, Bacterial"
+C1257890,Population Group
+C0456962,Rapid
+C0035237,Respiratory System
+C0035439,Rheumatic Heart Disease
+C0521117,Severity of illness
+C1318973,Staphylococcus aureus infection
+C0750591,consider
+C0683454,internal-external locus of control scale
+C1705535,suggestion
+C0008679,Chronic disease
+C0007465,Cause of Death
+C0332281,Associated with
+C0035222,"Respiratory Distress Syndrome, Adult"
+C0439092,Less Than
+C1518614,Organism Strain
+C0750492,Probably
+C0947630,Scientific Study
+C1705920,Species
+C0205251,low
+C0012634,Disease
+C0040223,Time
+C0020964,Immunity
+C0004623,Bacterial Infections
+C0580265,H2N2
+C0275524,Coinfection
+C0339965,Hemorrhagic pneumonia
+C1853237,Isolated cases
+C3245499,Colombia
+C4517906,95
+C0009566,Complication
+C0678226,Due to
+C0205087,Late
+C0042776,Virus
+C1511726,Data
+C3714514,Infection
+C0439801,Limited (extensiveness)
+C0439064,Numerous
+C2926606,Procedure findings:Finding:Point in time:^Patient:Narrative
+C0332185,Recent
+C0332156,Return to (contextual qualifier) (qualifier value)
+C0205437,Third
+C1710548,Unique
+C0220856,incidence of cases
+C0332232,Approximate
+C3898900,Healthy
+C0549177,Large
+C0332239,Young
+C0725813,depend
+C1881839,1000000
+C0162388,Killing
+C0205329,Progressive
+C2741673,Account number:Identifier:Point in time:^Patient:Nominal
+C4021610,Bilateral lung agenesis
+C0449234,Concept Attribute
+C0205423,Certain (qualifier value)
+C3816449,Forty
+C0580264,H1N1
+C1947913,Local-Regional anatomy
+C4698491,Rather
+C4722602,Underlying
+C0332282,Following
+C0205166,Long
+C3687536,Martin
+C1509547,Rice Preparation
+C0205448,Two
+C0580267,H3N2
+C1955473,Others - Allergy
+C0439793,Severities
+C0205276,Local
+C0205314,New
+C1135183,Sus scrofa
+C0079429,"Genes, vif"
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0332257,Including (qualifier)
+C0521009,Bacterial
+C0450254,Pathogenic organism
+C0027442,Nasopharynx
+C0086418,Homo sapiens
+C4084912,Importance Rating Score 0
+C1521970,Characteristics
+C4289767,Colonization
+C0600138,Does play
+C3887511,Evidence
+C0017110,Gases
+C0442808,Increasing
+C0597404,Respiratory viruses
+C0237876,Sharing (Social Behavior)
+C0038172,Staphylococcus aureus
+C0038410,Streptococcus pneumoniae
+C0041260,Tryptophanase
+C0683325,clinical aspects
+C1547282,Show
+C0339901,Acute respiratory infections
+C1443953,Acute viral disease
+C0877203,Viral Respiratory Tract Infection
+C0392747,Changing
+C0442886,Secondary Infections
+C0004623,Bacterial Infections
+C1510802,Adherence (attribute)
+C0441712,Mechanism (attribute)
+C1000792,Microbiota (plant)
+C0871161,Property (attribute)
+C0521026,Viral
+C0521346,respiratory
+C4699158,Increased risk
+C1522538,Leading
+C0035820,Social Role
+C1710548,Unique
+C0175668,Secondary to
+C0035853,Rosa
+C0205178,acute
+C0017480,Germany
+C1514241,Positive Finding
+C0439208,gram
+C4321249,DIAPH3 wt Allele
+C0332183,Frequently
+C0543483,pathogenic aspects
+,
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C1524003,Science of Etiology
+C0205082,Severe (severity modifier)
+C0003232,Antibiotics
+C2700399,Include (action)
+C4521538,Methicillin-resistant Staphylococcus aureus Measurement
+C1456808,"Nares, entire, anterior or posterior"
+C1948052,Now (temporal qualifier)
+C0450254,Pathogenic organism
+C1123023,Skin
+C1318973,Staphylococcus aureus infection
+C0004454,Axilla
+C0264515,"Pneumonia, Necrotizing"
+C0033522,Prospective Studies
+C0009013,Clone Cells
+C2981279,Decade
+C0332281,Associated with
+C4050419,Borg Category-Ratio 10 Perceived Exertion Score 7
+C0332325,Resistant (qualifier value)
+C0037278,"Skin Diseases, Infectious"
+C0683626,human group
+C2699424,Concern
+C3812801,Immunogenicity Specimen Assessments Domain
+C0442805,Increase
+C0205555,Special
+C2346866,Assortment
+C3714514,Infection
+C2945599,Mild (qualifier value)
+C3842588,30%
+C0750508,persistently
+C4321377,Relational and Item-Specific Encoding Task
+C1514721,Range
+C0205423,Certain (qualifier value)
+C1517741,Last
+C3538928,Usual
+C1705232,Death Related to Adverse Event
+C0332185,Recent
+C0557775,Van (physical object)
+C0205721,"Infections, Hospital"
+C1280464,Manifestation of
+C0456394,Community acquired
+C4321249,DIAPH3 wt Allele
+C1709707,Proportion
+C0205210,Clinical
+C0442808,Increasing
+C0237753,Numbers
+C0456178,Microbiology subtype strains
+C2347565,Case Sensitive
+C1704913,TAF1 wt Allele
+C0025643,methicillin
+C1449520,Pulmonal S
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0004610,Bacteremia
+C0004611,Bacteria
+C0008059,Child
+C0009763,Conjunctivitis
+C0001792,Elderly (population group)
+C0332257,Including (qualifier)
+C0025289,Meningitis
+C0029882,Otitis Media
+C0038410,Streptococcus pneumoniae
+C1859430,Life-threatening infections
+C0032269,Pneumococcal Infections
+C0032285,Pneumonia
+C0332281,Associated with
+C0027361,Persons
+C0205082,Severe (severity modifier)
+C0205848,Death Rate
+C5191358,30.8
+C4699271,20/50
+C0686750,Well adult
+C0683454,internal-external locus of control scale
+C1299351,Abnormally high
+C0026538,Morbidity - disease rate
+C0686744,Well child
+C0332232,Approximate
+C2945599,Mild (qualifier value)
+C0037199,Sinusitis
+C1514721,Range
+C0085393,Immunocompromised Host
+C0005680,Black race
+C1524003,Science of Etiology
+C0041260,Tryptophanase
+C0242444,Population at Risk
+C0086418,Homo sapiens
+C0027442,Nasopharynx
+C3538928,Usual
+C0226896,Oral cavity
+C0038411,Streptococcus pyogenes
+C0040425,Tonsillitis
+C0439508,per year
+C3714514,Infection
+C0205303,Non-invasive
+C0032659,geographic population
+C0202311,Aluminum measurement
+C0458578,Upper respiratory tract
+C0017110,Gases
+C1524003,Science of Etiology
+C0031350,Pharyngitis
+C2945599,Mild (qualifier value)
+C0040028,"Thrombocythemia, Essential"
+C0205393,Most
+C1522138,shared attribute
+C1881839,1000000
+C3816748,600
+C1533148,Case unit dose
+C0750572,Estimated
+C0202311,Aluminum measurement
+C0745732,List
+C0040028,"Thrombocythemia, Essential"
+C0470277,2000
+C0332257,Including (qualifier)
+C0450254,Pathogenic organism
+C0032285,Pneumonia
+C1524003,Science of Etiology
+C0243026,Sepsis
+C0343532,Streptococcal toxic shock syndrome
+C0037278,"Skin Diseases, Infectious"
+C5139167,Severe infection
+C0205455,Nine
+C0237753,Numbers
+C3816747,500
+C0332181,Annual
+C1306577,Death (finding)
+C0332287,In addition to
+C0205281,Invasive
+C0439664,Necrotizing
+C1707101,CD44 wt Allele
+C2348867,Global
+C1336644,TNFRSF10B gene
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C1524003,Science of Etiology
+C0041260,Tryptophanase
+C0085732,Ability
+C0001779,Age
+C0750572,Estimated
+C3887642,Hippocampus Proper
+C1999167,Old age
+C0038410,Streptococcus pneumoniae
+C0237401,Individual
+C1705232,Death Related to Adverse Event
+C0012634,Disease
+C0450254,Pathogenic organism
+C2945640,compromise
+C3844029,Child 5
+C3842590,10%
+C0011065,Cessation of life
+C0205393,Most
+C0205449,Three
+C0205250,High
+C3151529,Lethal
+C0332285,Within
+C0439234,year
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C1515877,activate biological process
+C1879648,Alpha2 Significance
+C1879547,Activation action
+C0205263,Induce (action)
+C1167622,Binding (Molecular Function)
+C1283071,Release - action (qualifier value)
+C0814942,Han Chinese
+C0042776,Virus
+C0037025,Sialic Acids
+C0042769,Virus Diseases
+C0030946,Endopeptidases
+C0521026,Viral
+C0035736,"RNA, Viral"
+C0557775,Van (physical object)
+C0333348,Inflammatory
+C1517892,Links List
+C0005595,Aves
+C0009450,Communicable Diseases
+C1383501,Cytoplasmic matrix
+C0439851,Direct type of relationship
+C2349975,Enhance (action)
+C0015127,Etiology aspects
+C0441471,Event
+C1539598,GPRC5A gene
+C0018563,Hand
+C0205217,Increased
+C3815172,Interleukin 1 Beta Measurement
+C0458579,Lower respiratory tract structure
+C0033414,Promotion (action)
+C1999230,Providing (action)
+C0871261,Response process
+C1547282,Show
+C0041260,Tryptophanase
+C0120446,guanidine
+C0029347,influenza A virus
+C3849701,"interleukin 18 protein, human"
+C0021753,"interleukin-1, beta"
+C2945617,yang
+C1155266,Inflammatory Response
+C0332294,Resulting in
+C0005778,Blood coagulation
+C2825073,Clearance [PK]
+C0332287,In addition to
+C0080194,Muscle strain
+C0079904,NF-kappa B
+C1417708,NFKB1 gene
+C1709743,Protein Turn
+C1567060,"RELA protein, human"
+C1522537,Recombinant Interferon
+C1272318,Presence of virus (procedure)
+C0004611,Bacteria
+C0871208,Rating (action)
+C1148846,RNA Binding
+C0858744,infection induced
+C1704259,Biochemical Pathway
+C0819757,Structure of parenchyma of lung
+C4552279,Tissue injury
+C0273115,Lung Injury
+C0162638,Apoptosis
+C1273342,Epithelial cell count (procedure)
+C1160693,viral release from host cell
+C1327413,cytokine production
+C3272629,Epithelial Damage
+C0067762,N-Acetylneuraminic Acid
+C1510827,Affinity
+C0181586,Leads (device)
+C0040300,Body tissue
+C1880177,Contribution
+C0185117,Expression procedure
+C0086418,Homo sapiens
+C0024109,Lung
+C0027540,Necrosis
+C0040578,Trachea
+C3263722,Traumatic AND/OR non-traumatic injury
+C0014406,Environment
+C0042765,Virulence
+C0443127,Aberrant
+C0598312,DNA Replication
+C3844638,Either
+C0301872,Immune response
+C2936529,Inflammasomes
+C0439070,Roman Numeral III
+C0439601,Seasonal course
+C0040648,TRANSCRIPTION FACTOR
+C0424295,Hyperactive behavior
+C3269136,extrinsic apoptotic signaling pathway
+C1705242,Different
+C0441729,Type 1
+C1337068,viral genome location
+C0678226,Due to
+C0042774,Virus Replication
+C0439674,Intrinsic origin
+C0029341,Orthomyxoviridae
+C3538928,Usual
+C0449475,cell type
+C0014609,Epithelium
+C0033684,Proteins
+C1550513,via
+C0017428,Genome
+C0035668,RNA
+C1704913,TAF1 wt Allele
+C1282910,Upper
+C0079189,cytokine
+C0033382,proline
+C1999228,Attachments (document)
+C0521009,Bacterial
+C0006539,Belarus
+C1167395,Host (organism)
+C1555582,Initial (abbreviation)
+C1367553,PLG gene
+C0205148,Surface
+C1327616,Cell secretion
+C1947931,Direct (qualifier)
+C2827736,3+ Score
+C1440080,Alveolar
+C1710602,VIPR1 wt Allele
+C0521009,Bacterial
+C0332257,Including (qualifier)
+C2603343,Study
+C0041260,Tryptophanase
+C0020962,Immune system
+C3853906,Digital Model Attachment
+C0009450,Communicable Diseases
+C3245499,Colombia
+C0086418,Homo sapiens
+C1706515,Matrix substance
+C0449445,Approach
+C3826168,Human physiology
+C3828842,Nearly
+C1518422,Negation
+C0032285,Pneumonia
+C0038172,Staphylococcus aureus
+C0038410,Streptococcus pneumoniae
+C0038411,Streptococcus pyogenes
+C0596171,Tissue Engineering
+C1282910,Upper
+C1524063,Use of
+C0683454,internal-external locus of control scale
+C1705535,suggestion
+C5139167,Severe infection
+C0442886,Secondary Infections
+C0042769,Virus Diseases
+C0004623,Bacterial Infections
+C0275524,Coinfection
+C0086272,Experimental Model
+C0003737,Architecture
+C0486616,Composition
+C3245505,Potential
+C1705920,Species
+C0819757,Structure of parenchyma of lung
+C0877203,Viral Respiratory Tract Infection
+C0729531,Viral respiratory infection
+C0004611,Bacteria
+C0449432,Component object
+C0567416,Molecule
+C0370003,Specimen
+C0678594,Structure
+C0869040,use studies
+C4699158,Increased risk
+C0861064,lead increased
+C3842583,80%
+C0520510,Materials
+C0026809,Mus
+C0884358,Performed
+C1273518,Responsible to
+C0871532,tool use
+C0456369,Proven findings
+C0521114,Infrequent
+C0035647,Risk
+C0172217,arsenal
+C0023175,lead
+C1515655,In Vivo
+C2827734,1+ Score
+C1442459,3 Days
+C0178539,Cellular
+C0039005,Family suidae
+C0030705,Patients
+C2603362,S prime
+C0205449,Three
+C2348480,ex vivo
+C1704241,complex (molecular entity)
+C0001516,Adhesives
+C1167395,Host (organism)
+C0445623,Microorganism
+C0027627,Neoplasm Metastasis
+C0439064,Numerous
+C0450254,Pathogenic organism
+C0439601,Seasonal course
+C0205148,Surface
+C0521026,Viral
+C0458578,Upper respiratory tract
+C0678226,Due to
+C1136170,Virulence Factors
+C1999228,Attachments (document)
+C1707391,Choose (action)
+C0518609,Consideration
+C4321249,DIAPH3 wt Allele
+C0026531,Morality
+C0178784,Organ
+C0332183,Frequently
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0332257,Including (qualifier)
+C1709305,Occur (action)
+C0521009,Bacterial
+C1551054,Units Of Measure - Siemens
+C0038410,Streptococcus pneumoniae
+C1167395,Host (organism)
+C1420002,SFTPA1 gene
+C0042769,Virus Diseases
+C0332157,Exposure to
+C0010957,Tissue damage
+C0024109,Lung
+C0819757,Structure of parenchyma of lung
+C0597357,receptor
+C1555582,Initial (abbreviation)
+C0470277,2000
+C0439659,Beginning
+C0031691,ENOLASE
+C0562342,Empowered
+C0015982,Fibrin
+C0016055,Fibronectins
+C1414968,GAPDH gene
+C0022984,Laminin
+C0700271,"M Protein, multiple myeloma"
+C0483204,O NOS Ab
+C1948045,Once (schedule frequency)
+C1418929,PRKG1 gene
+C0030705,Patients
+C0205148,Surface
+C0041260,Tryptophanase
+C0683607,allowing
+C0009325,collagen
+C0016006,fibrinogen
+C0041455,collagen type I
+C0563640,Bacterial cytotoxin
+C0075302,streptolysin S
+C0392747,Changing
+C0442886,Secondary Infections
+C0004623,Bacterial Infections
+C0043240,Wound Healing
+C2003941,Alpha
+C1999228,Attachments (document)
+C2699153,Cell Invasion
+C0019053,Hemolysin
+C0244036,"speB protein, Streptococcus pyogenes"
+C4721210,Colonization of lower respiratory tract
+C0382507,silver protein preparation
+C0205469,Pathological aspects
+C0004611,Bacteria
+C0449450,Presentation
+C0071313,"plY protein, Streptococcus pneumoniae"
+C0599732,cell injury
+C1155266,Inflammatory Response
+C0279023,Chemosensitization
+C1314972,Claims attachment
+C0023504,Leukocidins
+C0033684,Proteins
+C0521108,Recovering from
+C0521026,Viral
+C0441712,Mechanism (attribute)
+C0567416,Molecule
+C0032285,Pneumonia
+C1705920,Species
+C1336445,Stage IV Uveal Melanoma AJCC v7
+C0205449,Three
+C0728940,Excision
+C0333348,Inflammatory
+C1442792,State
+C1548386,Document Completion - incomplete
+C0175668,Secondary to
+C0023701,Lightning (phenomenon)
+C0015350,Extracellular Matrix
+C1517331,Further
+C1621797,Garcia <plant>
+C0442805,Increase
+C0017110,Gases
+C0067762,N-Acetylneuraminic Acid
+C0301872,Immune response
+C0038411,Streptococcus pyogenes
+C0678723,Biologic Development
+C0032140,Plasminogen
+C0040044,Thrombolytic Therapy
+C1524062,Additional
+C1510802,Adherence (attribute)
+C0449432,Component object
+C0439858,Conventional
+C0596901,Membrane
+C0027803,Neuraminidase
+C3245505,Potential
+C1704913,TAF1 wt Allele
+C0332273,Through
+C0014445,enzymology
+,
+,
+,
+,
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0033414,Promotion (action)
+C0041260,Tryptophanase
+C1709743,Protein Turn
+C1515877,activate biological process
+C0027950,neutrophil
+C0024432,macrophage
+C0085236,"Macrophages, Alveolar"
+C0085732,Ability
+C0205263,Induce (action)
+C0024109,Lung
+C0038410,Streptococcus pneumoniae
+C1522537,Recombinant Interferon
+C1442792,State
+C0301872,Immune response
+C0439180,% release (qualifier value)
+C0521026,Viral
+C0033268,production
+C2825073,Clearance [PK]
+C0521009,Bacterial
+C0678226,Due to
+C0003451,Antiviral Agents
+C0332282,Following
+C0332257,Including (qualifier)
+C0301625,Metabolic Suppression
+C0443289,Revealed
+C1260953,Suppressed
+C2945640,compromise
+C1704913,TAF1 wt Allele
+C0947630,Scientific Study
+C0205421,Deferred
+C2349975,Enhance (action)
+C2699153,Cell Invasion
+C0332287,In addition to
+C0035736,"RNA, Viral"
+C0441712,Mechanism (attribute)
+C0162388,Killing
+C1549439,Resident - Procedure Practitioner Identifier Code Type
+C1167395,Host (organism)
+C0009450,Communicable Diseases
+C0079189,cytokine
+C0086418,Homo sapiens
+C0221099,Impaired
+C0700321,Small
+C0018154,Gram-Positive Bacteria
+C0022688,Natural Killer Cells
+C0439662,Immune
+C0004611,Bacteria
+C0004618,Bacterial Count Measurement
+C0007634,Cells
+C0162340,Comprehension
+C1706214,Creation
+C1273342,Epithelial cell count (procedure)
+C2709199,Natural killer
+C1317556,Natural killer cell function
+C1518422,Negation
+C1709157,Negative Surgical Margin
+C4288581,Notable
+C0175566,Open
+C1882365,Phenomenon
+C0150312,Present
+C0750492,Probably
+C1999230,Providing (action)
+C0035692,"RNA, Bacterial"
+C1527036,Recombinant Chemokine
+C0038817,Sunlight
+C1705581,TLR4 wt Allele
+C3538928,Usual
+C1523908,apoptotic cell clearance
+C0754728,Toll-Like Receptor 2
+C1705535,suggestion
+C0020969,"Immunity, Innate"
+C0427861,Human cells
+C0442886,Secondary Infections
+C0004623,Bacterial Infections
+C0011306,Dendritic Cells
+C1299987,Replaced by
+C1272746,Change patterns
+C0748168,Pulmonary Pathology
+C0021368,Inflammation
+C0205319,Manifest
+C0597484,sodium cation
+C1819430,type I interferon production
+C0597404,Respiratory viruses
+C0812445,CXCL1 gene
+C0439640,Dendritic
+C0038826,Superinfection
+C0085426,Gram-Positive Bacterial Infections
+C1704259,Biochemical Pathway
+C0185117,Expression procedure
+C1155328,Antiviral Response
+C1516369,Cellular Infiltration
+C3178988,Emergency Responders
+C1517886,Limited stage (cancer stage)
+C0010957,Tissue damage
+C0681828,in vitro study
+C1819426,chemokine production
+C2754810,monocyte chemotactic protein-1 production
+C1160693,viral release from host cell
+C2340022,Resting histiocyte
+C0007589,Cell Differentiation process
+C2949735,Recruitment
+C0332294,Resulting in
+C0441729,Type 1
+C0123759,interleukin-12
+C0076930,Transforming Growth Factor beta Receptors
+C0861064,lead increased
+C3272629,Epithelial Damage
+C0332283,Followed by
+C1819464,tumor necrosis factor production
+C2348269,Dietary Lead
+C1271650,Antimicrobial activity
+C0014406,Environment
+C1272706,Interval
+C1622891,Mast cell degranulation
+C1705920,Species
+C1457868,Worse
+C0031843,physiological aspects
+C0021743,Interferon Type I
+C0205396,Identified
+C1522538,Leading
+C2905612,Storm NOS
+C2603343,Study
+C0522505,Upstream
+C1440080,Alveolar
+C0524637,"Recognition, Psychology"
+C0871261,Response process
+C1527432,Recombinant Interleukin-8
+C0725813,depend
+C1332127,AZU1 gene
+C0036658,Esthesia
+C0004626,"Pneumonia, Bacterial"
+C1999228,Attachments (document)
+C0012634,Disease
+C2828393,Exact (qualifier)
+C0017110,Gases
+C0205265,Initially
+C0439064,Numerous
+C0439070,Roman Numeral III
+C0332157,Exposure to
+C0027365,Name
+C0027627,Neoplasm Metastasis
+C0450955,Yamamoto
+C3495095,lithium cation
+C0946292,polarization
+C1705242,Different
+C4722602,Underlying
+C0128897,Monocyte Chemoattractant Protein-1
+C1448177,"TNF protein, human"
+C0042774,Virus Replication
+C0031308,Phagocytosis
+C1819995,Host Cell
+C1449159,"CCL2 protein, human"
+C3714514,Infection
+C0567416,Molecule
+C0450254,Pathogenic organism
+C0220898,Predisposition -- attribute
+C0035668,RNA
+C4722001,Substance with effector mechanism of action (substance)
+C0282554,chemokine
+C0183210,sensor (device)
+C4321249,DIAPH3 wt Allele
+C0162493,Transcriptional Activation
+C0041904,Up-Regulation (Physiology)
+C0052432,artesunate
+C0344315,Depressed mood
+C0392756,Reduced
+C0458827,Airway structure
+C0332161,Attenuated by (contextual qualifier)
+C1704419,Effective
+C0547044,Smaller
+C0851827,Dependent - ability
+C0282111,Internet
+C0025953,Microbiological
+C1522486,Professional Organization or Group
+,
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0376223,The Sun
+C1442792,State
+C2825073,Clearance [PK]
+C0441712,Mechanism (attribute)
+C0687676,Post
+C0441471,Event
+C0439227,Hour
+C0301872,Immune response
+C2745955,Occurrence
+C1260953,Suppressed
+C0683607,allowing
+C0683454,internal-external locus of control scale
+C1184743,bony process
+C1819437,interleukin-10 production
+C0205087,Late
+C4281574,Much
+C0205469,Pathological aspects
+C0031307,Phagocytes
+C0398740,Impaired phagocytosis
+C0033268,production
+C0151521,Bacterial resistance
+C0009450,Communicable Diseases
+C3900172,A Lot of the Time
+C0004623,Bacterial Infections
+C0162388,Killing
+C0301625,Metabolic Suppression
+C1317750,Study report
+C1831145,Study report:Finding:Point in time:{Setting}:Document:{Provider}
+C0235896,Pulmonary Infiltrate
+C0432616,Blood group antibody A
+C0332152,Before
+C1314939,Involvement with
+C0450254,Pathogenic organism
+C0884358,Performed
+C0332185,Recent
+C0439234,year
+C1866122,Increased interleukin 10
+C0445623,Microorganism
+C1705938,Base - General Qualifier
+C0185117,Expression procedure
+C0332282,Following
+C0332162,Onset of (contextual qualifier)
+C1880022,Characterization
+C0205246,Generalized
+C0333348,Inflammatory
+C0003209,Anti-Inflammatory Agents
+C1515999,Anti-inflammatory effect
+C0040300,Body tissue
+C0012634,Disease
+C2698884,Professional Occupation
+C1564907,"Receptors, Pattern Recognition"
+C0442805,Increase
+C1441547,Derivation
+C0205388,Few
+C0557775,Van (physical object)
+C0439228,day
+C0043240,Wound Healing
+C0681814,research study
+C0521009,Bacterial
+C0024109,Lung
+C1550516,Target Awareness - partial
+C0347984,During
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0009450,Communicable Diseases
+C0449913,System
+C0441509,Coagulation procedure
+C0205082,Severe (severity modifier)
+C1879547,Activation action
+C0275524,Coinfection
+C0017110,Gases
+C0442808,Increasing
+C0443264,Modulated
+C0032285,Pneumonia
+C0038172,Staphylococcus aureus
+C0040048,Thromboplastin
+C0042769,Virus Diseases
+C1515877,activate biological process
+C0027950,neutrophil
+C0439662,Immune
+C0522224,Paralysed
+C2905612,Storm NOS
+C3671956,Cellular infiltration of lung
+C1441547,Derivation
+C1418736,POLL gene
+C0557775,Van (physical object)
+C0678226,Due to
+C0332283,Followed by
+C0004611,Bacteria
+C1290884,Inflammatory disorder
+C0010957,Tissue damage
+C1155266,Inflammatory Response
+C0185117,Expression procedure
+C0205231,Extensive
+C1522538,Leading
+C0037179,Unmarried person
+C0861064,lead increased
+C0521009,Bacterial
+C1880022,Characterization
+C1880177,Contribution
+C0424295,Hyperactive behavior
+C0871261,Response process
+C1442792,State
+C1269955,Tumor Cell Invasion
+C1457868,Worse
+C0024109,Lung
+C0035647,Risk
+C1254351,Pharmacologic Substance
+C1524003,Science of Etiology
+C0079189,cytokine
+C0031847,physiopathological
+C0038410,Streptococcus pneumoniae
+C1555582,Initial (abbreviation)
+C2349975,Enhance (action)
+C0332162,Onset of (contextual qualifier)
+C1704913,TAF1 wt Allele
+C0005779,Blood Coagulation Disorders
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0030664,Pathology
+C0040300,Body tissue
+C0332257,Including (qualifier)
+C0010957,Tissue damage
+C1536403,pathologic cytolysis
+C0021368,Inflammation
+C1280500,Effect
+C2349975,Enhance (action)
+C0521009,Bacterial
+C0027950,neutrophil
+C0040549,Toxin
+C0024109,Lung
+C0026566,Aspects of mortality statistics
+C0004611,Bacteria
+C0678227,Causing
+C1947931,Direct (qualifier)
+C1167395,Host (organism)
+C1416602,KCNMA1 gene
+C0023504,Leukocidins
+C0023529,"Leukomalacia, Periventricular"
+C0210666,Panton-Valentine leukocidin
+C1883727,Taken
+C1883357,Together
+C1149789,agmatinase activity
+C2261241,alpha-toxin activity
+C0071313,"plY protein, Streptococcus pneumoniae"
+C0017107,Gas Poisoning
+C1273342,Epithelial cell count (procedure)
+C0010868,Cytotoxin
+C1414504,F2 gene
+C0026538,Morbidity - disease rate
+C1853685,PBRM1 gene
+C0004630,Bacterial Toxins
+C0450254,Pathogenic organism
+C0033684,Proteins
+C0332281,Associated with
+C1327413,cytokine production
+C1880177,Contribution
+C1314939,Involvement with
+C1274040,Result
+C0162493,Transcriptional Activation
+C0041904,Up-Regulation (Physiology)
+C2698977,Capability
+C1879547,Activation action
+C2346866,Assortment
+C2348269,Dietary Lead
+C0439662,Immune
+C1522538,Leading
+C0205082,Severe (severity modifier)
+C1301808,Geographic state
+C2986495,Synergistic
+C0205431,Formed
+C1325742,Pore
+C1524003,Science of Etiology
+C0038170,Genus staphylococcus
+C0205250,High
+C0521026,Viral
+C1047769,Castanea crenata
+C0086597,Mediate
+C2963249,Accessory
+C0304497,Cytotoxic agent (product)
+C0386482,purinoceptor P2Z
+C0151683,Neutrophilia (finding)
+C0750501,most likely
+C1527036,Recombinant Chemokine
+C0442821,Strong
+C0042776,Virus
+C0333348,Inflammatory
+C1705987,Pathway (interactions)
+C0033414,Promotion (action)
+C0033382,proline
+C1510827,Affinity
+C0038410,Streptococcus pneumoniae
+C0205251,low
+C0041260,Tryptophanase
+C1704324,Scientific Publication
+C0086418,Homo sapiens
+C0683949,Animal Study
+C0162443,Journal
+C0947630,Scientific Study
+C0026809,Mus
+C2603343,Study
+C0031843,physiological aspects
+C0205250,High
+C0202311,Aluminum measurement
+C0871208,Rating (action)
+C3161035,Model
+C0024660,Mammals
+C4319622,76
+C2827396,Scientific Equipment
+C0206034,"Clinical Trials, Randomized"
+C0032285,Pneumonia
+C0332232,Approximate
+C0205419,Variant
+C0040028,"Thrombocythemia, Essential"
+C0085732,Ability
+C0003062,Animals
+C0521009,Bacterial
+C0012984,Canis familiaris
+C1707455,Comparison
+C0887965,Experimental Animal Models
+C0015859,Ferrets
+C0206414,"Genes, Reporter"
+C0017387,Genetic Engineering
+C0205396,Identified
+C0301872,Immune response
+C0332257,Including (qualifier)
+C1522538,Leading
+C1517945,Loss
+C1521743,"Monitor, occupation"
+C0205393,Most
+C0324889,Old World rabbit
+C1518614,Organism Strain
+C0030362,Papio
+C0034037,Publishing
+C1882932,Representation (action)
+C0035804,Rodent
+C1135183,Sus scrofa
+C1273517,Used by
+C0683607,allowing
+C0748864,small size
+C1947946,Aim (idea)
+C0042769,Virus Diseases
+C0332287,In addition to
+C2981279,Decade
+C1832073,Handling
+C1551969,Mono language
+C0205463,Physiological
+C1705920,Species
+C1274040,Result
+C1706852,Article
+C3714514,Infection
+C0205453,Seven
+C0178693,human study
+C1524063,Use of
+C0339951,pneumonia organism nos
+C1515981,And
+C0392360,Indication of (contextual qualifier)
+C0376554,Knowledge
+C0441712,Mechanism (attribute)
+C1514583,Proximity
+C0871532,tool use
+C0205173,Duplicate
+C0232370,Florid red complexion (finding)
+C1825598,IMPACT gene
+C0040710,Translating
+C2700149,Value Above Reference Range
+C0220784,anatomic
+C2346866,Assortment
+C0552371,Citation
+C0009924,Contrast Media
+C0750480,Count
+C3812801,Immunogenicity Specimen Assessments Domain
+C0442805,Increase
+C2347635,Population Median
+C0849355,Removed
+C0684224,Report (document)
+C1514863,Reproducibility
+C0242481,Research Activities
+C3853906,Digital Model Attachment
+C1280500,Effect
+C0332183,Frequently
+C0205172,More
+C0205171,Singular
+C1517741,Last
+C0036397,Science
+C3827682,Useful
+C0042333,Variation (Genetics)
+C2827735,2+ Score
+C0231242,Complicated
+C0205231,Extensive
+C0549177,Large
+C0456962,Rapid
+C0035150,Reproduction
+C0547044,Smaller
+C0598312,DNA Replication
+C1512692,Inbred Strain
+C0019247,Hereditary Diseases
+C0871261,Response process
+C1522424,A Mouse
+C0869040,use studies
+C1515655,In Vivo
+C0314732,Infectious agent
+C1707391,Choose (action)
+C1522508,Details
+C0017398,Science of genetics
+C0042153,utilization qualifier
+C3826168,Human physiology
+C0470187,Availability of
+C0034760,Reagents
+C1948059,Constant (qualifier)
+C0332464,Widening
+C1705242,Different
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0026809,Mus
+C0009450,Communicable Diseases
+C0015859,Ferrets
+C0332257,Including (qualifier)
+C0086418,Homo sapiens
+C0521009,Bacterial
+C0042769,Virus Diseases
+C1547282,Show
+C0684224,Report (document)
+C1167395,Host (organism)
+C1521797,transmission process
+C0439663,Infected
+C0450254,Pathogenic organism
+C0220898,Predisposition -- attribute
+C0221138,Blood group antibody I
+C0439070,Roman Numeral III
+C0205171,Singular
+C0554249,Smith (occupation)
+C0041260,Tryptophanase
+C0120446,guanidine
+C0004611,Bacteria
+C0275524,Coinfection
+C2827758,Antimicrobial Susceptibility Result
+C0470187,Availability of
+C2349975,Enhance (action)
+C1274040,Result
+C0332287,In addition to
+C0205082,Severe (severity modifier)
+C0557775,Van (physical object)
+C0439801,Limited (extensiveness)
+C0021400,Influenza
+C3853906,Digital Model Attachment
+C0005595,Aves
+C1521751,C57BL/6 Mouse
+C0009924,Contrast Media
+C0332218,Difficult (qualifier value)
+C1881534,Make - Instruction Imperative
+C0025919,"Mice, Inbred BALB C"
+C1709305,Occur (action)
+C0884358,Performed
+C0871133,Priming
+C1999230,Providing (action)
+C0242481,Research Activities
+C0439793,Severities
+C0036866,Sex Characteristics
+C1336445,Stage IV Uveal Melanoma AJCC v7
+C1135183,Sus scrofa
+C1524063,Use of
+C5141341,Viral strain
+C0599779,Animal Model
+C0038160,Staphylococcal Infections
+C0042333,Variation (Genetics)
+C2020625,Group B Streptococcal Infection
+C0449295,Limitation
+C0599739,synergism
+C0439234,year
+C4760069,Microbiology - bacterial studies:Finding:Point in time:^Patient:Document
+C0041912,Upper Respiratory Infections
+C0332283,Followed by
+C0521118,Non-infected
+C0003062,Animals
+C3245499,Colombia
+C1764827,Isolate - microorganism
+C4313322,Alveolar damage
+C1155266,Inflammatory Response
+C3842396,No difference
+C1511036,Bacterial Model
+C2708283,Clinical presentation
+C0175668,Secondary to
+C0332268,Lacking
+C0178849,species difference
+C0861064,lead increased
+C0740175,Before values
+C1707455,Comparison
+C1511649,DBA/2 Mouse
+C0013682,Efficiency
+C0205224,Essential
+C1825598,IMPACT gene
+C0439662,Immune
+C0231185,Inefficient
+C0205409,Isolated
+C0205393,Most
+C0522224,Paralysed
+C1273517,Used by
+C0449297,Clearance
+C0233820,Insight
+C1522538,Leading
+C0449450,Presentation
+C2348205,Similarity
+C1441672,Observed
+C0814423,accessibility
+C0343537,Specific viral infections
+C1880022,Characterization
+C4289767,Colonization
+C0205250,High
+C0456178,Microbiology subtype strains
+C1514892,Resistance Process
+C1515655,In Vivo
+C1521846,"Permissiveness, Biological Function"
+C0021289,"Infant, Newborn"
+C0205172,More
+C0068899,NOAC protocol
+C0439064,Numerous
+C0332185,Recent
+C1704241,complex (molecular entity)
+C0600661,Outlines (document)
+C1523987,Alternative
+C0521026,Viral
+C0392673,Adaptation
+C1518422,Negation
+C0439601,Seasonal course
+C3540840,Sign or Symptom
+C1621797,Garcia <plant>
+C0458578,Upper respiratory tract
+C0004623,Bacterial Infections
+C4321249,DIAPH3 wt Allele
+C1706450,Legal Adult
+C0205447,One
+C0027361,Persons
+C0038410,Streptococcus pneumoniae
+C2603343,Study
+C0332289,Transmitted by
+C1280464,Manifestation of
+C0445623,Microorganism
+C0332162,Onset of (contextual qualifier)
+C0311392,Physical findings
+C0032285,Pneumonia
+C1257890,Population Group
+C3827682,Useful
+C0332452,defective
+C1552740,Entity Determiner - specific
+C0034760,Reagents
+C0443318,Sustained
+C0597357,receptor
+C1517320,From
+C0029235,Organism
+C0012634,Disease
+C0038170,Genus staphylococcus
+C0549177,Large
+C0085979,Cavia
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0024109,Lung
+C0439663,Infected
+C0205171,Singular
+C0032285,Pneumonia
+C0086418,Homo sapiens
+C0036638,Sendai virus
+C1524063,Use of
+C0029235,Organism
+C0332158,Contact with
+C1273517,Used by
+C1518422,Negation
+C0003062,Animals
+C0876973,Infectious Lung Disorder
+C0038410,Streptococcus pneumoniae
+C0205210,Clinical
+C0242781,disease transmission
+C3853906,Digital Model Attachment
+C0032639,Pontine structure
+C0085732,Ability
+C0439661,Acquired (qualifier value)
+C0004096,Asthma
+C0005595,Aves
+C0337189,Cage device
+C0868928,Case (situation)
+C0999699,Cavia porcellus
+C0024117,Chronic Obstructive Airway Disease
+C4036459,Contacts
+C0015272,Exhibits as Topic
+C0332183,Frequently
+C1515657,In Vivo Model
+C0332257,Including (qualifier)
+C0205263,Induce (action)
+C0029345,"Orthomyxovirus Type A, Porcine"
+C0031842,Physiology
+C0332289,Transmitted by
+C0041260,Tryptophanase
+C0458578,Upper respiratory tract
+C0042774,Virus Replication
+C1704712,Can - object
+C1444104,Penicillin resistant Streptococcus pneumoniae
+C0470187,Availability of
+C3245499,Colombia
+C0009450,Communicable Diseases
+C0020056,Housing
+C0332287,In addition to
+C0439234,year
+C2347012,Billion Colony Forming Units
+C0275524,Coinfection
+C0392360,Indication of (contextual qualifier)
+C1555389,"Instillation, intratracheal"
+C0032269,Pneumococcal Infections
+C4505065,Noncommunicable Diseases
+C1457887,Symptoms
+C0004610,Bacteremia
+C1331418,Comfort
+C0015859,Ferrets
+C0301872,Immune response
+C3812801,Immunogenicity Specimen Assessments Domain
+C0449719,Part
+C0220898,Predisposition -- attribute
+C0052432,artesunate
+C1512513,Human Pathology
+C0332293,Treated with
+C0442726,Detected (finding)
+C0013682,Efficiency
+C0442118,Intranasal approach
+C0242481,Research Activities
+C0042196,Vaccination
+C0043227,Work
+C1707887,Efficacy Study
+C0004611,Bacteria
+C0439792,Extent
+C0439793,Severities
+C0002808,Science of Anatomy
+C1522326,Treating
+C1260875,mating
+C0332268,Lacking
+C0450254,Pathogenic organism
+C0033414,Promotion (action)
+C0015127,Etiology aspects
+C1705232,Death Related to Adverse Event
+C0332185,Recent
+C0680536,commercial
+C0205423,Certain (qualifier value)
+C0026193,Minor (person)
+C4517892,85
+C0314732,Infectious agent
+C4517888,83
+C1511726,Data
+C0678226,Due to
+C0034760,Reagents
+C0564385,/hour
+C0003232,Antibiotics
+C0332155,Did not receive therapy or drug for
+C0220825,Evaluation
+C0205281,Invasive
+C1704913,TAF1 wt Allele
+C0037783,Species Specificity
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0034693,Rattus norvegicus
+C0038410,Streptococcus pneumoniae
+C0332257,Including (qualifier)
+C1518422,Negation
+C0034695,"Rats, Cotton"
+C0003062,Animals
+C0205172,More
+C0028429,Nose
+C0040300,Body tissue
+C3812881,Author
+C0009450,Communicable Diseases
+C0851827,Dependent - ability
+C3826426,Dynamics
+C0332219,Easy
+C0205435,First (number)
+C0332183,Frequently
+C0086418,Homo sapiens
+C0020672,"Hypothermia, natural"
+C0020971,Immunization
+C1512692,Inbred Strain
+C0728899,Intoxication
+C1292732,Investigates
+C0023890,Liver Cirrhosis
+C0458579,Lower respiratory tract structure
+C0024109,Lung
+C0524620,Metabolic Syndrome X
+C1518614,Organism Strain
+C0450254,Pathogenic organism
+C0032285,Pneumonia
+C0332185,Recent
+C0700287,Reporting
+C0443289,Revealed
+C0339952,Secondary bacterial pneumonia
+C0237876,Sharing (Social Behavior)
+C4048236,Sigmodon hispidus
+C0205171,Singular
+C0032308,Staphylococcal Pneumonia
+C0041260,Tryptophanase
+C1273517,Used by
+C0042776,Virus
+C0748168,Pulmonary Pathology
+C0917903,Conclude Resin
+C0231835,Tachypnea
+C0000934,Acclimatization
+C0332287,In addition to
+C0022702,Kinetics
+C0677042,Pathology processes
+C1136170,Virulence Factors
+C4760069,Microbiology - bacterial studies:Finding:Point in time:^Patient:Document
+C0876973,Infectious Lung Disorder
+C2911645,"Weight Loss, CTCAE"
+C1262477,Weight decreased
+C0470187,Availability of
+C3161035,Model
+C0042774,Virus Replication
+C3900172,A Lot of the Time
+C1550369,Performed By
+C0220898,Predisposition -- attribute
+C1883725,Replicate
+C0023104,Kilham Rat Virus
+C0001807,Aggressive behavior
+C1825598,IMPACT gene
+C1947932,Smear - instruction imperative
+C0010957,Tissue damage
+C1282910,Upper
+C0042769,Virus Diseases
+C0337189,Cage device
+C3245499,Colombia
+C1707491,Consecutive
+C1527148,Development
+C0205231,Extensive
+C0332268,Lacking
+C1708698,Light Emitting Diode Device
+C3828842,Nearly
+C0682323,Partner in relationship
+C0205452,Six
+C0332289,Transmitted by
+C0439228,day
+C0033268,production
+C0439230,week
+C2603343,Study
+C0521026,Viral
+C1181296,Epithelium of bronchiole
+C0206545,Human respiratory syncytial virus
+C0549177,Large
+C0205465,Bacteriologic
+C0439064,Numerous
+C0947630,Scientific Study
+C0205251,low
+C0521009,Bacterial
+C0205246,Generalized
+C0028128,nitric oxide
+C0011849,Diabetes Mellitus
+C1706450,Legal Adult
+C1705920,Species
+C1521970,Characteristics
+C0332282,Following
+C0439662,Immune
+C1720294,On (qualifier value)
+C0034760,Reagents
+C0205369,Specific qualifier value
+C0038402,Streptococcus
+C0024432,macrophage
+C0542339,Inferior
+C3151529,Lethal
+C1274040,Result
+C0324889,Old World rabbit
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0205171,Singular
+C0041260,Tryptophanase
+C0038410,Streptococcus pneumoniae
+C0324888,Sylvilagus
+C1273517,Used by
+C0009450,Communicable Diseases
+C0347985,During values
+C2826234,Clinical Trial Branch
+C0443289,Revealed
+C2603343,Study
+C0003261,Antibody Formation
+C3538928,Usual
+C3853906,Digital Model Attachment
+C1261322,Evaluation procedure
+C0205447,One
+C0242481,Research Activities
+C0543483,pathogenic aspects
+C3161035,Model
+C0947630,Scientific Study
+C1272684,Accepted
+C0242726,Plant Roots
+C0082274,diclofenac epolamine
+C0020965,Active immunity
+C0003062,Animals
+C0470187,Availability of
+C0004611,Bacteria
+C0038952,Continuance of life
+C0332219,Easy
+C0014003,Employment
+C0887898,Experimental Lung Inflammation
+C0332282,Following
+C0332183,Frequently
+C0332257,Including (qualifier)
+C0332448,Infiltration
+C1704686,Initiation
+C1292732,Investigates
+C0458579,Lower respiratory tract structure
+C0024109,Lung
+C1881534,Make - Instruction Imperative
+C0032285,Pneumonia
+C0850310,Possessed
+C0150312,Present
+C0522498,Rare
+C0229671,Serum
+C0032308,Staphylococcal Pneumonia
+C0205410,Sufficient
+C0038895,Surgical aspects
+C0042210,Vaccines
+C0748168,Pulmonary Pathology
+C1707887,Efficacy Study
+C2584321,Reaching
+C0876973,Infectious Lung Disorder
+C2985574,Study Condition
+C0013682,Efficiency
+C0015392,Eye
+C1424276,HM13 gene
+C0018510,Haiti
+C0022702,Kinetics
+C0449444,Route
+C0243026,Sepsis
+C0439234,year
+C2713348,Virus Titer
+C0042774,Virus Replication
+C0007226,Cardiovascular system
+C3887509,Rabbits
+C0034760,Reagents
+C0521978,Susceptibility to infections
+C0013175,Drug Evaluation
+C0449381,Observation parameter
+C0155862,Streptococcal pneumonia
+C0235896,Pulmonary Infiltrate
+C1533734,Administration procedure
+C1515981,And
+C0439227,Hour
+C0884358,Performed
+C3844714,No improvement
+C1705938,Base - General Qualifier
+C1442216,Bronchial system
+C0277793,Onset of illness
+C0521108,Recovering from
+C1705187,Safety Study
+C3827682,Useful
+C0205170,Good
+C0205309,Known
+C0700364,Appearance
+C0178602,Dosage
+C1265611,Quantity
+C1513491,Most Recent
+C0441729,Type 1
+C0003241,Antibodies
+C1705232,Death Related to Adverse Event
+C0205388,Few
+C0013227,Pharmaceutical Preparations
+C0332185,Recent
+C0678756,drug concentration
+C0037783,Species Specificity
+C0439064,Numerous
+C0442027,Oral
+C0205251,low
+C0439787,Out (direction)
+C0034754,Reading (activity)
+C2987620,Inoculation
+C0035736,"RNA, Viral"
+C4321249,DIAPH3 wt Allele
+C0205535,Inhalation Route of Drug Administration
+C0086045,Mental concentration
+C0005595,Aves
+C0205435,First (number)
+C0023516,Leukocytes
+C1720294,On (qualifier value)
+C0042153,utilization qualifier
+C0549177,Large
+C0205341,Repeat
+C0040578,Trachea
+C0024400,Macaca mulatta
+C0024398,Macaca
+C4697068,ADAPTABLE
+C1882932,Representation (action)
+C1273517,Used by
+C0024399,Macaca fascicularis
+C1705920,Species
+C4505065,Noncommunicable Diseases
+C0178693,human study
+C0033147,Primates
+C0205164,Major
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0024398,Macaca
+C0016627,Influenza in Birds
+C1518614,Organism Strain
+C0580264,H1N1
+C0041260,Tryptophanase
+C0024399,Macaca fascicularis
+C1273517,Used by
+C0332185,Recent
+C1274040,Result
+C1615608,Pandemics
+C0450254,Pathogenic organism
+C0805586,Challenge
+C0205250,High
+C0936012,Analysis
+C1707455,Comparison
+C1279919,Early
+C0206277,Fatal Outcome
+C0015967,Fever
+C1167395,Host (organism)
+C1875400,ISOLATE COMPOUND
+C0332257,Including (qualifier)
+C0205081,Moderate (severity modifier)
+C0026809,Mus
+C0264515,"Pneumonia, Necrotizing"
+C0035222,"Respiratory Distress Syndrome, Adult"
+C0042774,Virus Replication
+C1547282,Show
+C0748355,Acute respiratory distress
+C1112870,Aerosol Dose Form
+C0541749,Does turn (finding)
+C0947630,Scientific Study
+C0205210,Clinical
+C0542339,Inferior
+C1555391,"Instillation, nasal"
+C2827758,Antimicrobial Susceptibility Result
+C0178602,Dosage
+C0444956,High dose
+C0599779,Animal Model
+C0231180,Insufficient (qualifier)
+C1522538,Leading
+C1545588,Protection
+C0442726,Detected (finding)
+C0439663,Infected
+C1257890,Population Group
+C1334016,High Grade Lesion
+C1148523,Childbirth
+C0205195,Combined
+C2603343,Study
+C0543483,pathogenic aspects
+C0004048,Inspiration function
+C0205449,Three
+C0439858,Conventional
+C0012634,Disease
+C1414262,EDNRA gene
+C1155328,Antiviral Response
+C0347985,During values
+C0449444,Route
+C1704913,TAF1 wt Allele
+C0042776,Virus
+C0205251,low
+C1707391,Choose (action)
+C0015859,Ferrets
+C0030664,Pathology
+C1520022,Virulent
+C0205263,Induce (action)
+C0748132,PULMONARY causes
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C1518422,Negation
+C0024399,Macaca fascicularis
+C0205210,Clinical
+C1290325,Disorder of lower respiratory system
+C0086418,Homo sapiens
+C0748168,Pulmonary Pathology
+C0009450,Communicable Diseases
+C1441672,Observed
+C1521970,Characteristics
+C0032285,Pneumonia
+C0023529,"Leukomalacia, Periventricular"
+C1521733,Pathologic
+C0936012,Analysis
+C0005774,Blood Chemical Analysis
+C0442726,Detected (finding)
+C0580267,H3N2
+C0879240,Nasal Swabs
+C0522498,Rare
+C1273517,Used by
+C1524003,Science of Etiology
+C4283847,Lung Progression GvHD
+C1522642,Clone
+C0149725,Lower respiratory tract infection
+C0178693,human study
+C1257890,Population Group
+C0752248,Gene Expression Profiling
+C0033147,Primates
+C1261322,Evaluation procedure
+C0024398,Macaca
+C0026447,Monkeys
+C1880177,Contribution
+C1517586,Investigational
+C1314939,Involvement with
+C0884358,Performed
+C0031350,Pharyngitis
+C2603343,Study
+C0449381,Observation parameter
+C4698075,Virulent strain
+C0003062,Animals
+C3853906,Digital Model Attachment
+C1521743,"Monitor, occupation"
+C0554628,Group A Streptococcal Infections
+C0017110,Gases
+C2945599,Mild (qualifier value)
+C3151529,Lethal
+C0242481,Research Activities
+C0445247,Same
+C0205465,Bacteriologic
+C1299392,Mild to moderate
+C0205127,Longitudinal
+C4330475,Immune Cell
+C5139167,Severe infection
+C0275524,Coinfection
+C0038172,Staphylococcus aureus
+C0028128,nitric oxide
+C0006285,Bronchopneumonia
+C0205082,Severe (severity modifier)
+C0035243,Respiratory Tract Infections
+C0332282,Following
+C0024109,Lung
+C3898900,Healthy
+C0439601,Seasonal course
+C1279919,Early
+C0205250,High
+C1704913,TAF1 wt Allele
+,
+,
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0003062,Animals
+C0024400,Macaca mulatta
+C0038410,Streptococcus pneumoniae
+C0032285,Pneumonia
+C0021270,Infant
+C0947630,Scientific Study
+C0024398,Macaca
+C0205171,Singular
+C0805586,Challenge
+C1518614,Organism Strain
+C0358314,Pneumococcal vaccine
+C0071313,"plY protein, Streptococcus pneumoniae"
+C0205454,Eight
+C0205263,Induce (action)
+C0305065,Polyvalent pneumococcal vaccine
+C0027442,Nasopharynx
+C0025516,"Metabolic Detoxication, Drug"
+C0936012,Analysis
+C3812881,Author
+C4289767,Colonization
+C0699809,Does carry
+C2987476,Exist
+C0332183,Frequently
+C3840786,Greatly
+C0020964,Immunity
+C0332257,Including (qualifier)
+C1518422,Negation
+C0309872,PREVENT (product)
+C0031842,Physiology
+C0750492,Probably
+C0039593,Testing
+C0392366,Tests (qualifier value)
+C0087111,Therapeutic procedure
+C0041260,Tryptophanase
+C0042196,Vaccination
+C0033107,prevention & control
+C0917903,Conclude Resin
+C0220825,Evaluation
+C0443640,Specific antibody
+C0221138,Blood group antibody I
+C0184959,Instillation (procedure)
+C1257890,Population Group
+C0687676,Post
+C1707887,Efficacy Study
+C0961101,23-valent pneumococcal capsular polysaccharide vaccine
+C0042210,Vaccines
+C2936404,Bacterial Load
+C1261322,Evaluation procedure
+C1273517,Used by
+C2987125,Past Week
+C0428479,Protein level - finding
+C3842585,60%
+C1515981,And
+C1707101,CD44 wt Allele
+C1516240,Capacity
+C0439230,week
+C2981279,Decade
+C1167395,Host (organism)
+C0871208,Rating (action)
+C3853906,Digital Model Attachment
+C0549184,None
+C1514583,Proximity
+C1825598,IMPACT gene
+C1517892,Links List
+C0946326,pulmonary studies
+C0004927,Behavior
+C0038951,Surveys
+C3152625,Pneumococcal 13-valent conjugate vaccine
+C1519614,Genetic Translation Process
+C0445247,Same
+C1947989,Colony (cells or organisms)
+C3495559,Juvenile arthritis
+C0033684,Proteins
+C0385592,histidine triad protein
+C0678226,Due to
+C0682638,Memory B-Lymphocyte
+C0001551,Immunologic Adjuvants
+C0205296,Natural
+C0205435,First (number)
+C0205170,Good
+C0456981,Specific antigen
+C0205448,Two
+C0332174,Weekly
+C0542559,contextual factors
+C0587267,Closed
+C0086418,Homo sapiens
+C3245505,Potential
+C1449520,Pulmonal S
+C4527371,Candidate
+C0086418,Homo sapiens
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C1135183,Sus scrofa
+C0332257,Including (qualifier)
+C0025914,House mice
+C0039005,Family suidae
+C0026473,Monocytes
+C1704691,FCGR3A wt Allele
+C1367477,CD14 gene
+C0009450,Communicable Diseases
+C0041260,Tryptophanase
+C0020962,Immune system
+C0205396,Identified
+C2825142,Experimental Result
+C1707391,Choose (action)
+C1883712,Add - instruction imperative
+C0542341,Function (attribute)
+C2348205,Similarity
+C0032285,Pneumonia
+C1335144,Orthologous Gene
+C0150312,Present
+C0445604,Subclass
+C0439662,Immune
+C1553343,Chamorro race
+C2603343,Study
+C1555710,Act Class - Attestable unit
+C1698756,"CXCL8 protein, human"
+C1706256,Clinical Study Case
+C0332219,Easy
+C0887965,Experimental Animal Models
+C0332183,Frequently
+C0209606,Integrin alpha4beta1
+C0079717,Lymphocyte Function-Associated Antigen-1
+C0024501,Maintenance
+C0040421,Palatine Tonsil
+C0031842,Physiology
+C0850310,Possessed
+C0033147,Primates
+C0035804,Rodent
+C0327949,Salmo salar
+C0237876,Sharing (Social Behavior)
+C4048302,"T-Lymphocyte Activation Antigen CD80, human"
+C0449851,Techniques
+C2936411,Th17 Cells
+C3538928,Usual
+C3640076,Whole Genome Sequencing
+C1522005,immunology aspects
+C2985420,CD276 Antigen
+C0007578,Cell Adhesion Molecules
+C0439092,Less Than
+C4330475,Immune Cell
+C1521970,Characteristics
+C0024660,Mammals
+C1518601,Options
+C0178784,Organ
+C0079189,cytokine
+C0681797,paradigm
+C0458578,Upper respiratory tract
+C0947630,Scientific Study
+C2349967,Compartment of cell
+C1515657,In Vivo Model
+C3178847,Genome Size
+C0392920,Chemotherapy Regimen
+C1622714,attractant
+C4722001,Substance with effector mechanism of action (substance)
+C3842590,10%
+C3842583,80%
+C0332197,Absent
+C1705938,Base - General Qualifier
+C1314939,Involvement with
+C1423842,NELFCD gene
+C0871261,Response process
+C1552738,described
+C0868920,human anatomy
+C4253999,Nasopharyngeal lymphoid tissue
+C4699274,>50 cells
+C0026339,Biological Models
+C0332529,Consistency
+C0332849,Divide
+C1552740,Entity Determiner - specific
+C0205450,Four
+C1334043,Homologous Gene
+C2347617,Point Name
+C0205449,Three
+C1524063,Use of
+C0012655,Disease susceptibility
+C0205108,Distal (qualifier value)
+C0036849,Set (Psychology)
+C3272444,PIGA wt Allele
+C0205170,Good
+C0205309,Known
+C0205393,Most
+C3842584,70%
+C0175630,Circulating
+C0521447,Nuclear (nucleus)
+C0027950,neutrophil
+C2347957,Reservation (action)
+C1555712,topic - ActClassContainer
+C1267822,CD4+ CD25+ Regulatory T Cells
+C2350008,Financial (qualifier)
+C0700321,Small
+C1522138,shared attribute
+C2827755,Antimicrobial Intermediate Susceptibility Result
+C0439858,Conventional
+C1551910,Dawson Language
+C0231193,adaptive
+C0333348,Inflammatory
+C0523852,Proline measurement
+C0205402,Prominent
+C0442824,Very
+C1167395,Host (organism)
+C0599779,Animal Model
+C0449911,View
+C0205470,immunologic
+C0028128,nitric oxide
+C0443225,Full
+C2945640,compromise
+C0003062,Animals
+C0005532,biology (field)
+C0017296,gene therapy
+C0006539,Belarus
+C0205082,Severe (severity modifier)
+C1548787,Appropriate
+C4321249,DIAPH3 wt Allele
+C1705242,Different
+C2698651,Optimum
+C0332464,Widening
+C0450254,Pathogenic organism
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C1135183,Sus scrofa
+C0029235,Organism
+C1708698,Light Emitting Diode Device
+C0035243,Respiratory Tract Infections
+C0042196,Vaccination
+C3714514,Infection
+C0557775,Van (physical object)
+C3853906,Digital Model Attachment
+C0086418,Homo sapiens
+C0003869,"Arthritis, Infectious"
+C0006017,Bordetella pertussis
+C1300203,Genus Homo
+C0580264,H1N1
+C0580267,H3N2
+C0332257,Including (qualifier)
+C1881534,Make - Instruction Imperative
+C0026926,Mycobacterium tuberculosis
+C0029443,Osteomyelitis
+C0033809,Pseudomonas aeruginosa
+C0036690,Septicemia
+C1547282,Show
+C0038172,Staphylococcus aureus
+C0038410,Streptococcus pneumoniae
+C0041260,Tryptophanase
+C1273517,Used by
+C0543483,pathogenic aspects
+C2708283,Clinical presentation
+C0275524,Coinfection
+C0332281,Associated with
+C0332287,In addition to
+C3245499,Colombia
+C1948053,Period (temporal qualifier)
+C0004610,Bacteremia
+C4289767,Colonization
+C0015967,Fever
+C0205280,Identical
+C0439663,Infected
+C0884358,Performed
+C0332185,Recent
+C0242481,Research Activities
+C0449560,Subtype (attribute)
+C0439234,year
+C0443211,Established
+C0205170,Good
+C0237753,Numbers
+C0439228,day
+C1442466,5 Days
+C1707959,Example
+C0043241,Wound Infection
+C1412493,AQP3 gene
+C0391936,Barbiturates measurement
+C2348205,Similarity
+C0521346,respiratory
+C0011198,Delaware
+C0009450,Communicable Diseases
+C0442118,Intranasal approach
+C0348016,Intravenous
+C3540840,Sign or Symptom
+C1704913,TAF1 wt Allele
+C4321249,DIAPH3 wt Allele
+C1512612,Ideal
+C0947630,Scientific Study
+C0678227,Causing
+C1707491,Consecutive
+C0521125,Preposition For
+C0205452,Six
+C0450254,Pathogenic organism
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0565930,per second
+C0041260,Tryptophanase
+C1135183,Sus scrofa
+C0861352,Lobular Neoplasia
+C0450254,Pathogenic organism
+C0439663,Infected
+C0086418,Homo sapiens
+C0003864,Arthritis
+C0015127,Etiology aspects
+C0332257,Including (qualifier)
+C0025289,Meningitis
+C0243026,Sepsis
+C0947630,Scientific Study
+C3853906,Digital Model Attachment
+C0332287,In addition to
+C0034036,Publications
+C0039005,Family suidae
+C3245499,Colombia
+C0439801,Limited (extensiveness)
+C0004611,Bacteria
+C0332183,Frequently
+C0017337,Genes
+C0017420,Genitalia
+C0205250,High
+C1512612,Ideal
+C1115660,Lot Number
+C0205393,Most
+C1456808,"Nares, entire, anterior or posterior"
+C0439064,Numerous
+C1948045,Once (schedule frequency)
+C0343532,Streptococcal toxic shock syndrome
+C0040710,Translating
+C1524063,Use of
+C3538928,Usual
+C0750591,consider
+C1547282,Show
+C4759886,Apoptosis Pathway
+C0868966,Habitations
+C0206209,Time Management
+C0009450,Communicable Diseases
+C1327413,cytokine production
+C2708283,Clinical presentation
+C0014653,Equilibrium
+C0424295,Hyperactive behavior
+C0029235,Organism
+C1520022,Virulent
+C4322223,Mucosa of tonsil
+C0085520,Streptococcus suis
+C0332281,Associated with
+C0017189,Gastrointestinal tract structure
+C0301872,Immune response
+C1550369,Performed By
+C1836348,Severe disorder
+C0010186,Financial cost
+C0205246,Generalized
+C0456178,Microbiology subtype strains
+C0449943,Serotype
+C0470187,Availability of
+C0003062,Animals
+C1707455,Comparison
+C0023185,Learning
+C0032285,Pneumonia
+C0681829,in vivo study
+C0205409,Isolated
+C0025929,Laboratory mice
+C0205171,Singular
+C0392747,Changing
+C1257890,Population Group
+C1280500,Effect
+C1514873,Requirement
+C2986495,Synergistic
+C0237753,Numbers
+C0205148,Surface
+C1514559,Protein Overexpression
+C0445623,Microorganism
+C1955473,Others - Allergy
+C0275524,Coinfection
+C1628327,Zoonotic pathogen
+C0005639,Bisexuality
+C1006780,Citrus maxima
+C0333348,Inflammatory
+C0024501,Maintenance
+C2700149,Value Above Reference Range
+C0205172,More
+C0205082,Severe (severity modifier)
+C0003069,"Animals, Transgenic"
+C0580264,H1N1
+C0872329,animal facility
+C1167395,Host (organism)
+C0205296,Natural
+C0332185,Recent
+C1517586,Investigational
+C1704211,Specialized
+C0747726,POLY
+C0748168,Pulmonary Pathology
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C0009450,Communicable Diseases
+C0596171,Tissue Engineering
+C0024109,Lung
+C0947630,Scientific Study
+C0040300,Body tissue
+C0332257,Including (qualifier)
+C3853906,Digital Model Attachment
+C1880177,Contribution
+C1519523,Tissue Model
+C2603343,Study
+C0041260,Tryptophanase
+C0819757,Structure of parenchyma of lung
+C0440744,Human tissue
+C3161035,Model
+C1706515,Matrix substance
+C0748168,Pulmonary Pathology
+C0332185,Recent
+C1442459,3 Days
+C1704241,complex (molecular entity)
+C0221908,Epithelial
+C0178784,Organ
+C0029250,Organoids
+C0011306,Dendritic Cells
+C0014323,Entamoeba histolytica
+C0014834,Escherichia coli
+C0038170,Genus staphylococcus
+C0439267,Gram per Deciliter
+C0441835,Group A (qualifier value)
+C0205263,Induce (action)
+C1550608,Instance
+C0023529,"Leukomalacia, Periventricular"
+C0026473,Monocytes
+C4706659,Necrotizing pneumonia caused by Panton-Valentine leukocidin producing Staphylococcus aureus
+C0031669,Phospholipase C
+C1979971,Russell
+C0038402,Streptococcus
+C0449911,View
+C0750591,consider
+C0024432,macrophage
+C0027950,neutrophil
+C1705535,suggestion
+C1321301,Peripheral blood mononuclear cell (cell)
+C0038166,Staphylococcal Skin Infections
+C4330475,Immune Cell
+C0003737,Architecture
+C0007585,Cell Culture Techniques
+C0486616,Composition
+C1280477,Progress
+C0034036,Publications
+C1704458,Top (position)
+C1720176,Upon - dosing instruction fragment
+C3539073,In the Field
+C1257974,Regenerative Medicine
+C0035869,Rotavirus Infections
+C1524063,Use of
+C0449445,Approach
+C0450254,Pathogenic organism
+C0934502,anatomical layer
+C4082764,Gastrointestinal infection
+C0276289,Zika Virus Infection
+C0850666,Infection caused by Helicobacter pylori
+C1752856,Host-Pathogen Interactions
+C0019169,hepatitis B virus
+C2827396,Scientific Equipment
+C3900053,Amenable
+C2347946,Relevance
+C2924612,Cephalometric point A
+C0242994,Hantavirus Infections
+C0162340,Comprehension
+C0332529,Consistency
+C0014003,Employment
+C0016030,Fibroblasts
+C3840786,Greatly
+C1285542,Has focus
+C0237753,Numbers
+C0035870,Rotavirus
+C1707903,Embedding
+C3245505,Potential
+C0009325,collagen
+C1518422,Negation
+C0036397,Science
+C0205171,Singular
+C0237451,Adaptability
+C1280500,Effect
+C0441471,Event
+C3714514,Infection
+C0021852,"Intestines, Small"
+C0007634,Cells
+C0439064,Numerous
+C0750502,Significant
+C2348480,ex vivo
+C0205393,Most
+C0205363,Stratified
+C2828392,Standard (document)
+C0872351,monolayer
+C0439234,year
+C0021107,Implantation procedure
+C0032285,Pneumonia
+C0887913,Andes Virus
+C0003048,Animal Experimentation
+C0003062,Animals
+C0227523,Structure of hepatic sinusoid
+C0521362,gastrointestinal
+C0736268,Liver parenchyma
+C0549177,Large
+C1704913,TAF1 wt Allele
+C0024348,Lysis
+C2625439,Andes
+C0439851,Direct type of relationship
+C0014609,Epithelium
+C0272285,Heparin-induced thrombocytopenia
+C0086418,Homo sapiens
+C0038351,Stomach
+C0205448,Two
+C0205090,Right
+C0682624,Sinusoid
+C0205449,Three
+C0542559,contextual factors
+,
+C0202311,Aluminum measurement
+C0040028,"Thrombocythemia, Essential"
+C2348480,ex vivo
+C1261552,Step (specific stage)
+C0086418,Homo sapiens
+C0041260,Tryptophanase
+C0029345,"Orthomyxovirus Type A, Porcine"
+C3714514,Infection
+C0445623,Microorganism
+C0565930,per second
+C0024109,Lung
+C0004589,Bacillus anthracis
+C0439659,Beginning
+C0018483,Haemophilus influenzae
+C1752856,Host-Pathogen Interactions
+C0332257,Including (qualifier)
+C0027552,Needs
+C2983310,Overcome
+C0884358,Performed
+C0033414,Promotion (action)
+C0700287,Reporting
+C0038410,Streptococcus pneumoniae
+C2603343,Study
+C1547282,Show
+C1515273,Term (temporal)
+C0439855,Complex
+C1261322,Evaluation procedure
+C0332287,In addition to
+C0934502,anatomical layer
+C0542559,contextual factors
+C1550456,option - ActMoodPredicate
+C0517627,Infection status
+C0449913,System
+C0010957,Tissue damage
+C0205234,Focal
+C0242732,Tropism
+C0004623,Bacterial Infections
+C0851827,Dependent - ability
+C0205393,Most
+C1963578,Release (procedure)
+C0043227,Work
+C2350512,Bacterial Processes
+C1524063,Use of
+C0521114,Infrequent
+C0275524,Coinfection
+C0449295,Limitation
+C0681814,research study
+C2169571,Recent infection
+C0871208,Rating (action)
+C1524062,Additional
+C0205172,More
+C0243042,Inflammation Mediators
+C0205125,Deep (qualifier value)
+C0205435,First (number)
+C0205250,High
+C1555582,Initial (abbreviation)
+C0205281,Invasive
+C0127400,Mediator brand of benfluorex hydrochloride
+C1514873,Requirement
+C0042776,Virus
+C0678226,Due to
+C0596171,Tissue Engineering
+C0185117,Expression procedure
+C1325531,Microbial anatomical capsule structure
+C0518609,Consideration
+C0598312,DNA Replication
+C0026531,Morality
+C0521009,Bacterial
+C2699153,Cell Invasion
+C0819757,Structure of parenchyma of lung
+C0440744,Human tissue
+C0332185,Recent
+C0332282,Following
+C1522240,Process
+C0205448,Two
+C0005558,Biopsy
+C0178784,Organ
+C0039005,Family suidae
+C0150312,Present
+C3540763,VARIOUS DRUG CLASSES IN ATC
+C0439234,year
+C1519355,Slice
+C0332257,Including (qualifier)
+C0205169,Bad
+C0009450,Communicable Diseases
+C0521009,Bacterial
+C0086418,Homo sapiens
+C0947630,Scientific Study
+C0004611,Bacteria
+C0085979,Cavia
+C0162340,Comprehension
+C0443211,Established
+C0442801,Exaggerated
+C0015859,Ferrets
+C3826168,Human physiology
+C0020962,Immune system
+C0020969,"Immunity, Innate"
+C0449295,Limitation
+C3161035,Model
+C0026565,Mortality Vital Statistics
+C0027552,Needs
+C0324889,Old World rabbit
+C0032285,Pneumonia
+C0150312,Present
+C1999230,Providing (action)
+C0034721,Rattus
+C1706244,Summary (document)
+C0041260,Tryptophanase
+C1524063,Use of
+C0750591,consider
+C1705535,suggestion
+C1512716,"Infectious Agent, Virus"
+C1521761,Factor
+C1881534,Make - Instruction Imperative
+C3272629,Epithelial Damage
+C3853906,Digital Model Attachment
+C3151529,Lethal
+C2905612,Storm NOS
+C0877203,Viral Respiratory Tract Infection
+C0729531,Viral respiratory infection
+C0015264,Exertion
+C1518422,Negation
+C0033147,Primates
+C0026809,Mus
+C0884358,Performed
+C2346866,Assortment
+C2349975,Enhance (action)
+C0376554,Knowledge
+C1522538,Leading
+C0439849,Relationships
+C1522005,immunology aspects
+C0220880,morbidity aspects
+C0597653,virus infection mechanism
+C0332183,Frequently
+C3245499,Colombia
+C2828008,Burden
+C0725066,Advance -- medical device
+C0242656,Disease Progression
+C1880022,Characterization
+C0039005,Family suidae
+C0205250,High
+C0439064,Numerous
+C0079189,cytokine
+C1706912,BARRIER
+C0205082,Severe (severity modifier)
+C1515655,In Vivo
+C1456573,Global Health
+C1456613,Health systems
+C0441712,Mechanism (attribute)
+C0205172,More
+C5139167,Severe infection
+C2986495,Synergistic
+C0016884,Future
+C4281574,Much
+C0332185,Recent
+C0439234,year
+C2348867,Global
+C0449913,System
+C0013109,Drama
