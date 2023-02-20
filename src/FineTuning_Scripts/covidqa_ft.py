@@ -6,6 +6,7 @@ from sklearn.model_selection import KFold
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from torch.optim import AdamW
+from timm.optim import Lamb
 from tqdm.auto import tqdm
 import transformers
 import collections
@@ -211,7 +212,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('--model_checkpoint', default="csarron/roberta-base-squad-v1", type=str)
 parser.add_argument('--trained_model_name', default="test-covidqa-trained-saptarshiconnor", type=str) # So that we can KNOW for sure which folder is what.
-parser.add_argument('--batch_size', default=40, type=int)
+parser.add_argument('--batch_size', default=16, type=int)
 parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
 parser.add_argument('--learning_rate', default=2e-5, type=float)
@@ -276,7 +277,7 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         for param in getattr(model, base_module_name).parameters():
             param.requires_grad = False
 
-    optimizer = AdamW(model.parameters(), lr=args.learning_rate)
+    optimizer = Lamb(model.parameters(), lr=args.learning_rate)
     
     accelerator = Accelerator()
     device = accelerator.device
@@ -323,10 +324,10 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         end_logits = end_logits[: len(validation_dataset)]
 
         metrics = compute_metrics(start_logits, end_logits, validation_dataset, fold_dataset['validation'])
-        print(f"FOLD {fold_number + 1} | EPOCH {epoch + 1}: EM@1: {metrics[0]['exact_match']:.3} F1@1: {metrics[0]['f1']:.3} || EM@5: {metrics[1]['exact_match']:.3} F1@5: {metrics[1]['f1']:.3}")
+        print(f"FOLD {fold_number + 1} | EPOCH {epoch + 1}: EM@1: {metrics['exact_match']:.3} F1@1: {metrics['f1']:.3}")
 
-        f1_1_folds.append(metrics[0]['f1'])
-        em_1_folds.append(metrics[0]['exact_match'])
+        f1_1_folds.append(metrics['f1'])
+        em_1_folds.append(metrics['exact_match'])
 
         #f1_5_folds.append(metrics[1]['f1'])
         #em_5_folds.append(metrics[1]['exact_match'])
