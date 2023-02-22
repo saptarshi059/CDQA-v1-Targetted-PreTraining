@@ -36,12 +36,7 @@ if __name__ == '__main__':
     parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--student_model', default="distilbert-base-uncased", type=str)
     parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
-    parser.add_argument('--no_new_question_tokens', default=20, type=int)
-    parser.add_argument('--no_new_context_tokens', default=2048, type=int)
-    parser.add_argument('--no_new_answer_tokens', default=512, type=int)
-    parser.add_argument('--top_N_entities_to_select', type=int)
-    parser.add_argument('--last_N_tokens_for_context', default=80, type=int)
-
+    parser.add_argument('--context_max_len', default=2048, type=int)
     parser.add_argument('--n_context_per_entity', default=5, type=int)
 
     parser.add_argument('--world_size', default=1, type=int)
@@ -77,12 +72,13 @@ if __name__ == '__main__':
 
     for ent in ent_in_model_vocab:
         ents_main.remove(ent)
-    '''
-
+    
     if args.top_N_entities_to_select == '':
         args.top_N_entities_to_select = len(ents_main)
 
     ents_main = [x[0] for x in Counter(ents_main).most_common()[:args.top_N_entities_to_select]]
+    '''
+
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
     n_ents = len(ents_main)
@@ -116,7 +112,7 @@ if __name__ == '__main__':
 
         set_seed(42)
         generations = generator(
-            entity_prompts, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens,
+            entity_prompts, renormalize_logits=True, do_sample=True, max_length=args.context_max_len,
             top_p=0.9, temperature=0.9, use_cache=True, batch_size=args.batch_size
         )
         generations = [gen[0]['generated_text'] for gen in generations]
