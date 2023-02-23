@@ -92,8 +92,7 @@ if __name__ == '__main__':
     tokenizer = AutoTokenizer.from_pretrained(args.student_model)
     generator_model = AutoModelForCausalLM.from_pretrained(args.teacher_model)
     generator_model_tokenizer = AutoTokenizer.from_pretrained(args.teacher_model)
-    generator_model_question_mark_ID = generator_model_tokenizer.get_vocab()['?']
-
+    
     generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer,
                          device=args.rank)
     generator.tokenizer.pad_token_id = generator_model.config.eos_token_id
