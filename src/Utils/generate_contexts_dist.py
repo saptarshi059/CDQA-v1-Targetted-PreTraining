@@ -64,6 +64,9 @@ if __name__ == '__main__':
     with open(ents_file_path, 'rb') as f:
         ents_main = pickle.load(f)
 
+    #for debugging.
+    ents_main = ents_main[:5]
+
     '''
     ent_in_model_vocab = []
     for ent in tqdm(ents_main):
