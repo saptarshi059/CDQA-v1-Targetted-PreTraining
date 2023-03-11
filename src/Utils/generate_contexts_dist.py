@@ -67,21 +67,6 @@ if __name__ == '__main__':
     #for debugging.
     ents_main = ents_main[:5]
 
-    '''
-    ent_in_model_vocab = []
-    for ent in tqdm(ents_main):
-        if ent in model_vocab:
-            ent_in_model_vocab.append(ent)
-
-    for ent in ent_in_model_vocab:
-        ents_main.remove(ent)
-    
-    if args.top_N_entities_to_select == '':
-        args.top_N_entities_to_select = len(ents_main)
-
-    ents_main = [x[0] for x in Counter(ents_main).most_common()[:args.top_N_entities_to_select]]
-    '''
-
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
     n_ents = len(ents_main)
