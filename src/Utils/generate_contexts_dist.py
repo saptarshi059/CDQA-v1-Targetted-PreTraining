@@ -34,7 +34,6 @@ class PromptDataset(Dataset):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
-    parser.add_argument('--student_model', default="distilbert-base-uncased", type=str)
     parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
     parser.add_argument('--context_max_len', default=2048, type=int)
     parser.add_argument('--n_context_per_entity', default=5, type=int)
@@ -56,16 +55,10 @@ if __name__ == '__main__':
 
     out_fp = os.path.join(args.out, 'rank{}_gens.parquet'.format(args.rank))
 
-    tokenizer = AutoTokenizer.from_pretrained(args.student_model)
-    model_vocab = list(tokenizer.vocab.keys())
-
     print('[rank {}] Reading entities'.format(args.rank))
     ents_file_path = os.path.abspath(args.entity_file)
     with open(ents_file_path, 'rb') as f:
         ents_main = pickle.load(f)
-
-    #for debugging.
-    ents_main = ents_main[:5]
 
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
@@ -77,7 +70,6 @@ if __name__ == '__main__':
     print('[rank {}] len(rank_ents): {}'.format(args.rank, len(rank_ents)))
 
     print('[rank {}] Making pipeline...'.format(args.rank, len(rank_ents)))
-    tokenizer = AutoTokenizer.from_pretrained(args.student_model)
     generator_model = AutoModelForCausalLM.from_pretrained(args.teacher_model)
     generator_model_tokenizer = AutoTokenizer.from_pretrained(args.teacher_model)
     
