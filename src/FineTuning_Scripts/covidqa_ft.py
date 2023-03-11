@@ -240,7 +240,11 @@ max_answer_length = args.max_answer_length
 n_best = args.n_best
 metric = load_metric("squad") # Since the dataset is in the same format, we can use the metrics code from squad itself
 
-tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+if 'luke' in model_checkpoint:
+    tokenizer = AutoTokenizer.from_pretrained('roberta-base') #since luke doesn't have a fast implementation & it has the same vocab as roberta
+else:
+    tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
 pad_on_right = tokenizer.padding_side == "right"
 
 raw_datasets = load_dataset("Saptarshi7/covid_qa_cleaned_CS", use_auth_token=True)
@@ -248,9 +252,6 @@ raw_datasets = load_dataset("Saptarshi7/covid_qa_cleaned_CS", use_auth_token=Tru
 kf = KFold(n_splits=5, shuffle=True, random_state=args.random_state)
 f1_1_folds = [] #F1@1 score for each fold
 em_1_folds = [] #EM@1 score for each fold
-
-#f1_5_folds = [] #F1@5 score for each fold
-#em_5_folds = [] #EM@5 score for each fold
 
 for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'])):
     print(f'>>>Running FOLD {fold_number + 1}<<<')
@@ -329,9 +330,6 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         f1_1_folds.append(metrics['f1'])
         em_1_folds.append(metrics['exact_match'])
 
-        #f1_5_folds.append(metrics[1]['f1'])
-        #em_5_folds.append(metrics[1]['exact_match'])
-
         # Save and upload
         accelerator.wait_for_everyone()
         unwrapped_model = accelerator.unwrap_model(model)
@@ -344,27 +342,46 @@ for e in range(num_train_epochs):
   e_em = []
   for v in range(e, len(em_1_folds), num_train_epochs):
     e_em.append(em_1_folds[v])
-  print(f'Average EM@1 for epoch {e} across all folds: {np.mean(e_em)}')
+  print(f'Average EM@1 for epoch {e} across all folds: {np.round(np.mean(e_em),2)}')
 
 #Printing Avg. F1@1 across all folds trained till a given epoch
 for e in range(num_train_epochs):
   e_f1 = []
   for v in range(e, len(f1_1_folds), num_train_epochs):
     e_f1.append(f1_1_folds[v])
-  print(f'Average F1@1 for epoch {e} across all folds: {np.mean(e_f1)}')
+  print(f'Average F1@1 for epoch {e} across all folds: {np.round(np.mean(e_f1),2)}')
 
-'''
-#Printing Avg. EM@5 across all folds trained till a given epoch
-for e in range(num_train_epochs):
-  e_em = []
-  for v in range(e, len(em_5_folds), num_train_epochs):
-    e_em.append(em_5_folds[v])
-  print(f'Average EM@5 for epoch {e} across all folds: {np.mean(e_em)}')
+#Printing Avg. Folds EM
+counter = 0
+total = 0.0
+all_avg_em = []
+fold_number = 1
+for score in em_1_folds:
+  total += score
+  if counter == num_train_epochs-1:
+    print(f'Avg. EM for Fold {fold_number}: {np.round(total/num_train_epochs, 2)}')
+    fold_number += 1
+    all_avg_em.append(total/num_train_epochs)
+    total = 0.0
+    counter = 0
+  else:
+    counter += 1
 
-#Printing Avg. F1@5 across all folds trained till a given epoch
-for e in range(num_train_epochs):
-  e_f1 = []
-  for v in range(e, len(f1_5_folds), num_train_epochs):
-    e_f1.append(f1_5_folds[v])
-  print(f'Average F1@5 for epoch {e} across all folds: {np.mean(e_f1)}')
-'''
+#Printing Avg. Folds F1
+counter = 0
+total = 0.0
+all_avg_f1 = []
+fold_number = 1
+for score in f1_1_folds:
+  total += score
+  if counter == num_train_epochs-1:
+    print(f'Avg. F1 for Fold {fold_number}: {np.round(total/num_train_epochs, 2)}')
+    fold_number += 1
+    all_avg_f1.append(total/num_train_epochs)
+    total = 0.0
+    counter = 0
+  else:
+    counter += 1
+
+print(f'Avg. EM across all folds: {np.round(np.mean(all_avg_em), 2)}')
+print(f'Avg. F1 across all folds: {np.round(np.mean(all_avg_f1), 2)}')
