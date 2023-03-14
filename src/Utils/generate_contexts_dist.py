@@ -60,6 +60,9 @@ if __name__ == '__main__':
     with open(ents_file_path, 'rb') as f:
         ents_main = pickle.load(f)
 
+    ents_main = ents_main[:10000]
+    print('Taking top 10k entities...')
+    
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
     n_ents = len(ents_main)
