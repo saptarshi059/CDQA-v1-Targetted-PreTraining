@@ -106,7 +106,7 @@ if __name__ == '__main__':
             top_p=0.9, temperature=0.9, use_cache=True, batch_size=args.batch_size
         )
         '''
-        tokenized_inputs = tokenizer(entity_prompts, return_tensors='pt', padding=True)
+        tokenized_inputs = generator_model_tokenizer(entity_prompts, return_tensors='pt', padding=True)
         tokenized_inputs.to(f'cuda:{args.rank}')
 
         with torch.no_grad():
