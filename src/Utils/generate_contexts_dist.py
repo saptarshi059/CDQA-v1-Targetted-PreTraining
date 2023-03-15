@@ -4,6 +4,7 @@ import re
 import os
 import math
 import time
+import torch
 import argparse
 
 import pandas as pd
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     generator_model_tokenizer.bos_token = '<s>'
     generator_model_tokenizer.pad_token = '<pad>'
     generator_model_tokenizer.eos_token = '</s>'
-    
+
     my_gen_config = GenerationConfig.from_pretrained(args.generator_model, renormalize_logits=True, do_sample=True, max_new_tokens=args.context_max_new_tokens, 
         top_p=0.9, temperature=0.9, use_cache=True)
 
