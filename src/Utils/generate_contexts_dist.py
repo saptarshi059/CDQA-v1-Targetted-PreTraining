@@ -117,7 +117,7 @@ if __name__ == '__main__':
         tokenized_inputs.to(f'cuda:{args.rank}')
 
         with torch.no_grad():
-            output = model.generate(**tokenized_inputs, generation_config = my_gen_config)
+            output = generator_model.generate(**tokenized_inputs, generation_config = my_gen_config)
 
         generations = [gen[0]['generated_text'] for gen in tokenizer.batch_decode(output)]
         #generations = [gen[0]['generated_text'] for gen in generations]
