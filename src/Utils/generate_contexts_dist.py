@@ -12,8 +12,10 @@ import pickle5 as pickle
 from tqdm.auto import tqdm
 from collections import Counter
 from torch.utils.data import Dataset, DataLoader
-from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline, set_seed
 
+#from transformers import pipeline, AutoModelForCausalLM - deprecating for now
+
+from transformers import AutoTokenizer, OPTForCausalLM , set_seed, GenerationConfig
 
 class PromptDataset(Dataset):
     def __init__(self, entities, n_context_per_entity):
@@ -33,9 +35,9 @@ class PromptDataset(Dataset):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
+    parser.add_argument('--generator_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
-    parser.add_argument('--context_max_len', default=2048, type=int)
+    parser.add_argument('--context_max_new_tokens', default=1000, type=int)
     parser.add_argument('--n_context_per_entity', default=5, type=int)
 
     parser.add_argument('--world_size', default=1, type=int)
@@ -60,8 +62,8 @@ if __name__ == '__main__':
     with open(ents_file_path, 'rb') as f:
         ents_main = pickle.load(f)
 
-    ents_main = ents_main[:10000]
-    print('Taking top 10k entities...')
+    #ents_main = ents_main[:10000]
+    #print('Taking top 10k entities...')
     
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
@@ -73,12 +75,16 @@ if __name__ == '__main__':
     print('[rank {}] len(rank_ents): {}'.format(args.rank, len(rank_ents)))
 
     print('[rank {}] Making pipeline...'.format(args.rank, len(rank_ents)))
-    generator_model = AutoModelForCausalLM.from_pretrained(args.teacher_model)
-    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.teacher_model)
+    my_gen_config = GenerationConfig.from_pretrained(args.generator_model, renormalize_logits=True, do_sample=True, max_new_tokens=args.context_max_new_tokens, 
+        top_p=0.9, temperature=0.9, use_cache=True)
+
+    print(f'Generation Configuration: {my_gen_config}')
+
+    generator_model = OPTForCausalLM.from_pretrained(args.generator_model)
+    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.generator_model)
     
-    generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer,
-                         device=args.rank)
-    generator.tokenizer.pad_token_id = generator_model.config.eos_token_id
+    #generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer, device=args.rank)
+    generator_model_tokenizer.pad_token_id = generator_model_tokenizer.eos_token_id
 
     print('[rank {}] Making dataset...'.format(args.rank))
     dataset = PromptDataset(entities=rank_ents, n_context_per_entity=args.n_context_per_entity)
@@ -86,6 +92,7 @@ if __name__ == '__main__':
     n_iters = int(math.ceil(len(dataset) / args.batch_size))
 
     data_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False)
+
     write_data = []
     start_time = time.time()
     for batch_idx, batch_data in enumerate(data_loader):
@@ -93,11 +100,20 @@ if __name__ == '__main__':
         entity_prompts = batch_data['prompt']
 
         set_seed(42)
+        '''
         generations = generator(
             entity_prompts, renormalize_logits=True, do_sample=True, max_length=args.context_max_len,
             top_p=0.9, temperature=0.9, use_cache=True, batch_size=args.batch_size
         )
-        generations = [gen[0]['generated_text'] for gen in generations]
+        '''
+        tokenized_inputs = tokenizer(entity_prompts, return_tensors='pt', padding=True)
+        tokenized_inputs.to(f'cuda:{args.rank}')
+
+        with torch.no_grad():
+            output = model.generate(**tokenized_inputs, generation_config = my_gen_config)
+
+        generations = [gen[0]['generated_text'] for gen in tokenizer.batch_decode(output)]
+        #generations = [gen[0]['generated_text'] for gen in generations]
         batch_write_data = list(zip(entity_strs, entity_prompts, generations))
         write_data.extend(batch_write_data)
 
