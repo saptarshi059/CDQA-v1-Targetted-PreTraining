@@ -75,17 +75,22 @@ if __name__ == '__main__':
     print('[rank {}] len(rank_ents): {}'.format(args.rank, len(rank_ents)))
 
     print('[rank {}] Making pipeline...'.format(args.rank, len(rank_ents)))
+    generator_model = OPTForCausalLM.from_pretrained(args.generator_model)
+    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.generator_model)
+    
+    #generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer, device=args.rank)
+    #generator_model_tokenizer.eos_token_id = generator_model_tokenizer.pad_token_id
+
+    generator_model_tokenizer.bos_token = '<s>'
+    generator_model_tokenizer.pad_token = '<pad>'
+    generator_model_tokenizer.eos_token = '</s>'
+    
     my_gen_config = GenerationConfig.from_pretrained(args.generator_model, renormalize_logits=True, do_sample=True, max_new_tokens=args.context_max_new_tokens, 
         top_p=0.9, temperature=0.9, use_cache=True)
 
     print(f'Generation Configuration: {my_gen_config}')
 
-    generator_model = OPTForCausalLM.from_pretrained(args.generator_model)
-    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.generator_model)
-    
-    #generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer, device=args.rank)
-    tokenizer.add_special_tokens({'pad_token': '[PAD]'}) #Since Galactica doesn't have any special ID's
-    generator_model_tokenizer.eos_token_id = generator_model_tokenizer.pad_token_id
+
 
     print('[rank {}] Making dataset...'.format(args.rank))
     dataset = PromptDataset(entities=rank_ents, n_context_per_entity=args.n_context_per_entity)
