@@ -78,7 +78,8 @@ if __name__ == '__main__':
     print('[rank {}] Making pipeline...'.format(args.rank, len(rank_ents)))
     generator_model = OPTForCausalLM.from_pretrained(args.generator_model)
     generator_model_tokenizer = AutoTokenizer.from_pretrained(args.generator_model)
-    
+    generator_model.to(f'cuda:{args.rank}')
+
     #generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer, device=args.rank)
     #generator_model_tokenizer.eos_token_id = generator_model_tokenizer.pad_token_id
 
@@ -90,8 +91,6 @@ if __name__ == '__main__':
         top_p=0.9, temperature=0.9, use_cache=True)
 
     print(f'Generation Configuration: {my_gen_config}')
-
-
 
     print('[rank {}] Making dataset...'.format(args.rank))
     dataset = PromptDataset(entities=rank_ents, n_context_per_entity=args.n_context_per_entity)
@@ -117,7 +116,7 @@ if __name__ == '__main__':
         tokenized_inputs.to(f'cuda:{args.rank}')
 
         with torch.no_grad():
-            output = generator_model.generate(**tokenized_inputs, generation_config = my_gen_config)
+            output = generator_model.generate(input_ids=tokenized_inputs['input_ids'], attention_mask=tokenized_inputs['attention_mask'], generation_config = my_gen_config)
 
         generations = [gen[0]['generated_text'] for gen in tokenizer.batch_decode(output)]
         #generations = [gen[0]['generated_text'] for gen in generations]
