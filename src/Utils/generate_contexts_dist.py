@@ -84,7 +84,8 @@ if __name__ == '__main__':
     generator_model_tokenizer = AutoTokenizer.from_pretrained(args.generator_model)
     
     #generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer, device=args.rank)
-    generator_model_tokenizer.pad_token_id = generator_model_tokenizer.eos_token_id
+    tokenizer.add_special_tokens({'pad_token': '[PAD]'}) #Since Galactica doesn't have any special ID's
+    generator_model_tokenizer.eos_token_id = generator_model_tokenizer.pad_token_id
 
     print('[rank {}] Making dataset...'.format(args.rank))
     dataset = PromptDataset(entities=rank_ents, n_context_per_entity=args.n_context_per_entity)
