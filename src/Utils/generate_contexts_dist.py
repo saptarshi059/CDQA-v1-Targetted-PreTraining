@@ -105,7 +105,6 @@ if __name__ == '__main__':
         entity_strs = batch_data['entity']
         entity_prompts = batch_data['prompt']
 
-        set_seed(42)
         '''
         generations = generator(
             entity_prompts, renormalize_logits=True, do_sample=True, max_length=args.context_max_len,
@@ -116,6 +115,7 @@ if __name__ == '__main__':
         tokenized_inputs.to(f'cuda:{args.rank}')
 
         with torch.no_grad():
+            set_seed(42)
             output = generator_model.generate(input_ids=tokenized_inputs['input_ids'], attention_mask=tokenized_inputs['attention_mask'], generation_config = my_gen_config)
 
         generations = generator_model_tokenizer.batch_decode(output, skip_special_tokens=True)
