@@ -26,7 +26,6 @@ def main():
     parser.add_argument('--entity_file', default="../../data/COVID-QA/top_N_ents_spacy-COVID_QA.pkl", type=str)
     parser.add_argument('--filtering', default=False, type=str2bool)
     parser.add_argument('--corpus_file', default='wiki_corpus_covidqa_wo_filter', type=str)
-    parser.add_argument('--device', default=0, type=int)
     args = parser.parse_args()
 
     with open(args.entity_file, 'rb') as f:
@@ -45,7 +44,7 @@ def main():
     print(f'Filtering using semantic similarity: {filtering}')
     if filtering == True:
         filtering_threshold = 0.5
-        device = torch.device(f'cuda:{args.device}' if torch.cuda.is_available() else 'cpu')
+        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         
         #We're consider scibert because pubmedbert assigns very high similarity for both related/unrelated terms.
         checkpoint = 'allenai/scibert_scivocab_uncased'
@@ -63,7 +62,7 @@ def main():
             except:
                 continue
         else:
-            encoded_input = tokenizer([ent, res], return_tensors='pt', padding=True)
+            encoded_input = tokenizer([ent, res], return_tensors='pt', padding=True).to(device)
             with torch.no_grad():
                 output = model(**encoded_input)
             
