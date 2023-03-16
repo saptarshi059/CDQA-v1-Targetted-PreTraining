@@ -42,7 +42,7 @@ def main():
 
     context_dict = {}
     filtering = args.filtering
-    print(f'Filtering status using semantic similarity: {filtering}')
+    print(f'Filtering using semantic similarity: {filtering}')
     if filtering == True:
         filtering_threshold = 0.5
         device = torch.device(f'cuda:{args.device}' if torch.cuda.is_available() else 'cpu')
