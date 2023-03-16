@@ -69,7 +69,7 @@ def main():
             similarity = cos(output.pooler_output[0], output.pooler_output[1])
 
             #we're taking less than here since the similarity scores for related terms seem to be lower than unrelated ones.
-            if similarity.item() < filtering_thresold:
+            if similarity.item() < filtering_threshold:
                 try:
                     context_dict[ent] = wikipedia.page(res, auto_suggest=False).content          
                 except:
