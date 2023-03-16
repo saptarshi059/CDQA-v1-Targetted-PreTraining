@@ -37,6 +37,7 @@ def main():
         #Skipping those entities which don't return anything
         if wikipedia.search(ent) != []:
             search_res[ent] = wikipedia.search(str(ent), results=1)[0]
+        break
     print(f'Number of entities after 1st round of filtering (removing empty wiki results): {len(search_res)}')
 
     context_dict = {}
