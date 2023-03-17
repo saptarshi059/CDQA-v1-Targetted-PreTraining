@@ -59,11 +59,11 @@ def main():
     for ent in tqdm(top_N_ents):
         if filtering == False:
             try:
-                print(1)
-                context_dict[ent] = wikipedia.page(res).content          
+                context_dict[ent] = wikipedia.page(ent).content          
             except:
                 continue
         else:
+            #unused for the time being.
             encoded_input = tokenizer([ent, res], return_tensors='pt', padding=True).to(device)
             with torch.no_grad():
                 output = model(**encoded_input)
