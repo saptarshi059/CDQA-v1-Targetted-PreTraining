@@ -59,6 +59,7 @@ def main():
     for ent in tqdm(top_N_ents):
         if filtering == False:
             try:
+                print(1)
                 context_dict[ent] = wikipedia.page(res).content          
             except:
                 continue
