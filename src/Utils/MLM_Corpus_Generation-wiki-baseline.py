@@ -31,12 +31,14 @@ def main():
     with open(args.entity_file, 'rb') as f:
         top_N_ents = pickle.load(f)
 
+    '''
     search_res = {}
     for ent in tqdm(top_N_ents):
         #Skipping those entities which don't return anything
         if wikipedia.search(ent) != []:
             search_res[ent] = wikipedia.search(str(ent), results=1)[0]
     print(f'Number of entities after 1st round of filtering (removing empty wiki results): {len(search_res)}')
+    '''
 
     context_dict = {}
     filtering = args.filtering
@@ -54,10 +56,10 @@ def main():
         cos = torch.nn.CosineSimilarity(dim=0)
         model.to(device)
 
-    for ent, res in tqdm(search_res.items()):
+    for ent in tqdm(top_N_ents):
         if filtering == False:
             try:
-                context_dict[ent] = wikipedia.page(res, auto_suggest=False).content          
+                context_dict[ent] = wikipedia.page(res).content          
             except:
                 continue
         else:
@@ -70,7 +72,7 @@ def main():
             #we're taking less than here since the similarity scores for related terms seem to be lower than unrelated ones.
             if similarity.item() < filtering_threshold:
                 try:
-                    context_dict[ent] = wikipedia.page(res, auto_suggest=False).content          
+                    context_dict[ent] = wikipedia.page(res).content          
                 except:
                     continue
 
