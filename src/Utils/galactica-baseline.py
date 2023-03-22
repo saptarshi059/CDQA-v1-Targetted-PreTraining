@@ -1,4 +1,4 @@
-#from transformers import AutoTokenizer, OPTForCausalLM, set_seed, GenerationConfig
+from transformers import AutoTokenizer, OPTForCausalLM, set_seed, GenerationConfig
 from torch.utils.data import Dataset, DataLoader
 from datasets import load_dataset
 from tqdm import tqdm
