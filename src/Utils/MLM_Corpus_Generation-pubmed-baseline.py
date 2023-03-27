@@ -58,7 +58,6 @@ def main():
             context_dict[ent] = full_text
         except:
             continue
-        break
 
     print(f'Total number of entities remaining: {len(context_dict)}')
     print('Saving corpus...')
