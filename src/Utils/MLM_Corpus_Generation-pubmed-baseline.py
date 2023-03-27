@@ -40,21 +40,24 @@ def main():
 
     context_dict = {}
     for ent in tqdm(top_N_ents):
-        article_List = []
-        full_text = []
-        results = pubmed.query(ent, max_results=10)
+        try:
+            article_List = []
+            full_text = []
+            results = pubmed.query(ent, max_results=100)
 
-        for article in results:
-            article_Dict = article.toDict()
-            article_List.append(article_Dict)
+            for article in results:
+                article_Dict = article.toDict()
+                article_List.append(article_Dict)
 
-        for article in article_List:
-            full_text.append(('' if article['abstract'] == None else article['abstract']) + ' ' + \
-                             ('' if article['methods'] == None else article['methods']) + ' ' + \
-                             ('' if article['results'] == None else article['results']) + ' ' + \
-                             ('' if article['conclusions'] == None else article['conclusions']))
+            for article in article_List:
+                full_text.append(('' if article['abstract'] == None else article['abstract']) + ' ' + \
+                                 ('' if article['methods'] == None else article['methods']) + ' ' + \
+                                 ('' if article['results'] == None else article['results']) + ' ' + \
+                                 ('' if article['conclusions'] == None else article['conclusions']))
 
-        context_dict[ent] = full_text
+            context_dict[ent] = full_text
+        except:
+            continue
 
     print(f'Total number of entities remaining: {len(context_dict)}')
     print('Saving corpus...')
