@@ -42,7 +42,7 @@ def main():
     for ent in tqdm(top_N_ents):
         article_List = []
         full_text = []
-        results = pubmed.query(ent, max_results=100)
+        results = pubmed.query(ent, max_results=10)
 
         for article in results:
             article_Dict = article.toDict()
