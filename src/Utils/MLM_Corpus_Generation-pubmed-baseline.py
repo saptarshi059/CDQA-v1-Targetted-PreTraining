@@ -69,6 +69,6 @@ def main():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--entity_file', default="../../data/COVID-QA/top_N_ents_spacy-COVID_QA.pkl", type=str)
-    parser.add_argument('--corpus_file', default='pubmed_corpus', type=str)
+    parser.add_argument('--corpus_file_name', default='pubmed_corpus', type=str)
     args = parser.parse_args()
     main()
