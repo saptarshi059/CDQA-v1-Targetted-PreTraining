@@ -51,10 +51,10 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
     def _info(self):
         features = datasets.Features(
             {
+                "id": datasets.Value("string"),
                 "title": datasets.Value("string"),
                 "context": datasets.Value("string"),
                 "question": datasets.Value("string"),
-                "id": datasets.Value("int32"),
                 "answers": datasets.features.Sequence(
                     {
                         "text": datasets.Value("string"),
