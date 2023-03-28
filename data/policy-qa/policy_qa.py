@@ -48,6 +48,7 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
         datasets.BuilderConfig(name="policy-qa", version=VERSION, description="PolicyQA for Huggingface datasets..."),
     ]
 
+    @property
     def _info(self):
         features = datasets.Features(
             {
@@ -61,6 +62,7 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
                         "answer_start": datasets.Value("int32"),
                     }
                 ),
+                "summary": datasets.features.Sequence({"text": datasets.Value("string")})
             }
         )
         return datasets.DatasetInfo(
