@@ -14,7 +14,7 @@ made available under a Creative Commons or similar license terms or with publish
 from transformers import AutoTokenizer, AutoModel
 from tqdm.auto import tqdm
 import pickle5 as pickle
-from pymed import PubMed
+from Bio import Entrez
 import pandas as pd
 import argparse
 import torch
@@ -34,28 +34,18 @@ def str2bool(v):
 
 
 def main():
-    pubmed = PubMed(tool="PubMedSearcher", email="placeholder@gmail.com")
+    Entrez.email = "ourretriever@gmail.com"
     with open(args.entity_file, 'rb') as f:
         top_N_ents = pickle.load(f)
 
     context_dict = {}
     for ent in tqdm(top_N_ents):
         try:
-            article_List = []
-            full_text = []
-            results = pubmed.query(ent, max_results=100)
-
-            for article in results:
-                article_Dict = article.toDict()
-                article_List.append(article_Dict)
-
-            for article in article_List:
-                full_text.append(('' if article['abstract'] == None else article['abstract']) + ' ' + \
-                                 ('' if article['methods'] == None else article['methods']) + ' ' + \
-                                 ('' if article['results'] == None else article['results']) + ' ' + \
-                                 ('' if article['conclusions'] == None else article['conclusions']))
-
-            context_dict[ent] = full_text
+            info = Entrez.esearch(db="pubmed", term=ent, retmax=100)
+            id_list = Entrez.read(info)['IdList']
+            handle = Entrez.efetch(db='pubmed', id=id_list, retmode='text', rettype='abstract')
+            all_abstracts_for_entity = handle.read()
+            context_dict[ent] = all_abstracts_for_entity
         except:
             continue
 

@@ -33,7 +33,7 @@ PolicyQA for Huggingface datasets...
 _LICENSE = "Apache License 2.0"
 
 
-_URL = "https://github.com/saptarshi059/CDQA-v2-Auxilliary-Loss/blob/main/data/covid_qa_cleaned_CS/"
+_URL = "https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/policy-qa"
 _URLs = {
     "train": _URL + "train.json",
     "dev": _URL + "dev.json",
@@ -41,20 +41,19 @@ _URLs = {
 }
 
 
-class CovidQADeepsetCleaned(datasets.GeneratorBasedBuilder):
+class PolicyQA(datasets.GeneratorBasedBuilder):
     VERSION = datasets.Version("1.0.0")
 
     BUILDER_CONFIGS = [
-        datasets.BuilderConfig(name="covid_qa_cleaned_CS", version=VERSION, description="Cleaned version of COVID-QA (deepset) by Connor Heaton & Saptarshi Sengupta"),
+        datasets.BuilderConfig(name="policy-qa", version=VERSION, description="PolicyQA for Huggingface datasets..."),
     ]
 
     def _info(self):
         features = datasets.Features(
             {
-                "document_id": datasets.Value("int32"),
+                "title": datasets.Value("string"),
                 "context": datasets.Value("string"),
                 "question": datasets.Value("string"),
-                "is_impossible": datasets.Value("bool"),
                 "id": datasets.Value("int32"),
                 "answers": datasets.features.Sequence(
                     {
@@ -80,16 +79,24 @@ class CovidQADeepsetCleaned(datasets.GeneratorBasedBuilder):
         
         #This code will be removed once the directory becomes public
 
-        url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v2-Auxilliary-Loss/main/data/covid_qa_cleaned_CS/covid_qa_cleaned_CS.json'
+        train_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/policy-qa/train.json'
+        dev_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/policy-qa/dev.json'
+        test_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/policy-qa/test.json'
+
         auth = ('saptarshi059', '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')
 
         r = requests.get(url, auth=auth)
 
         os.mkdir('my_temp')
         
-        with open('my_temp/covid_qa_cleaned_CS.json', 'w') as f:
+        with open('my_temp/train.json', 'w') as f:
             json.dump(r.json(), f)
 
+        with open('my_temp/dev.json', 'w') as f:
+            json.dump(r.json(), f)
+
+        with open('my_temp/test.json', 'w') as f:
+            json.dump(r.json(), f)
 
         #url = _URLs[self.config.name]
         #downloaded_filepath = dl_manager.download_and_extract(r)
@@ -97,7 +104,15 @@ class CovidQADeepsetCleaned(datasets.GeneratorBasedBuilder):
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
-                gen_kwargs={"filepath": 'my_temp/covid_qa_cleaned_CS.json'},
+                gen_kwargs={"filepath": 'my_temp/train.json'},
+            ),
+            datasets.SplitGenerator(
+                name=datasets.Split.VALIDATION,
+                gen_kwargs={"filepath": 'my_temp/dev.json'},
+            ),
+            datasets.SplitGenerator(
+                name=datasets.Split.TEST,
+                gen_kwargs={"filepath": 'my_temp/test.json'},
             ),
         ]
 
@@ -105,29 +120,24 @@ class CovidQADeepsetCleaned(datasets.GeneratorBasedBuilder):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", filepath)
         with open(filepath, encoding="utf-8") as f:
-            covid_qa = json.load(f)
-            for article in covid_qa["data"]:
+            policy_qa = json.load(f)
+            for article in policy_qa["data"]:
+                title = article.get("title", "")
                 for paragraph in article["paragraphs"]:
-                    context = paragraph["context"].strip()
-                    document_id = paragraph["document_id"]
+                    context = paragraph["context"]  # do not strip leading blank spaces GH-2585
                     for qa in paragraph["qas"]:
-                        question = qa["question"].strip()
-                        is_impossible = qa["is_impossible"]
-                        id_ = qa["id"]
-
                         answer_starts = [answer["answer_start"] for answer in qa["answers"]]
-                        answers = [answer["text"].strip() for answer in qa["answers"]]
-
+                        answers = [answer["text"] for answer in qa["answers"]]
                         # Features currently used are "context", "question", and "answers".
                         # Others are extracted here for the ease of future expansions.
-                        yield id_, {
-                            "document_id": document_id,
+                        yield key, {
+                            "title": title,
                             "context": context,
-                            "question": question,
-                            "is_impossible": is_impossible,
-                            "id": id_,
+                            "question": qa["question"],
+                            "id": qa["id"],
                             "answers": {
                                 "answer_start": answer_starts,
                                 "text": answers,
                             },
                         }
+                        key += 1
