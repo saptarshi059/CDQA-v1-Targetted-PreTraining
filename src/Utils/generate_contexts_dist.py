@@ -39,7 +39,7 @@ if __name__ == '__main__':
     parser.add_argument('--generator_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
     parser.add_argument('--context_max_length', default=2048, type=int)
-    parser.add_argument('--n_context_per_entity', default=50, type=int)
+    parser.add_argument('--n_context_per_entity', default=2, type=int)
 
     parser.add_argument('--world_size', default=1, type=int)
     parser.add_argument('--rank', default=0, type=int, help='zero-indexed')
@@ -63,7 +63,6 @@ if __name__ == '__main__':
     with open(ents_file_path, 'rb') as f:
         ents_main = pickle.load(f)
 
-    ents_main = ents_main[:20]
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
     n_ents = len(ents_main)
