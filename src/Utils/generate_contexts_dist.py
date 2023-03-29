@@ -16,7 +16,7 @@ from torch.utils.data import Dataset, DataLoader
 
 #from transformers import pipeline, AutoModelForCausalLM - deprecating for now
 
-from transformers import AutoTokenizer, OPTForCausalLM , set_seed, GenerationConfig
+from transformers import AutoTokenizer, OPTForCausalLM , set_seed
 
 class PromptDataset(Dataset):
     def __init__(self, entities, n_context_per_entity):
@@ -84,11 +84,6 @@ if __name__ == '__main__':
     generator_model_tokenizer.pad_token = '<pad>'
     generator_model_tokenizer.eos_token = '</s>'
 
-    my_gen_config = GenerationConfig.from_pretrained(args.generator_model, renormalize_logits=True, do_sample=True,
-                                                     max_length=args.context_max_length, use_cache=True)
-
-    print(f'Generation Configuration: {my_gen_config}')
-
     print('[rank {}] Making dataset...'.format(args.rank))
     dataset = PromptDataset(entities=rank_ents, n_context_per_entity=args.n_context_per_entity)
     print('[rank {}] len(dataset): {}'.format(args.rank, len(dataset)))
@@ -115,7 +110,8 @@ if __name__ == '__main__':
             set_seed(42)
             output = generator_model.generate(input_ids=tokenized_inputs['input_ids'],
                                               attention_mask=tokenized_inputs['attention_mask'],
-                                              generation_config=my_gen_config)
+                                              renormalize_logits=True, do_sample=True,
+                                              max_length=args.context_max_length, use_cache=True)
 
         generations = generator_model_tokenizer.batch_decode(output, skip_special_tokens=True)
         #generations = [gen[0]['generated_text'] for gen in generations]
