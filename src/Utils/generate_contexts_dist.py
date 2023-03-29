@@ -62,7 +62,8 @@ if __name__ == '__main__':
     ents_file_path = os.path.abspath(args.entity_file)
     with open(ents_file_path, 'rb') as f:
         ents_main = pickle.load(f)
-    
+
+    ents_main = ents_main[:20]
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
     n_ents = len(ents_main)
