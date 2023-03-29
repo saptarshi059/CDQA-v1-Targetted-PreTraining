@@ -38,8 +38,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--generator_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
-    parser.add_argument('--context_max_new_tokens', default=1000, type=int)
-    parser.add_argument('--n_context_per_entity', default=5, type=int)
+    parser.add_argument('--context_max_length', default=2048, type=int)
+    parser.add_argument('--n_context_per_entity', default=50, type=int)
 
     parser.add_argument('--world_size', default=1, type=int)
     parser.add_argument('--rank', default=0, type=int, help='zero-indexed')
@@ -84,8 +84,8 @@ if __name__ == '__main__':
     generator_model_tokenizer.pad_token = '<pad>'
     generator_model_tokenizer.eos_token = '</s>'
 
-    my_gen_config = GenerationConfig.from_pretrained(args.generator_model, renormalize_logits=True, do_sample=True, max_new_tokens=args.context_max_new_tokens, 
-        top_p=0.9, temperature=0.9, use_cache=True)
+    my_gen_config = GenerationConfig.from_pretrained(args.generator_model, renormalize_logits=True, do_sample=True,
+                                                     max_length=args.context_max_length, use_cache=True)
 
     print(f'Generation Configuration: {my_gen_config}')
 
@@ -113,7 +113,9 @@ if __name__ == '__main__':
 
         with torch.no_grad():
             set_seed(42)
-            output = generator_model.generate(input_ids=tokenized_inputs['input_ids'], attention_mask=tokenized_inputs['attention_mask'], generation_config = my_gen_config)
+            output = generator_model.generate(input_ids=tokenized_inputs['input_ids'],
+                                              attention_mask=tokenized_inputs['attention_mask'],
+                                              generation_config=my_gen_config)
 
         generations = generator_model_tokenizer.batch_decode(output, skip_special_tokens=True)
         #generations = [gen[0]['generated_text'] for gen in generations]
