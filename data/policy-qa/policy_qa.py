@@ -62,7 +62,8 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
                         "answer_start": datasets.Value("int32"),
                     }
                 ),
-                "summary": datasets.features.Sequence({"text": datasets.Value("string")})
+                "summary": datasets.features.Sequence({"text": datasets.Value("string")}),
+                "type": datasets.Value("string")
             }
         )
         return datasets.DatasetInfo(
@@ -123,7 +124,7 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
         logger.info("generating examples from = %s", filepath)
         with open(filepath, encoding="utf-8") as f:
             policy_qa = json.load(f)
-            for article in policy_qa["data"][0]:
+            for article in policy_qa['train']["data"][0]:
                 title = article.get("title", "")
                 for paragraph in article["paragraphs"]:
                     context = paragraph["context"]  # do not strip leading blank spaces GH-2585
@@ -141,6 +142,7 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
                                 "answer_start": answer_starts,
                                 "text": answers,
                             }
-                            "summary": paragraph['summary'],
+                            "summary": paragraph["summary"],
+                            "type": qa["type"]
                         }
                         key += 1
