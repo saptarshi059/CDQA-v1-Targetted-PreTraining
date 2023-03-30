@@ -278,7 +278,7 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         for param in getattr(model, base_module_name).parameters():
             param.requires_grad = False
 
-    optimizer = Lamb(model.parameters(), lr=args.learning_rate)
+    optimizer = AdamW(model.parameters(), lr=args.learning_rate)
     
     accelerator = Accelerator()
     device = accelerator.device
