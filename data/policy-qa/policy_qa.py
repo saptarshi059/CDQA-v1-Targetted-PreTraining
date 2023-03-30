@@ -59,11 +59,9 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
                 "answers": datasets.features.Sequence(
                     {
                         "text": datasets.Value("string"),
-                        "answer_start": datasets.Value("int32"),
+                        "answer_start": datasets.Value("int64"),
                     }
-                ),
-                "summary": datasets.features.Sequence({"text": datasets.Value("string")}),
-                "type": datasets.Value("string")
+                )
             }
         )
         return datasets.DatasetInfo(
@@ -142,7 +140,5 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
                                 "answer_start": answer_starts,
                                 "text": answers,
                             }
-                            "summary": paragraph["summary"],
-                            "type": qa["type"]
                         }
                         key += 1
