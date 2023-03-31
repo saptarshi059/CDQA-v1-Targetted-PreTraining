@@ -21,12 +21,10 @@ def main():
     spacy.prefer_gpu(gpu_id=0)
     for ques in tqdm(all_questions):
         ques_ents.extend([str(x) for x in nlp(ques).ents])
-        break
 
     spacy.prefer_gpu(gpu_id=0)
     for ctx in tqdm(all_contexts):
         ctx_ents.extend([str(x) for x in nlp(ctx).ents])
-        break
 
     total_ents = ques_ents + ctx_ents
     print(f'Total Entities from Questions: {len(ques_ents)} (Unique: {len(set(ques_ents))})')
