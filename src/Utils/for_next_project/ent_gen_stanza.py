@@ -31,7 +31,7 @@ for ctx in tqdm(all_contexts):
   for ent_dict in doc.entities:
     new_ents.append(ent_dict.text)
 
-print(f'Total Entities: {len(new_ents)} | Unique Entities: {len(list(set(new_ents)))}')
+print(f'Total Entities: {len(new_ents)} | Unique Entities: {len(set(new_ents))}')
 
 with open('stanza_ents-covidqa.pkl', 'wb') as f:
     pickle.dump(new_ents, f)
