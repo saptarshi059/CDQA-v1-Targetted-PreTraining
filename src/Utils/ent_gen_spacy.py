@@ -6,6 +6,7 @@ import spacy
 
 
 def main():
+    print('Loading spacy model...')
     spacy.prefer_gpu(gpu_id=0)
     nlp = spacy.load("en_core_sci_sm")
 
