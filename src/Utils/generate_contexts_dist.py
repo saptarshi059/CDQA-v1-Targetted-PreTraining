@@ -34,7 +34,7 @@ class PromptDataset(Dataset):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
-    parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
+    parser.add_argument('--entity_file', default="../../data/COVID-QA/ents_spacy.pkl", type=str)
     parser.add_argument('--context_max_len', default=2048, type=int)
     parser.add_argument('--n_context_per_entity', default=2, type=int)
 
