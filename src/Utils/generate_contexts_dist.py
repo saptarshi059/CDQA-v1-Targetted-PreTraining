@@ -61,7 +61,7 @@ if __name__ == '__main__':
     print('[rank {}] Reading entities'.format(args.rank))
     spacy_ents_file_path = os.path.abspath('../../data/COVID-QA/ents_spacy.pkl')
     with open(spacy_ents_file_path, 'rb') as f:
-        spacy_ents_main = pickle.load(f)
+        spacy_ents_main = pickle.load(f)[:5]
 
     print('stanza_ents_main[:10]: {}'.format(spacy_ents_main[:10]))
 
