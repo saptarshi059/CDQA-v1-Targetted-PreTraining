@@ -33,14 +33,14 @@ class PromptDataset(Dataset):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--generator_model', default="facebook/galactica-1.3b", type=str)
-    parser.add_argument('--max_context_length', default=2048, type=int)
-
-    parser.add_argument('--n_context_per_entity', default=2, type=int)
+    parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
+    parser.add_argument('--entity_file', default="spacy_ents-from_question-covidqa.pkl", type=str)
+    parser.add_argument('--context_max_len', default=2048, type=int)
+    parser.add_argument('--n_context_per_entity', default=5, type=int)
 
     parser.add_argument('--world_size', default=1, type=int)
     parser.add_argument('--rank', default=0, type=int, help='zero-indexed')
-    parser.add_argument('--out', default='../../generated_corpus')
+    parser.add_argument('--out', default='../../out/gen_v1')
     parser.add_argument('--summary_every', default=1, type=int)
 
     parser.add_argument('--batch_size', default=-1, type=int)
@@ -56,22 +56,22 @@ if __name__ == '__main__':
     out_fp = os.path.join(args.out, 'rank{}_gens.parquet'.format(args.rank))
 
     print('[rank {}] Reading entities'.format(args.rank))
-    spacy_ents_file_path = os.path.abspath('../../data/COVID-QA/ents_spacy.pkl')
-    with open(spacy_ents_file_path, 'rb') as f:
-        spacy_ents_main = pickle.load(f)[:10]
+    ents_file_path = os.path.abspath(args.entity_file)
+    with open(ents_file_path, 'rb') as f:
+        ents_main = pickle.load(f)
 
-    print('stanza_ents_main[:10]: {}'.format(spacy_ents_main[:10]))
+    print('ents_main[:10]: {}'.format(ents_main[:10]))
 
-    n_ents = len(spacy_ents_main)
+    n_ents = len(ents_main)
     ents_per_rank = int(math.ceil(n_ents / args.world_size))
-    rank_ents = spacy_ents_main[args.rank * ents_per_rank: (args.rank + 1) * ents_per_rank]
+    rank_ents = ents_main[args.rank * ents_per_rank: (args.rank + 1) * ents_per_rank]
     print('[rank {}] n_ents: {}'.format(args.rank, n_ents))
     print('[rank {}] ents_per_rank: {}'.format(args.rank, ents_per_rank))
     print('[rank {}] len(rank_ents): {}'.format(args.rank, len(rank_ents)))
 
     print('[rank {}] Making pipeline...'.format(args.rank, len(rank_ents)))
-    generator_model = AutoModelForCausalLM.from_pretrained(args.generator_model)
-    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.generator_model)
+    generator_model = AutoModelForCausalLM.from_pretrained(args.teacher_model)
+    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.teacher_model)
 
     generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer,
                          device=args.rank)
@@ -91,7 +91,7 @@ if __name__ == '__main__':
 
         set_seed(42)
         generations = generator(
-            entity_prompts, renormalize_logits=True, do_sample=True, max_new_tokens=args.max_context_length,
+            entity_prompts, renormalize_logits=True, do_sample=True, max_length=args.context_max_len,
             top_p=0.9, temperature=0.9, use_cache=True, batch_size=args.batch_size
         )
         generations = [gen[0]['generated_text'] for gen in generations]
