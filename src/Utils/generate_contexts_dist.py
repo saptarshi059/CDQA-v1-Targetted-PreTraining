@@ -36,7 +36,7 @@ if __name__ == '__main__':
     parser.add_argument('--generator_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--max_context_length', default=2048, type=int)
 
-    parser.add_argument('--n_context_per_entity', default=5, type=int)
+    parser.add_argument('--n_context_per_entity', default=2, type=int)
 
     parser.add_argument('--world_size', default=1, type=int)
     parser.add_argument('--rank', default=0, type=int, help='zero-indexed')
