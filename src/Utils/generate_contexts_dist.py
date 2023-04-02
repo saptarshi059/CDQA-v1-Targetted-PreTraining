@@ -33,7 +33,7 @@ class PromptDataset(Dataset):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
+    parser.add_argument('--generator_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--max_context_length', default=2048, type=int)
 
     parser.add_argument('--n_context_per_entity', default=5, type=int)
@@ -73,9 +73,8 @@ if __name__ == '__main__':
     print('[rank {}] len(rank_ents): {}'.format(args.rank, len(rank_ents)))
 
     print('[rank {}] Making pipeline...'.format(args.rank, len(rank_ents)))
-    tokenizer = AutoTokenizer.from_pretrained(args.student_model)
-    generator_model = AutoModelForCausalLM.from_pretrained(args.teacher_model)
-    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.teacher_model)
+    generator_model = AutoModelForCausalLM.from_pretrained(args.generator_model)
+    generator_model_tokenizer = AutoTokenizer.from_pretrained(args.generator_model)
 
     generator = pipeline('text-generation', model=generator_model, tokenizer=generator_model_tokenizer,
                          device=args.rank)
