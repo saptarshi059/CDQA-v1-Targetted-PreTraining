@@ -91,7 +91,7 @@ if __name__ == '__main__':
 
         set_seed(42)
         generations = generator(
-            entity_prompts, renormalize_logits=True, do_sample=True, max_new_tokens=args.no_new_answer_tokens,
+            entity_prompts, renormalize_logits=True, do_sample=True, max_new_tokens=args.max_context_length,
             top_p=0.9, temperature=0.9, use_cache=True, batch_size=args.batch_size
         )
         generations = [gen[0]['generated_text'] for gen in generations]
