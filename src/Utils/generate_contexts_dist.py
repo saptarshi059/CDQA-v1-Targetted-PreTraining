@@ -55,9 +55,6 @@ if __name__ == '__main__':
 
     out_fp = os.path.join(args.out, 'rank{}_gens.parquet'.format(args.rank))
 
-    tokenizer = AutoTokenizer.from_pretrained(args.student_model)
-    model_vocab = list(tokenizer.vocab.keys())
-
     print('[rank {}] Reading entities'.format(args.rank))
     spacy_ents_file_path = os.path.abspath('../../data/COVID-QA/ents_spacy.pkl')
     with open(spacy_ents_file_path, 'rb') as f:
