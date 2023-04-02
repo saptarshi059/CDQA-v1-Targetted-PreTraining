@@ -36,7 +36,7 @@ if __name__ == '__main__':
     parser.add_argument('--teacher_model', default="facebook/galactica-1.3b", type=str)
     parser.add_argument('--entity_file', default="../../data/COVID-QA/ents_spacy.pkl", type=str)
     parser.add_argument('--context_max_len', default=2048, type=int)
-    parser.add_argument('--n_context_per_entity', default=2, type=int)
+    parser.add_argument('--n_context_per_entity', default=1, type=int)
 
     parser.add_argument('--world_size', default=1, type=int)
     parser.add_argument('--rank', default=0, type=int, help='zero-indexed')
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     print('[rank {}] Reading entities'.format(args.rank))
     ents_file_path = os.path.abspath(args.entity_file)
     with open(ents_file_path, 'rb') as f:
-        ents_main = pickle.load(f)[:10]
+        ents_main = pickle.load(f)
 
     print('ents_main[:10]: {}'.format(ents_main[:10]))
 
