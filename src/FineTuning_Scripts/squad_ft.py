@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering, AutoConfig, logging, default_data_collator, get_scheduler
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering, AutoConfig, logging, default_data_collator, get_scheduler, set_seed
 from datasets import load_dataset, load_metric
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
@@ -230,6 +230,7 @@ g = torch.Generator()
 g.manual_seed(args.random_state)
 torch.manual_seed(args.random_state)
 random.seed(args.random_state)
+set_seed(args.random_state)
 
 # This flag is the difference between SQUAD v1 or 2 (if you're using another dataset, it indicates if impossible
 # answers are allowed or not).
