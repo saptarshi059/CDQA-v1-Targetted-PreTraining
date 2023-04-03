@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from transformers import AutoModelForMaskedLM, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, default_data_collator
+from transformers import AutoModelForMaskedLM, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, default_data_collator, set_seed
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from datasets import load_dataset
@@ -74,6 +74,7 @@ g = torch.Generator()
 g.manual_seed(args.random_state)
 torch.manual_seed(args.random_state)
 random.seed(args.random_state)
+set_seed(args.random_state)
 
 model_checkpoint = args.model_checkpoint
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
