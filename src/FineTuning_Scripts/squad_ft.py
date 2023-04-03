@@ -286,7 +286,6 @@ if args.freeze_PT_layers == True:
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
 model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader, eval_dataloader)
-model.to(device)
 
 num_train_epochs = args.epochs
 num_update_steps_per_epoch = len(train_dataloader)
