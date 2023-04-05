@@ -28,11 +28,11 @@ def main(dataset_name, corpus_file):
     with open(f'{dataset_name}_train_subset_ents_spacy.pkl', 'rb') as f:
         train_subset_ents = pickle.load(f)
 
-    MLM_dataset = load_dataset("parquet", data_files=corpus_file).filter(input_columns='entity',
+    mlm_dataset = load_dataset("parquet", data_files=corpus_file).filter(input_columns='entity',
                                                                          function=lambda x: x in train_subset_ents)
 
-    print(f'Saving MLM subset with ({len(MLM_dataset)}) contexts...')
-    MLM_dataset.to_parquet(f"{dataset_name}_MLM_train_subset")
+    print(f'Saving MLM subset with ({len(mlm_dataset)}) contexts...')
+    mlm_dataset.to_parquet(f"{dataset_name}_MLM_train_subset")
 
 
 if __name__ == '__main__':

@@ -112,7 +112,7 @@ print('Training Corpus Loaded...')
 if args.use_new_tokens:
     # Adding the new tokens to the vocabulary
     print(f'Original number of tokens: {len(tokenizer)}')
-    new_tokens = corpus_dataset['train']['ent']
+    new_tokens = train_dataset['train']['ent']
     tokenizer.add_tokens(new_tokens)
     print(f'New number of tokens: {len(tokenizer)}')
 
