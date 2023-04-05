@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from transformers import AutoModelForMaskedLM, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, default_data_collator, set_seed
+from transformers import AutoModelForMaskedLM, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, \
+    default_data_collator, set_seed
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
-from datasets import load_dataset
+from datasets import load_dataset, load_from_disk, DatasetDict
 from torch.optim import AdamW
 from tqdm import tqdm
 import argparse
 import random
 import torch
 import math
+
 
 def str2bool(v):
     if isinstance(v, bool):
@@ -24,11 +26,13 @@ def str2bool(v):
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
+
 def tokenize_function(examples):
     result = tokenizer(examples["text"])
     if tokenizer.is_fast:
         result["word_ids"] = [result.word_ids(i) for i in range(len(result["input_ids"]))]
     return result
+
 
 def group_texts(examples):
     # Concatenate all texts
@@ -39,12 +43,13 @@ def group_texts(examples):
     total_length = (total_length // chunk_size) * chunk_size
     # Split by chunks of max_len
     result = {
-        k: [t[i : i + chunk_size] for i in range(0, total_length, chunk_size)]
+        k: [t[i: i + chunk_size] for i in range(0, total_length, chunk_size)]
         for k, t in concatenated_examples.items()
     }
     # Create a new labels column
     result["labels"] = result["input_ids"].copy()
     return result
+
 
 def insert_random_mask(batch):
     features = [dict(zip(batch, t)) for t in zip(*batch.values())]
@@ -52,21 +57,29 @@ def insert_random_mask(batch):
     # Create a new "masked" column for each column in the dataset
     return {"masked_" + k: v.numpy() for k, v in masked_inputs.items()}
 
+
 def seed_worker(worker_id):
-    worker_seed = torch.initial_seed() % 2**32
+    worker_seed = torch.initial_seed() % 2 ** 32
     np.random.seed(worker_seed)
     random.seed(worker_seed)
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", type=str)
-parser.add_argument('--training_corpus', default="../../../CDQA-v1-whole-entity-approach/data/COVID-QA/wiki_corpus_covidqa_wo_filter.parquet", type=str)
-parser.add_argument('--eval_corpus', default="../../../CDQA-v1-whole-entity-approach/src/Utils/Saptarshi7-covid_qa_cleaned_CS_for_PPL_eval.csv ", type=str)
+parser.add_argument('--training_corpus',
+                    default="../../../CDQA-v1-whole-entity-approach/data/COVID-QA/wiki_corpus_covidqa_wo_filter.parquet",
+                    type=str)
+parser.add_argument('--eval_corpus',
+                    default="../../../CDQA-v1-whole-entity-approach/src/Utils/Saptarshi7"
+                            "-covid_qa_cleaned_CS_for_PPL_eval.csv ",
+                    type=str)
 parser.add_argument('--trained_model_name', default="distilbert-base-uncased-extended-PT", type=str)
 parser.add_argument('--use_new_tokens', default=False, type=str2bool)
 parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--learning_rate', default=5e-5, type=float)
 parser.add_argument('--epochs', default=3, type=int)
+parser.add_argument('--local_dataset_format', default='parquet', type=str)
 
 args = parser.parse_args()
 
@@ -82,36 +95,40 @@ model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 chunk_size = tokenizer.model_max_length
 batch_size = args.batch_size
 
-#Training Data
-train_dataset = load_dataset("parquet", data_files=args.training_corpus)
+# Training Data
+if args.local_dataset_format == 'parquet':
+    train_dataset = load_dataset("parquet", data_files=args.training_corpus)
+else:
+    train_dataset = DatasetDict({'train': load_from_disk(args.training_corpus)})
 
 if ('prompt' in train_dataset['train'].column_names) and ('__index_level_0__' in train_dataset['train'].column_names):
     train_dataset = train_dataset.remove_columns(['prompt', '__index_level_0__'])
 
 if ('entity' in train_dataset['train'].column_names) and ('context' in train_dataset['train'].column_names):
-    train_dataset = train_dataset.rename_columns({'entity':'ent', 'context':'text'})
+    train_dataset = train_dataset.rename_columns({'entity': 'ent', 'context': 'text'})
 
 print('Training Corpus Loaded...')
 
-if args.use_new_tokens == True:
-    #Adding the new tokens to the vocabulary
+if args.use_new_tokens:
+    # Adding the new tokens to the vocabulary
     print(f'Original number of tokens: {len(tokenizer)}')
     new_tokens = corpus_dataset['train']['ent']
     tokenizer.add_tokens(new_tokens)
     print(f'New number of tokens: {len(tokenizer)}')
 
     # The new vector is added at the end of the embedding matrix
-    model.resize_token_embeddings(len(tokenizer)) 
+    model.resize_token_embeddings(len(tokenizer))
 
 train_dataset = train_dataset['train'].map(tokenize_function, batched=True, remove_columns=['ent', 'text'])
 train_dataset = train_dataset.map(group_texts, batched=True)
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
 train_dataset = train_dataset.remove_columns(["word_ids"])
-train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=batch_size, collate_fn=data_collator, worker_init_fn=seed_worker, generator=g)
+train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=batch_size, collate_fn=data_collator,
+                              worker_init_fn=seed_worker, generator=g)
 print('Training Dataset processed...')
 
-#Eval Data
+# Eval Data
 eval_dataset = load_dataset("csv", data_files=args.eval_corpus)
 print('Evaluation Corpus Loaded...')
 
@@ -123,27 +140,29 @@ eval_dataset = eval_dataset.map(insert_random_mask, batched=True, remove_columns
 if 'masked_token_type_ids' in eval_dataset.column_names:
     eval_dataset = eval_dataset.rename_columns(
         {
-        "masked_input_ids": "input_ids",
-        "masked_attention_mask": "attention_mask",
-        "masked_labels": "labels",
-        'masked_token_type_ids': "token_type_ids"
+            "masked_input_ids": "input_ids",
+            "masked_attention_mask": "attention_mask",
+            "masked_labels": "labels",
+            'masked_token_type_ids': "token_type_ids"
         }
-)
+    )
 else:
     eval_dataset = eval_dataset.rename_columns(
         {
-        "masked_input_ids": "input_ids",
-        "masked_attention_mask": "attention_mask",
-        "masked_labels": "labels",
+            "masked_input_ids": "input_ids",
+            "masked_attention_mask": "attention_mask",
+            "masked_labels": "labels",
         }
-)
-eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size, collate_fn=default_data_collator, worker_init_fn=seed_worker, generator=g)
+    )
+eval_dataloader = DataLoader(eval_dataset, batch_size=batch_size, collate_fn=default_data_collator,
+                             worker_init_fn=seed_worker, generator=g)
 print('Evaluation Dataset processed...')
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
 accelerator = Accelerator()
-model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader, eval_dataloader)
+model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader,
+                                                                          eval_dataloader)
 
 num_train_epochs = args.epochs
 num_update_steps_per_epoch = len(train_dataloader)

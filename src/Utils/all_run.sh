@@ -6,9 +6,9 @@ export CUDA_VISIBLE_DEVICES=2
 
 #accelerate launch src/Utils/ppl.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT --corpus_file src/Utils/Saptarshi7-covid_qa_cleaned_CS_for_PPL_eval.csv
 
-#accelerate launch ../generalization-hypothesis/src/model_analysis/squad_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT-squad
+#accelerate launch ../generalization-hypothesis/src/model_analysis/EQA_without_kfold.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT-squad
 
-#accelerate launch src/FineTuning_Scripts/covidqa_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT-squad --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT-squad-covidqa
+#accelerate launch src/FineTuning_Scripts/EQA_kfold.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT-squad --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T3CpT-squad-covidqa
 
 
 #without new tokens - 10T5CpT
@@ -17,9 +17,9 @@ export CUDA_VISIBLE_DEVICES=2
 
 #accelerate launch src/Utils/ppl.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT --corpus_file src/Utils/Saptarshi7-covid_qa_cleaned_CS_for_PPL_eval.csv
 
-#accelerate launch ../generalization-hypothesis/src/model_analysis/squad_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT-squad
+#accelerate launch ../generalization-hypothesis/src/model_analysis/EQA_without_kfold.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT-squad
 
-#accelerate launch src/FineTuning_Scripts/covidqa_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT-squad --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT-squad-covidqa
+#accelerate launch src/FineTuning_Scripts/EQA_kfold.py --model_checkpoint distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT-squad --trained_model_name distilbert-base-uncased-extended-PT-wo-new-tokens-mini_corpus-10T5CpT-squad-covidqa
 
 
 #with new tokens - 10T5CpT
@@ -28,6 +28,6 @@ export CUDA_VISIBLE_DEVICES=2
 
 #accelerate launch src/Utils/ppl.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT --corpus_file src/Utils/Saptarshi7-covid_qa_cleaned_CS_for_PPL_eval.csv
 
-#accelerate launch ../generalization-hypothesis/src/model_analysis/squad_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT --trained_model_name distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT-squad
+#accelerate launch ../generalization-hypothesis/src/model_analysis/EQA_without_kfold.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT --trained_model_name distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT-squad
 
-#accelerate launch src/FineTuning_Scripts/covidqa_ft.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT-squad --trained_model_name distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT-squad-covidqa
+#accelerate launch src/FineTuning_Scripts/EQA_kfold.py --model_checkpoint distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT-squad --trained_model_name distilbert-base-uncased-extended-PT-with-new-tokens-mini_corpus-10T5CpT-squad-covidqa
