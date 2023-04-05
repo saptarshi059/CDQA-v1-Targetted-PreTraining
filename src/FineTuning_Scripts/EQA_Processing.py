@@ -3,7 +3,7 @@ import collections
 import numpy as np
 
 
-def prepare_train_features(examples, fn_kwargs):
+def prepare_train_features(examples):
     tokenizer = fn_kwargs['tokenizer']
     pad_on_right = fn_kwargs['pad_on_right']
     max_length = fn_kwargs['max_length']
