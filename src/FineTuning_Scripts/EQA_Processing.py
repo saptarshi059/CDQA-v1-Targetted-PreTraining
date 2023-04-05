@@ -4,12 +4,6 @@ import numpy as np
 
 
 def prepare_train_features(examples, tokenizer, pad_on_right, max_length, doc_stride):
-    '''
-    tokenizer = fn_kwargs['tokenizer']
-    pad_on_right = fn_kwargs['pad_on_right']
-    max_length = fn_kwargs['max_length']
-    doc_stride = fn_kwargs['doc_stride']
-    '''
     # Some of the questions have lots of whitespace on the left, which is not useful and will make the
     # truncation of the context fail (the tokenized question will take a lots of space). So we remove that
     # left whitespace
