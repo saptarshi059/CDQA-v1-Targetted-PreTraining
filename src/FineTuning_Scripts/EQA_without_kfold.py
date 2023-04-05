@@ -92,8 +92,8 @@ if args.dataset_location == 'remote':
         print('Running Code in Trial Mode to see if everything works properly...')
         raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad", split=['train[:160]', 'validation[:10]'])
         train_dataset = raw_datasets[0].map(EQA_Processing.prepare_train_features,
-                                            fn_kwargs={tokenizer: tokenizer, pad_on_right: pad_on_right,
-                                                       max_length: max_length, doc_stride: doc_stride},
+                                            fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
+                                                       'max_length': max_length, 'doc_stride': doc_stride},
                                             batched=True,
                                             remove_columns=raw_datasets[0].column_names)
         validation_dataset = raw_datasets[1].map(EQA_Processing.prepare_validation_features(tokenizer, pad_on_right,
