@@ -8,6 +8,7 @@ from accelerate import Accelerator
 from datasets import load_dataset, load_from_disk, DatasetDict
 from torch.optim import AdamW
 from tqdm import tqdm
+import numpy as np
 import argparse
 import random
 import torch
@@ -67,7 +68,8 @@ def seed_worker(worker_id):
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", type=str)
 parser.add_argument('--training_corpus',
-                    default="../../../CDQA-v1-whole-entity-approach/data/COVID-QA/wiki_corpus_covidqa_wo_filter.parquet",
+                    default="../../../CDQA-v1-whole-entity-approach/data/COVID-QA/"
+                            "wiki_corpus_covidqa_wo_filter.parquet",
                     type=str)
 parser.add_argument('--eval_corpus',
                     default="../../../CDQA-v1-whole-entity-approach/src/Utils/Saptarshi7"
