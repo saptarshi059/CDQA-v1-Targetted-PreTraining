@@ -38,7 +38,8 @@ def main(dataset_name, corpus_file):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', default='Saptarshi7/covid_qa_cleaned_CS', type=str)
-    parser.add_argument('--generated_corpus_file', default='../../data/COVID-QA/generated_corpus_47k/agg_gens.parquet',
+    parser.add_argument('--generated_corpus_file', default='../../data/COVID-QA/generated_corpus_47k_scispacy_sm'
+                                                           '/agg_gens.parquet',
                         type=str)
     args = parser.parse_args()
     main(args.dataset, args.generated_corpus_file)
