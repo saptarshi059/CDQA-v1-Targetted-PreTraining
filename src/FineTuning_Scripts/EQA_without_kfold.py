@@ -96,20 +96,23 @@ if args.dataset_location == 'remote':
                                                        'max_length': max_length, 'doc_stride': doc_stride},
                                             batched=True,
                                             remove_columns=raw_datasets[0].column_names)
-        validation_dataset = raw_datasets[1].map(EQA_Processing.prepare_validation_features(tokenizer, pad_on_right,
-                                                                                            max_length, doc_stride),
+        validation_dataset = raw_datasets[1].map(EQA_Processing.prepare_validation_features,
+                                                 fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
+                                                            'max_length': max_length, 'doc_stride': doc_stride},
                                                  batched=True,
                                                  remove_columns=raw_datasets[1].column_names)
     else:
         raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad")
-        train_dataset = raw_datasets['train'].map(EQA_Processing.prepare_train_features(tokenizer, pad_on_right,
-                                                                                        max_length, doc_stride),
+        train_dataset = raw_datasets['train'].map(EQA_Processing.prepare_train_features,
+                                                  fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
+                                                             'max_length': max_length, 'doc_stride': doc_stride},
                                                   batched=True,
                                                   remove_columns=raw_datasets['train'].column_names)
-        validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_validation_features(tokenizer,
-                                                                                                       pad_on_right,
-                                                                                                       max_length,
-                                                                                                       doc_stride),
+        validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_validation_features,
+                                                            fn_kwargs={'tokenizer': tokenizer,
+                                                                       'pad_on_right': pad_on_right,
+                                                                       'max_length': max_length,
+                                                                       'doc_stride': doc_stride},
                                                             batched=True,
                                                             remove_columns=raw_datasets['validation'].column_names)
 
