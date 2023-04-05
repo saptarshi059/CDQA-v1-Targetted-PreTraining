@@ -90,8 +90,12 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
                                 "validation": raw_datasets["train"].select(val_idx)})
 
     train_dataset = fold_dataset['train'].map(EQA_Processing.prepare_train_features, batched=True,
+                                              fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
+                                                         'max_length': max_length, 'doc_stride': doc_stride},
                                               remove_columns=fold_dataset['train'].column_names)
     validation_dataset = fold_dataset['validation'].map(EQA_Processing.prepare_validation_features, batched=True,
+                                                        fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
+                                                                   'max_length': max_length, 'doc_stride': doc_stride},
                                                         remove_columns=fold_dataset['validation'].column_names)
 
     train_dataset.set_format("torch")
