@@ -1,1 +1,2 @@
 agg_gens.parquet filter=lfs diff=lfs merge=lfs -text
+*.parquet filter=lfs diff=lfs merge=lfs -text
