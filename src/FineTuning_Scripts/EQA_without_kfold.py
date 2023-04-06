@@ -134,7 +134,7 @@ else:
                                                                              'doc_stride': doc_stride},
                                                                   batched=True,
                                                                   remove_columns=
-                                                                  raw_dataset_train['validation'].column_names)
+                                                                  raw_dataset_validation['validation'].column_names)
 
 metric = load("squad")
 
