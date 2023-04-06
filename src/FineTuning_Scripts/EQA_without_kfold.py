@@ -120,9 +120,18 @@ else:
     raw_dataset_train = DatasetDict({'train': load_from_disk(f'{args.local_dataset_name}_train_subset')})
     raw_dataset_validation = DatasetDict({'validation': load_from_disk(f'{args.local_dataset_name}_test_subset')})
 
-    train_dataset = raw_dataset_train['train'].map(EQA_Processing.prepare_train_features, batched=True,
+    train_dataset = raw_dataset_train['train'].map(EQA_Processing.prepare_train_features,
+                                                   fn_kwargs={'tokenizer': tokenizer,
+                                                              'pad_on_right': pad_on_right,
+                                                              'max_length': max_length,
+                                                              'doc_stride': doc_stride},
+                                                   batched=True,
                                                    remove_columns=raw_dataset_train['train'].column_names)
     validation_dataset = raw_dataset_validation['validation'].map(EQA_Processing.prepare_validation_features,
+                                                                  fn_kwargs={'tokenizer': tokenizer,
+                                                                             'pad_on_right': pad_on_right,
+                                                                             'max_length': max_length,
+                                                                             'doc_stride': doc_stride},
                                                                   batched=True,
                                                                   remove_columns=
                                                                   raw_dataset_train['validation'].column_names)
