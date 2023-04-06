@@ -97,11 +97,7 @@ model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 chunk_size = tokenizer.model_max_length
 batch_size = args.batch_size
 
-# Training Data
-if args.local_dataset_format == 'parquet':
-    train_dataset = load_dataset("parquet", data_files=args.training_corpus)
-else:
-    train_dataset = DatasetDict({'train': load_from_disk(args.training_corpus)})
+train_dataset = load_dataset("parquet", data_files=args.training_corpus)
 
 if ('prompt' in train_dataset['train'].column_names) and ('__index_level_0__' in train_dataset['train'].column_names):
     train_dataset = train_dataset.remove_columns(['prompt', '__index_level_0__'])

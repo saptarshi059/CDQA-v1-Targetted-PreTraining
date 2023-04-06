@@ -31,8 +31,8 @@ def main(dataset_name, corpus_file):
     mlm_dataset = load_dataset("parquet", data_files=corpus_file).filter(input_columns='entity',
                                                                          function=lambda x: x in train_subset_ents)
 
-    print(f'Saving MLM subset with ({len(mlm_dataset)}) contexts...')
-    mlm_dataset.to_parquet(f"{dataset_name}_MLM_train_subset")
+    print(f'Saving MLM subset with ({len(mlm_dataset["train"])}) contexts...')
+    mlm_dataset['train'].to_parquet(f"{dataset_name}_MLM_train_subset.parquet")
 
 
 if __name__ == '__main__':
