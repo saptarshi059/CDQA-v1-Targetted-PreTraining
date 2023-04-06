@@ -14,7 +14,7 @@ def main(dataset_name, corpus_file):
     print(f'Training Subset has: {len(train_subset)} samples ({len(train_subset) / len(dataset["train"])})%')
     print(f'Test Subset has: {len(test_subset)} samples ({len(test_subset) / len(dataset["train"])})%')
     print(f'Number of overlapping contexts '
-          f'b/w train & test: {len(set(train_subset["contexts"]).intersection(set(test_subset["contexts"])))}')
+          f'b/w train & test: {len(set(train_subset["context"]).intersection(set(test_subset["context"])))}')
 
     dataset_name = dataset_name.replace('/', '_')
 
