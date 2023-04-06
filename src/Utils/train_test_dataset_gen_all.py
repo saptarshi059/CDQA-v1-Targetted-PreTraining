@@ -32,7 +32,7 @@ def main(dataset_name, corpus_file):
                                                                          function=lambda x: x in train_subset_ents)
 
     print(f'Saving MLM subset with ({len(mlm_dataset["train"])}) contexts...')
-    mlm_dataset['train'].to_parquet(f"{dataset_name}_MLM_train_subset.parquet")
+    mlm_dataset['train'].to_parquet(f"galactica_corpus_subset.parquet")
 
 
 if __name__ == '__main__':
