@@ -81,7 +81,6 @@ parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--learning_rate', default=5e-5, type=float)
 parser.add_argument('--epochs', default=3, type=int)
-parser.add_argument('--local_dataset_format', default='parquet', type=str)
 
 args = parser.parse_args()
 
