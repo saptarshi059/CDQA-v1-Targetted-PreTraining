@@ -96,9 +96,9 @@ if args.dataset_location == 'remote':
         raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad")
 else:
     raw_datasets = DatasetDict({'train': load_dataset("parquet",
-                                                      data_files=f'{args.local_dataset_name}_train_subset')['train'].select(range(10)),
+                                                      data_files=f'{args.local_dataset_name}_train_subset.parquet')['train'].select(range(10)),
                                 'validation': load_dataset("parquet",
-                                                           data_files=f'{args.local_dataset_name}_test_subset')['train'].select(range(10))
+                                                           data_files=f'{args.local_dataset_name}_test_subset.parquet')['train'].select(range(10))
                                 })
 
 train_dataset = raw_datasets['train'].map(EQA_Processing.prepare_train_features,
