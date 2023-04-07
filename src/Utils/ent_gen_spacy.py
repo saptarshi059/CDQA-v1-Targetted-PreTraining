@@ -1,6 +1,6 @@
 from datasets import load_dataset, DatasetDict, load_from_disk
-from tqdm.auto import tqdm
 import pickle5 as pickle
+from tqdm import tqdm
 import argparse
 import scispacy
 import spacy
