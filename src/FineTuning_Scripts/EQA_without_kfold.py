@@ -117,24 +117,24 @@ if args.dataset_location == 'remote':
                                                             remove_columns=raw_datasets['validation'].column_names)
 
 else:
-    raw_dataset_train = DatasetDict({'train': load_from_disk(f'{args.local_dataset_name}_train_subset')})
-    raw_dataset_validation = DatasetDict({'validation': load_from_disk(f'{args.local_dataset_name}_test_subset')})
+    raw_datasets = DatasetDict({'train': load_from_disk(f'{args.local_dataset_name}_train_subset'),
+                                'validation': load_from_disk(f'{args.local_dataset_name}_test_subset')})
 
-    train_dataset = raw_dataset_train['train'].map(EQA_Processing.prepare_train_features,
-                                                   fn_kwargs={'tokenizer': tokenizer,
-                                                              'pad_on_right': pad_on_right,
-                                                              'max_length': max_length,
-                                                              'doc_stride': doc_stride},
-                                                   batched=True,
-                                                   remove_columns=raw_dataset_train['train'].column_names)
-    validation_dataset = raw_dataset_validation['validation'].map(EQA_Processing.prepare_validation_features,
-                                                                  fn_kwargs={'tokenizer': tokenizer,
-                                                                             'pad_on_right': pad_on_right,
-                                                                             'max_length': max_length,
-                                                                             'doc_stride': doc_stride},
-                                                                  batched=True,
-                                                                  remove_columns=
-                                                                  raw_dataset_validation['validation'].column_names)
+    train_dataset = raw_datasets['train'].map(EQA_Processing.prepare_train_features,
+                                              fn_kwargs={'tokenizer': tokenizer,
+                                                         'pad_on_right': pad_on_right,
+                                                         'max_length': max_length,
+                                                         'doc_stride': doc_stride},
+                                              batched=True,
+                                              remove_columns=raw_datasets['train'].column_names)
+    validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_validation_features,
+                                                        fn_kwargs={'tokenizer': tokenizer,
+                                                                   'pad_on_right': pad_on_right,
+                                                                   'max_length': max_length,
+                                                                   'doc_stride': doc_stride},
+                                                        batched=True,
+                                                        remove_columns=
+                                                        raw_datasets['validation'].column_names)
 
 metric = load("squad")
 
