@@ -2,10 +2,11 @@
 
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering, logging, default_data_collator, \
     get_scheduler, set_seed
-from datasets import load_dataset, DatasetDict, load_metric
+from datasets import load_dataset, DatasetDict
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from torch.optim import AdamW
+from evaluate import  load
 import EQA_Processing
 from tqdm import tqdm
 import numpy as np
@@ -117,7 +118,7 @@ validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_valid
                                                     remove_columns=
                                                     raw_datasets['validation'].column_names)
 
-metric = load_metric("squad")
+metric = load("squad")
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
