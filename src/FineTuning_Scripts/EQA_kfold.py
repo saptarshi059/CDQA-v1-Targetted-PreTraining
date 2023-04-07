@@ -165,7 +165,8 @@ for fold_number, (train_idx, val_idx) in enumerate(kf.split(raw_datasets['train'
         end_logits = end_logits[: len(validation_dataset)]
 
         metrics = EQA_Processing.compute_metrics(start_logits, end_logits, validation_dataset,
-                                                 fold_dataset['validation'])
+                                                 fold_dataset['validation'], n_best, max_answer_length, metric)
+
         print(f"FOLD {fold_number + 1} | EPOCH {epoch + 1}: {metrics}")
 
         f1_1_folds.append(metrics['f1'])
