@@ -91,50 +91,29 @@ if args.dataset_location == 'remote':
     if args.trial_mode:
         print('Running Code in Trial Mode to see if everything works properly...')
         raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad", split=['train[:160]', 'validation[:10]'])
-        train_dataset = raw_datasets[0].map(EQA_Processing.prepare_train_features,
-                                            fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
-                                                       'max_length': max_length, 'doc_stride': doc_stride},
-                                            batched=True,
-                                            remove_columns=raw_datasets[0].column_names)
-        validation_dataset = raw_datasets[1].map(EQA_Processing.prepare_validation_features,
-                                                 fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
-                                                            'max_length': max_length, 'doc_stride': doc_stride},
-                                                 batched=True,
-                                                 remove_columns=raw_datasets[1].column_names)
+        raw_datasets = DatasetDict({'train': raw_datasets[0], 'validation': raw_datasets[1]})
     else:
         raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad")
-        train_dataset = raw_datasets['train'].map(EQA_Processing.prepare_train_features,
-                                                  fn_kwargs={'tokenizer': tokenizer, 'pad_on_right': pad_on_right,
-                                                             'max_length': max_length, 'doc_stride': doc_stride},
-                                                  batched=True,
-                                                  remove_columns=raw_datasets['train'].column_names)
-        validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_validation_features,
-                                                            fn_kwargs={'tokenizer': tokenizer,
-                                                                       'pad_on_right': pad_on_right,
-                                                                       'max_length': max_length,
-                                                                       'doc_stride': doc_stride},
-                                                            batched=True,
-                                                            remove_columns=raw_datasets['validation'].column_names)
-
 else:
     raw_datasets = DatasetDict({'train': load_from_disk(f'{args.local_dataset_name}_train_subset'),
                                 'validation': load_from_disk(f'{args.local_dataset_name}_test_subset')})
 
-    train_dataset = raw_datasets['train'].map(EQA_Processing.prepare_train_features,
-                                              fn_kwargs={'tokenizer': tokenizer,
-                                                         'pad_on_right': pad_on_right,
-                                                         'max_length': max_length,
-                                                         'doc_stride': doc_stride},
-                                              batched=True,
-                                              remove_columns=raw_datasets['train'].column_names)
-    validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_validation_features,
-                                                        fn_kwargs={'tokenizer': tokenizer,
-                                                                   'pad_on_right': pad_on_right,
-                                                                   'max_length': max_length,
-                                                                   'doc_stride': doc_stride},
-                                                        batched=True,
-                                                        remove_columns=
-                                                        raw_datasets['validation'].column_names)
+train_dataset = raw_datasets['train'].map(EQA_Processing.prepare_train_features,
+                                          fn_kwargs={'tokenizer': tokenizer,
+                                                     'pad_on_right': pad_on_right,
+                                                     'max_length': max_length,
+                                                     'doc_stride': doc_stride},
+                                          batched=True,
+                                          remove_columns=raw_datasets['train'].column_names)
+
+validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_validation_features,
+                                                    fn_kwargs={'tokenizer': tokenizer,
+                                                               'pad_on_right': pad_on_right,
+                                                               'max_length': max_length,
+                                                               'doc_stride': doc_stride},
+                                                    batched=True,
+                                                    remove_columns=
+                                                    raw_datasets['validation'].column_names)
 
 metric = load("squad")
 
@@ -199,12 +178,8 @@ for epoch in range(num_train_epochs):
     start_logits = start_logits[: len(validation_dataset)]
     end_logits = end_logits[: len(validation_dataset)]
 
-    if args.trial_mode:
-        metrics = EQA_Processing.compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets[1],
-                                                 n_best, max_answer_length, metric)
-    else:
-        metrics = EQA_Processing.compute_metrics(start_logits, end_logits, validation_dataset,
-                                                 raw_datasets['validation'], n_best, max_answer_length, metric)
+    metrics = EQA_Processing.compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets['validation'],
+                                             n_best, max_answer_length, metric)
 
     print(f"epoch {epoch}:", metrics)
 
