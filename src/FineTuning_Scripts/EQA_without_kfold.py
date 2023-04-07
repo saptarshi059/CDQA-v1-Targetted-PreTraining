@@ -2,11 +2,11 @@
 
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering, logging, default_data_collator, \
     get_scheduler, set_seed
-from datasets import load_dataset, DatasetDict
+from datasets import load_dataset, DatasetDict, load_metric
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from torch.optim import AdamW
-from evaluate import  load
+from evaluate import load
 import EQA_Processing
 from tqdm import tqdm
 import numpy as np
@@ -86,6 +86,7 @@ n_best = args.n_best
 pad_on_right = tokenizer.padding_side == "right"
 
 if args.dataset_location == 'remote':
+    metric = load("squad")
     if args.trial_mode:
         print('Running Code in Trial Mode to see if everything works properly...')
         raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad", split=['train[:160]', 'validation[:10]'])
@@ -93,6 +94,7 @@ if args.dataset_location == 'remote':
     else:
         raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad")
 else:
+    metric = load_metric("squad")
     raw_datasets = DatasetDict({'train': load_dataset("parquet",
                                                       data_files=f'{args.local_dataset_name}_'
                                                                  f'train_subset.parquet')['train'],
@@ -118,7 +120,7 @@ validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_valid
                                                     remove_columns=
                                                     raw_datasets['validation'].column_names)
 
-metric = load("squad")
+
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
