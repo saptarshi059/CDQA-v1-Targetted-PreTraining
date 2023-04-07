@@ -129,6 +129,8 @@ validation_set.set_format("torch")
 eval_dataloader = DataLoader(validation_set, collate_fn=data_collator, batch_size=batch_size,
                              worker_init_fn=seed_worker, generator=g)
 
+print(validation_set)
+
 model = AutoModelForQuestionAnswering.from_pretrained(model_checkpoint)
 output_dir = args.trained_model_name
 
