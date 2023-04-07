@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering, AutoConfig, logging, default_data_collator, \
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering, logging, default_data_collator, \
     get_scheduler, set_seed
 from datasets import load_dataset, DatasetDict, load_metric
 from torch.utils.data import DataLoader
