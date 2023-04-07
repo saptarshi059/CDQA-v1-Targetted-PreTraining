@@ -19,8 +19,8 @@ def main(dataset_name, corpus_file):
     dataset_name = dataset_name.replace('/', '_')
 
     print('Saving subsets to disk...')
-    train_subset.save_to_disk(f'{dataset_name}_train_subset')
-    test_subset.save_to_disk(f'{dataset_name}_test_subset')
+    train_subset.to_parquet(f'{dataset_name}_train_subset.parquet')
+    test_subset.to_parquet(f'{dataset_name}_test_subset.parquet')
 
     print('Generating entities...')
     ent_gen(f'{dataset_name}_train_subset', f'{dataset_name}_train_subset_ents_spacy.pkl', 'local')
