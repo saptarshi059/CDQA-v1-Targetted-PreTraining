@@ -14,7 +14,7 @@ def ent_gen(dataset_name, op_file, location):
     if location == 'remote':
         dataset = load_dataset(dataset_name)
     else:
-        dataset = DatasetDict({'train': load_from_disk(dataset_name)})
+        dataset = load_dataset('parquet', data_files=dataset_name)
 
     all_contexts = list(set(dataset['train']['context']))
     all_questions = dataset['train']['question']
