@@ -117,10 +117,7 @@ validation_dataset = raw_datasets['validation'].map(EQA_Processing.prepare_valid
                                                                'max_length': max_length,
                                                                'doc_stride': doc_stride},
                                                     batched=True,
-                                                    remove_columns=
-                                                    raw_datasets['validation'].column_names)
-
-
+                                                    remove_columns=raw_datasets['validation'].column_names)
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
