@@ -93,8 +93,8 @@ def ent_gen(dataset_name, op_file, location, do_filter):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', default='Saptarshi7/covid_qa_cleaned_CS', type=str)
-    parser.add_argument('--output_file_name', default='ents_spacy.pkl', type=str)
     parser.add_argument('--dataset_location', default='remote', type=str)
     parser.add_argument('--do_filter', default=False, type=str2bool)
+    parser.add_argument('--output_file_name', default='ents_spacy.pkl', type=str)
     args = parser.parse_args()
-    ent_gen(args.dataset, args.output_file_name, args.dataset_location)
+    ent_gen(args.dataset, args.output_file_name, args.dataset_location, args.do_filter)
