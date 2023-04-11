@@ -68,7 +68,7 @@ def ent_gen(dataset_name, op_file, location, do_filter):
                     and (ent.count('[') == ent.count(']')):
                 total_ents_filtered.append(ent)
 
-        print(f'Total entities after filtering:{len(total_ents_filtered)}')
+        print(f'Total entities after filtering: {len(total_ents_filtered)}')
 
         total_ents_filtered.sort()
         vocab = {v: k for k, v in dict(enumerate(total_ents_filtered)).items()}
