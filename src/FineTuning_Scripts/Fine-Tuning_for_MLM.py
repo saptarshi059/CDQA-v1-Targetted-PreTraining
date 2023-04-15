@@ -91,7 +91,13 @@ random.seed(args.random_state)
 set_seed(args.random_state)
 
 model_checkpoint = args.model_checkpoint
-tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+if model_checkpoint == 'studio-ousia/luke-base':
+    tokenizer = AutoTokenizer.from_pretrained('roberta-base')  # since luke doesn't have a fast implementation & it
+    # has the same vocab as roberta
+else:
+    tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
 model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 chunk_size = tokenizer.model_max_length
 batch_size = args.batch_size
