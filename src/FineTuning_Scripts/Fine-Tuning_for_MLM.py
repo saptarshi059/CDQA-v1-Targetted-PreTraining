@@ -122,7 +122,8 @@ train_dataset = train_dataset['train'].map(tokenize_function, batched=True, remo
 train_dataset = train_dataset.map(group_texts, batched=True)
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
-train_dataset = train_dataset.remove_columns(["word_ids"])
+if 'word_ids' in train_dataset['train'].column_names:
+    train_dataset = train_dataset.remove_columns(["word_ids"])
 train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=batch_size, collate_fn=data_collator,
                               worker_init_fn=seed_worker, generator=g)
 print('Training Dataset processed...')
