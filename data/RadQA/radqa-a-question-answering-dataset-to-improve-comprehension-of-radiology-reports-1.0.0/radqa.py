@@ -12,8 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""covid_qa_cleaned_CS: Connor Heaton/Saptarshi Sengupta"""
-
+"""RadQA_for_HF: Connor Heaton/Saptarshi Sengupta"""
 
 from datasets.tasks import QuestionAnsweringExtractive
 import datasets
@@ -23,25 +22,28 @@ import os
 
 logger = datasets.logging.get_logger(__name__)
 
-
 # You can copy an official description
 _DESCRIPTION = """\
-Cleaned version of COVID-QA containing fixes as mentioned in <paper yet to be published>.
+RadQA for loading from HuggingFace hub.
 """
-
 
 _LICENSE = "Apache License 2.0"
 
+_URL = "https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
+       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0"
 
-_URL = "https://github.com/saptarshi059/CDQA-v2-Auxilliary-Loss/blob/main/data/covid_qa_cleaned_CS/"
-_URLs = {"covid_qa_cleaned_CS": _URL + "covid_qa_cleaned_CS.json"}
+_URLs = {
+    "train": _URL + "train.json",
+    "dev": _URL + "dev.json",
+    "test": _URL + "test.json"
+}
 
 
-class CovidQADeepsetCleaned(datasets.GeneratorBasedBuilder):
+class RadQA(datasets.GeneratorBasedBuilder):
     VERSION = datasets.Version("1.0.0")
 
     BUILDER_CONFIGS = [
-        datasets.BuilderConfig(name="covid_qa_cleaned_CS", version=VERSION, description="Cleaned version of COVID-QA (deepset) by Connor Heaton & Saptarshi Sengupta"),
+        datasets.BuilderConfig(name="RadQA", version=VERSION, description="RadQA for loading from HuggingFace hub."),
     ]
 
     def _info(self):
@@ -73,22 +75,35 @@ class CovidQADeepsetCleaned(datasets.GeneratorBasedBuilder):
         )
 
     def _split_generators(self, dl_manager):
-        
-        #This code will be removed once the directory becomes public
 
-        url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v2-Auxilliary-Loss/main/data/covid_qa_cleaned_CS/covid_qa_cleaned_CS.json'
+        # This code will be removed once the directory becomes public
+
+        train_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
+       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train.json'
+
+        dev_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
+       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/dev.json'
+
+        test_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
+       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.json'
+
         auth = ('saptarshi059', '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')
 
         r = requests.get(url, auth=auth)
 
         os.mkdir('my_temp')
-        
-        with open('my_temp/covid_qa_cleaned_CS.json', 'w') as f:
+
+        with open('my_temp/train.json', 'w') as f:
             json.dump(r.json(), f)
 
+        with open('my_temp/dev.json', 'w') as f:
+            json.dump(r.json(), f)
 
-        #url = _URLs[self.config.name]
-        #downloaded_filepath = dl_manager.download_and_extract(r)
+        with open('my_temp/test.json', 'w') as f:
+            json.dump(r.json(), f)
+
+        # url = _URLs[self.config.name]
+        # downloaded_filepath = dl_manager.download_and_extract(r)
 
         return [
             datasets.SplitGenerator(

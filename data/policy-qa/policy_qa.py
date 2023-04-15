@@ -85,13 +85,11 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
         test_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/policy-qa/test.json'
 
         auth = ('saptarshi059', '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')
-
-        r = requests.get(url, auth=auth)
-
         os.mkdir('my_temp')
-        
+
+        train_request = requests.get(train_url, auth=auth)
         with open('my_temp/train.json', 'w') as f:
-            json.dump(r.json(), f)
+            json.dump(train_request.json(), f)
 
         with open('my_temp/dev.json', 'w') as f:
             json.dump(r.json(), f)
