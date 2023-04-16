@@ -8,7 +8,6 @@ from accelerate import Accelerator
 from datasets import load_dataset, load_from_disk, DatasetDict
 from torch.optim import AdamW
 from tqdm import tqdm
-from torch import inf
 import numpy as np
 import argparse
 import random

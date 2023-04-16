@@ -9,7 +9,6 @@ from timm.optim import Lamb
 from tqdm.auto import tqdm
 from evaluate import load
 import transformers
-from torch import inf
 import numpy as np
 import collections
 import argparse
