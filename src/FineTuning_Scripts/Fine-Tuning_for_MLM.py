@@ -133,7 +133,9 @@ print('Evaluation Corpus Loaded...')
 
 eval_dataset = eval_dataset['train'].map(tokenize_function, batched=True, remove_columns=['ent', 'text'])
 eval_dataset = eval_dataset.map(group_texts, batched=True)
-eval_dataset = eval_dataset.remove_columns(["word_ids"])
+
+if 'word_ids' in eval_dataset.column_names:
+    eval_dataset = eval_dataset.remove_columns(["word_ids"])
 
 eval_dataset = eval_dataset.map(insert_random_mask, batched=True, remove_columns=eval_dataset.column_names)
 if 'masked_token_type_ids' in eval_dataset.column_names:
