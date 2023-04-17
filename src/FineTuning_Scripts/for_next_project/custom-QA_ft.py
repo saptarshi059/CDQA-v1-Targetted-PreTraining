@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering, AutoConfig, logging, default_data_collator, get_scheduler, set_seed
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering, AutoConfig, logging, default_data_collator, get_scheduler
 from datasets import load_dataset, load_metric
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
@@ -13,6 +13,7 @@ import collections
 import argparse
 import random
 import torch
+import os
 
 def str2bool(v):
     if isinstance(v, bool):
@@ -204,9 +205,9 @@ def seed_worker(worker_id):
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--squad_version2', default=False, type=str2bool)
 parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", type=str)
-parser.add_argument('--trained_model_name', default="distilbert-base-uncased-squad", type=str)
+parser.add_argument('--corpus_file', default="../../data/our-wikipedia-corpus/mini-corpus-for-extended-QA", type=str)
+parser.add_argument('--trained_model_name', default="distilbert-base-uncased-custom-QA", type=str)
 parser.add_argument('--batch_size', default=16, type=int)
 parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
@@ -214,11 +215,9 @@ parser.add_argument('--learning_rate', default=2e-5, type=float)
 parser.add_argument('--weight_decay', default=0.01, type=float)
 parser.add_argument('--epochs', default=3, type=int)
 parser.add_argument('--n_best', default=20, type=int)
-parser.add_argument('--max_answer_length', default=30, type=int)
-parser.add_argument('--trial_mode', default=False, type=str2bool)
+parser.add_argument('--max_answer_length', default=1000, type=int)
+parser.add_argument('--use_new_tokens', default=True, type=str2bool)
 parser.add_argument('--random_state', default=42, type=int)
-parser.add_argument('--freeze_PT_layers', default=False, type=str2bool)
-
 
 args = parser.parse_args()
 
@@ -229,22 +228,14 @@ g = torch.Generator()
 g.manual_seed(args.random_state)
 torch.manual_seed(args.random_state)
 random.seed(args.random_state)
-set_seed(args.random_state)
 
-# This flag is the difference between SQUAD v1 or 2 (if you're using another dataset, it indicates if impossible
-# answers are allowed or not).
-squad_v2 = args.squad_version2
 model_checkpoint = args.model_checkpoint
 batch_size = args.batch_size
 
-accelerator = Accelerator()
+accelerator = Accelerator(fp16=True)
 device = accelerator.device
 
-if model_checkpoint == 'studio-ousia/luke-base':
-    tokenizer = AutoTokenizer.from_pretrained('roberta-base') #since luke doesn't have a fast implementation & it has the same vocab as roberta
-else:
-    tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
-
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 data_collator = default_data_collator
 
 max_length = args.max_length # The maximum length of a feature (question and context)
@@ -254,15 +245,11 @@ n_best = args.n_best
 
 pad_on_right = tokenizer.padding_side == "right"
 
-if args.trial_mode == True:
-    print('Running Code in Trial Mode to see if everything works properly...')
-    raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad", split=['train[:160]','validation[:10]']) #Testing purposes
-    train_dataset = raw_datasets[0].map(prepare_train_features, batched=True, remove_columns=raw_datasets[0].column_names)
-    validation_dataset = raw_datasets[1].map(prepare_validation_features, batched=True, remove_columns=raw_datasets[1].column_names)
-else:
-    raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad")
-    train_dataset = raw_datasets['train'].map(prepare_train_features, batched=True, remove_columns=raw_datasets['train'].column_names)
-    validation_dataset = raw_datasets['validation'].map(prepare_validation_features, batched=True, remove_columns=raw_datasets['validation'].column_names)
+raw_datasets = load_dataset("parquet", data_files=os.path.abspath(args.corpus_file))
+raw_datasets_split = raw_datasets['train'].train_test_split(train_size=0.8, seed=args.random_state)
+
+train_dataset = raw_datasets_split['train'].map(prepare_train_features, batched=True, remove_columns=raw_datasets_split['train'].column_names)
+validation_dataset = raw_datasets_split['test'].map(prepare_validation_features, batched=True, remove_columns=raw_datasets_split['test'].column_names)
 
 metric = load("squad")
 
@@ -276,15 +263,20 @@ eval_dataloader = DataLoader(validation_set, collate_fn=data_collator, batch_siz
 model = AutoModelForQuestionAnswering.from_pretrained(model_checkpoint)
 output_dir = args.trained_model_name
 
-if args.freeze_PT_layers == True:
-    print('Freezing base layers and only training span head...')
-    base_module_name = list(model.named_children())[0][0]
-    for param in getattr(model, base_module_name).parameters():
-        param.requires_grad = False
+if args.use_new_tokens == True:
+    #Adding the new tokens to the vocabulary
+    print(f'Original number of tokens: {len(tokenizer)}')
+    new_tokens = raw_datasets['train']['title']
+    tokenizer.add_tokens(new_tokens)
+    print(f'New number of tokens: {len(tokenizer)}')
+
+    # The new vector is added at the end of the embedding matrix
+    model.resize_token_embeddings(len(tokenizer)) 
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
 model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader, eval_dataloader)
+model.to(device)
 
 num_train_epochs = args.epochs
 num_update_steps_per_epoch = len(train_dataloader)
@@ -324,10 +316,7 @@ for epoch in range(num_train_epochs):
     start_logits = start_logits[: len(validation_dataset)]
     end_logits = end_logits[: len(validation_dataset)]
 
-    if args.trial_mode == True:
-        metrics = compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets[1])
-    else:
-        metrics = compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets['validation'])
+    metrics = compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets_split['test'])
     
     print(f"epoch {epoch}:", metrics)
 
