@@ -5,7 +5,6 @@ from datasets import load_dataset, load_metric
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
 from torch.optim import AdamW
-from timm.optim import Lamb
 from tqdm.auto import tqdm
 from evaluate import load
 import transformers
