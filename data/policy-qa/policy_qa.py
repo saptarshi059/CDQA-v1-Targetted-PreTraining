@@ -97,9 +97,6 @@ class PolicyQA(datasets.GeneratorBasedBuilder):
         with open('my_temp/test.json', 'w') as f:
             json.dump(r.json(), f)
 
-        #url = _URLs[self.config.name]
-        #downloaded_filepath = dl_manager.download_and_extract(r)
-
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,

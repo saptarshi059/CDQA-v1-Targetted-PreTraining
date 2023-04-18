@@ -29,6 +29,7 @@ RadQA for loading from HuggingFace hub.
 
 _LICENSE = "Apache License 2.0"
 
+'''
 _URL = "https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
        "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0"
 
@@ -37,6 +38,7 @@ _URLs = {
     "dev": _URL + "dev.json",
     "test": _URL + "test.json"
 }
+'''
 
 
 class RadQA(datasets.GeneratorBasedBuilder):
@@ -77,6 +79,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager):
 
         # This code will be removed once the directory becomes public
+        auth = ('saptarshi059', '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')
 
         train_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
        "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train.json'
@@ -87,37 +90,33 @@ class RadQA(datasets.GeneratorBasedBuilder):
         test_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
        "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.json'
 
-        auth = ('saptarshi059', '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')
+        os.mkdir('radqa_downloaded')
 
-        r = requests.get(url, auth=auth)
+        train_request = requests.get(train_url, auth=auth)
+        with open('radqa_downloaded/train.json', 'w') as f:
+            json.dump(train_request.json(), f)
 
-        os.mkdir('my_temp')
+        dev_request = requests.get(dev_url, auth=auth)
+        with open('radqa_downloaded/dev.json', 'w') as f:
+            json.dump(dev_request.json(), f)
 
-        with open('my_temp/train.json', 'w') as f:
-            json.dump(r.json(), f)
-
-        with open('my_temp/dev.json', 'w') as f:
-            json.dump(r.json(), f)
-
-        with open('my_temp/test.json', 'w') as f:
-            json.dump(r.json(), f)
-
-        # url = _URLs[self.config.name]
-        # downloaded_filepath = dl_manager.download_and_extract(r)
+        test_request = requests.get(test_url, auth=auth)
+        with open('radqa_downloaded/test.json', 'w') as f:
+            json.dump(test_request.json(), f)
 
         return [
-            datasets.SplitGenerator(
-                name=datasets.Split.TRAIN,
-                gen_kwargs={"filepath": 'my_temp/covid_qa_cleaned_CS.json'},
-            ),
+            datasets.SplitGenerator(name=datasets.Split.TRAIN, gen_kwargs={"filepath": 'radqa_downloaded/train.json'}),
+            datasets.SplitGenerator(name=datasets.Split.VALIDATION, gen_kwargs={"filepath": 'radqa_downloaded'
+                                                                                            '/dev.json'}),
+            datasets.SplitGenerator(name=datasets.Split.TEST, gen_kwargs={"filepath": 'radqa_downloaded/test.json'}),
         ]
 
     def _generate_examples(self, filepath):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", filepath)
         with open(filepath, encoding="utf-8") as f:
-            covid_qa = json.load(f)
-            for article in covid_qa["data"]:
+            radqa = json.load(f)
+            for article in radqa["data"]:
                 for paragraph in article["paragraphs"]:
                     context = paragraph["context"].strip()
                     document_id = paragraph["document_id"]
