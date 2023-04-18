@@ -48,26 +48,6 @@
   },
   "license": "Apache License 2.0",
   "post_processed": null,
-  "splits": {
-    "train": {
-      "name": "train",
-      "num_bytes": 65151262,
-      "num_examples": 803,
-      "dataset_name": "RadQA"
-    },
-    "test": {
-      "name": "test",
-      "num_bytes": 65151262,
-      "num_examples": 104,
-      "dataset_name": "RadQA"
-    },
-    "validation": {
-      "name": "validation",
-      "num_bytes": 65151262,
-      "num_examples": 102,
-      "dataset_name": "RadQA"
-    }
-  },
   "supervised_keys": null,
   "task_templates": [
     {
