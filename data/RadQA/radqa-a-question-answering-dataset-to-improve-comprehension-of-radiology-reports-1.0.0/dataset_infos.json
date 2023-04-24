@@ -31,7 +31,7 @@
       "_type": "Value"
     },
     "document_id": {
-      "dtype": "int32",
+      "dtype": "string",
       "id": null,
       "_type": "Value"
     },

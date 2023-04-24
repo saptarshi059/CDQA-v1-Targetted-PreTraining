@@ -40,7 +40,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
     def _info(self):
         features = datasets.Features(
             {
-                "document_id": datasets.Value("int32"),
+                "document_id": datasets.Value("string"),
                 "title": datasets.Value("string"),
                 "context": datasets.Value("string"),
                 "question": datasets.Value("string"),
