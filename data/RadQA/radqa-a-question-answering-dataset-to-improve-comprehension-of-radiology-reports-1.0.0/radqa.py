@@ -103,30 +103,29 @@ class RadQA(datasets.GeneratorBasedBuilder):
     def _generate_examples(self, filepath):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", filepath)
+        key = 0
         with open(filepath, encoding="utf-8") as f:
             radqa = json.load(f)
             for article in radqa["data"]:
+                title = article.get("title", "")
                 for paragraph in article["paragraphs"]:
-                    context = paragraph["context"].strip()
-                    document_id = paragraph["document_id"]
+                    context = paragraph["context"]  # do not strip leading blank spaces GH-2585
                     for qa in paragraph["qas"]:
-                        question = qa["question"].strip()
                         is_impossible = qa["is_impossible"]
-                        id_ = qa["id"]
 
                         answer_starts = [answer["answer_start"] for answer in qa["answers"]]
-                        answers = [answer["text"].strip() for answer in qa["answers"]]
-
+                        answers = [answer["text"] for answer in qa["answers"]]
                         # Features currently used are "context", "question", and "answers".
                         # Others are extracted here for the ease of future expansions.
-                        yield id_, {
-                            "document_id": document_id,
+                        yield key, {
+                            "title": title,
                             "context": context,
-                            "question": question,
+                            "question": qa["question"],
                             "is_impossible": is_impossible,
-                            "id": id_,
+                            "id": qa["id"],
                             "answers": {
                                 "answer_start": answer_starts,
                                 "text": answers,
                             },
                         }
+                        key += 1
