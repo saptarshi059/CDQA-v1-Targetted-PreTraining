@@ -71,16 +71,13 @@ class RadQA(datasets.GeneratorBasedBuilder):
         auth = ('saptarshi059', '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')
 
         train_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
-                    '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train' \
-                    '.json?token=GHSAT0AAAAAAB64JXVGA5LGPLASQ74WAM7KZCGUUNQ'
+                    '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train.json'
 
         dev_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA/radqa' \
-                  '-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/dev.json?token' \
-                  '=GHSAT0AAAAAAB64JXVHCSKYJQ3QWLINTR2YZCGUV5A'
+                  '-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/dev.json'
 
         test_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
                    '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.json' \
-                   '?token=GHSAT0AAAAAAB64JXVGLJOG4Y2ISXGBHNX4ZCGUW7A'
 
         os.mkdir('radqa_downloaded')
 
