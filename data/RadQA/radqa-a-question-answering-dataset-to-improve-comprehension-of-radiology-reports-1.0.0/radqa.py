@@ -108,25 +108,26 @@ class RadQA(datasets.GeneratorBasedBuilder):
         key = 0
         with open(filepath, encoding="utf-8") as f:
             radqa = json.load(f)
-            for article in radqa["data"]:
-                title = article.get("title", "")
-                for paragraph in article["paragraphs"]:
+            for example in radqa["data"]:
+                title = example.get("title", "")
+                for paragraph in example["paragraphs"]:
                     context = paragraph["context"]  # do not strip leading blank spaces GH-2585
                     document_id = paragraph["document_id"]
                     for qa in paragraph["qas"]:
-                        is_impossible = qa["is_impossible"]
+                        question = qa["question"]
+                        id_ = qa["id"]
 
                         answer_starts = [answer["answer_start"] for answer in qa["answers"]]
                         answers = [answer["text"] for answer in qa["answers"]]
                         answer_id = [answer["answer_id"] for answer in qa["answers"]]
+
                         # Features currently used are "context", "question", and "answers".
                         # Others are extracted here for the ease of future expansions.
-                        yield key, {
+                        yield id_, {
                             "title": title,
                             "context": context,
-                            "question": qa["question"],
-                            "is_impossible": is_impossible,
-                            "id": qa["id"],
+                            "question": question,
+                            "id": id_,
                             "document_id": document_id,
                             "answers": {
                                 "answer_start": answer_starts,
@@ -134,4 +135,4 @@ class RadQA(datasets.GeneratorBasedBuilder):
                                 "answer_id": answer_id
                             },
                         }
-                        key += 1
+
