@@ -50,6 +50,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
                     {
                         "text": datasets.Value("string"),
                         "answer_start": datasets.Value("int32"),
+                        "answer_id": datasets.Value("string")
                     }
                 ),
             }
@@ -111,11 +112,13 @@ class RadQA(datasets.GeneratorBasedBuilder):
                 title = article.get("title", "")
                 for paragraph in article["paragraphs"]:
                     context = paragraph["context"]  # do not strip leading blank spaces GH-2585
+                    document_id = paragraph["document_id"]
                     for qa in paragraph["qas"]:
                         is_impossible = qa["is_impossible"]
 
                         answer_starts = [answer["answer_start"] for answer in qa["answers"]]
                         answers = [answer["text"] for answer in qa["answers"]]
+                        answer_id = [answer["answer_id"] for answer in qa["answers"]]
                         # Features currently used are "context", "question", and "answers".
                         # Others are extracted here for the ease of future expansions.
                         yield key, {
@@ -124,10 +127,11 @@ class RadQA(datasets.GeneratorBasedBuilder):
                             "question": qa["question"],
                             "is_impossible": is_impossible,
                             "id": qa["id"],
-                            "document_id": paragraph["document_id"],
+                            "document_id": document_id,
                             "answers": {
                                 "answer_start": answer_starts,
                                 "text": answers,
+                                "answer_id": answer_id
                             },
                         }
                         key += 1
