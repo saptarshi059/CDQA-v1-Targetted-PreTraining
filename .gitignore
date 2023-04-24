@@ -2,4 +2,4 @@ data/deprecated/
 src/Notebooks/deprecated/
 scibert_ent_corpus_dont_use/
 on_47k/
-agg_gens_OG_47k.parquet
+data/COVID-QA/covidqa-corpora
