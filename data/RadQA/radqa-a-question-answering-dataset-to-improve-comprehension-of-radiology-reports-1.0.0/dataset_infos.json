@@ -3,31 +3,6 @@
   "config_name": "RadQA",
   "description": "RadQA for loading from HuggingFace hub.",
   "features": {
-    "document_id": {
-      "dtype": "int32",
-      "id": null,
-      "_type": "Value"
-    },
-    "context": {
-      "dtype": "string",
-      "id": null,
-      "_type": "Value"
-    },
-    "question": {
-      "dtype": "string",
-      "id": null,
-      "_type": "Value"
-    },
-    "is_impossible": {
-      "dtype": "bool",
-      "id": null,
-      "_type": "Value"
-    },
-    "id": {
-      "dtype": "int32",
-      "id": null,
-      "_type": "Value"
-    },
     "answers": {
       "feature": {
         "text": {
@@ -44,6 +19,36 @@
       "length": -1,
       "id": null,
       "_type": "Sequence"
+    },
+    "context": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
+    "document_id": {
+      "dtype": "int32",
+      "id": null,
+      "_type": "Value"
+    },
+    "id": {
+      "dtype": "int32",
+      "id": null,
+      "_type": "Value"
+    },
+    "is_impossible": {
+      "dtype": "bool",
+      "id": null,
+      "_type": "Value"
+    },
+    "question": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
+    "title": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
     }
   },
   "license": "Apache License 2.0",

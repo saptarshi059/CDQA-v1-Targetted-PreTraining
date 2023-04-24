@@ -41,9 +41,10 @@ class RadQA(datasets.GeneratorBasedBuilder):
         features = datasets.Features(
             {
                 "document_id": datasets.Value("int32"),
+                "title": datasets.Value("string"),
                 "context": datasets.Value("string"),
                 "question": datasets.Value("string"),
-                # "is_impossible": datasets.Value("bool"),
+                "is_impossible": datasets.Value("bool"),
                 "id": datasets.Value("int32"),
                 "answers": datasets.features.Sequence(
                     {
@@ -111,7 +112,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
                 for paragraph in article["paragraphs"]:
                     context = paragraph["context"]  # do not strip leading blank spaces GH-2585
                     for qa in paragraph["qas"]:
-                        #is_impossible = qa["is_impossible"]
+                        is_impossible = qa["is_impossible"]
 
                         answer_starts = [answer["answer_start"] for answer in qa["answers"]]
                         answers = [answer["text"] for answer in qa["answers"]]
@@ -121,7 +122,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
                             "title": title,
                             "context": context,
                             "question": qa["question"],
-                            # "is_impossible": is_impossible,
+                            "is_impossible": is_impossible,
                             "id": qa["id"],
                             "answers": {
                                 "answer_start": answer_starts,
