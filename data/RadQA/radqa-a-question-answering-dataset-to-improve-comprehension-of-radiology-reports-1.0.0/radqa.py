@@ -124,6 +124,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
                             "question": qa["question"],
                             "is_impossible": is_impossible,
                             "id": qa["id"],
+                            "document_id": paragraph["document_id"],
                             "answers": {
                                 "answer_start": answer_starts,
                                 "text": answers,
