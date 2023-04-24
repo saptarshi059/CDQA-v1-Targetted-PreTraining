@@ -36,7 +36,7 @@
       "_type": "Value"
     },
     "id": {
-      "dtype": "int32",
+      "dtype": "string",
       "id": null,
       "_type": "Value"
     },

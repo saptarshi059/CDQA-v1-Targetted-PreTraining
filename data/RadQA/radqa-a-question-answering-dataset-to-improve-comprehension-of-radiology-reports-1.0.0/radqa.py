@@ -45,7 +45,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
                 "context": datasets.Value("string"),
                 "question": datasets.Value("string"),
                 "is_impossible": datasets.Value("bool"),
-                "id": datasets.Value("int32"),
+                "id": datasets.Value("string"),
                 "answers": datasets.features.Sequence(
                     {
                         "text": datasets.Value("string"),
