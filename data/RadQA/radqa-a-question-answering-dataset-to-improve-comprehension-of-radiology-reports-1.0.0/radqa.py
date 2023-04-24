@@ -40,19 +40,17 @@ class RadQA(datasets.GeneratorBasedBuilder):
     def _info(self):
         features = datasets.Features(
             {
-                "document_id": datasets.Value("string"),
+                "id": datasets.Value("string"),
                 "title": datasets.Value("string"),
                 "context": datasets.Value("string"),
                 "question": datasets.Value("string"),
-                "is_impossible": datasets.Value("bool"),
-                "id": datasets.Value("string"),
                 "answers": datasets.features.Sequence(
                     {
                         "text": datasets.Value("string"),
                         "answer_start": datasets.Value("int32"),
-                        "answer_id": datasets.Value("string")
                     }
                 ),
+                # These are the features of your dataset like images, labels ...
             }
         )
         return datasets.DatasetInfo(
@@ -105,21 +103,18 @@ class RadQA(datasets.GeneratorBasedBuilder):
     def _generate_examples(self, filepath):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", filepath)
-        key = 0
         with open(filepath, encoding="utf-8") as f:
-            radqa = json.load(f)
-            for example in radqa["data"]:
+            squad = json.load(f)
+            for example in squad["data"]:
                 title = example.get("title", "")
                 for paragraph in example["paragraphs"]:
                     context = paragraph["context"]  # do not strip leading blank spaces GH-2585
-                    document_id = paragraph["document_id"]
                     for qa in paragraph["qas"]:
                         question = qa["question"]
                         id_ = qa["id"]
 
                         answer_starts = [answer["answer_start"] for answer in qa["answers"]]
                         answers = [answer["text"] for answer in qa["answers"]]
-                        answer_id = [answer["answer_id"] for answer in qa["answers"]]
 
                         # Features currently used are "context", "question", and "answers".
                         # Others are extracted here for the ease of future expansions.
@@ -128,11 +123,10 @@ class RadQA(datasets.GeneratorBasedBuilder):
                             "context": context,
                             "question": question,
                             "id": id_,
-                            "document_id": document_id,
                             "answers": {
                                 "answer_start": answer_starts,
                                 "text": answers,
-                                "answer_id": answer_id
                             },
                         }
+
 

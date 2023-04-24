@@ -1,8 +1,26 @@
 {"RadQA": {
   "builder_name": "RadQA",
-  "config_name": "RadQA",
-  "description": "RadQA for loading from HuggingFace hub.",
   "features": {
+    "id": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
+    "title": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
+    "context": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
+    "question": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
     "answers": {
       "feature": {
         "text": {
@@ -14,50 +32,13 @@
           "dtype": "int32",
           "id": null,
           "_type": "Value"
-        },
-        "answer_id": {
-          "dtype": "string",
-          "id": null,
-          "_type": "Value"
         }
       },
       "length": -1,
       "id": null,
       "_type": "Sequence"
-    },
-    "context": {
-      "dtype": "string",
-      "id": null,
-      "_type": "Value"
-    },
-    "document_id": {
-      "dtype": "string",
-      "id": null,
-      "_type": "Value"
-    },
-    "id": {
-      "dtype": "string",
-      "id": null,
-      "_type": "Value"
-    },
-    "is_impossible": {
-      "dtype": "bool",
-      "id": null,
-      "_type": "Value"
-    },
-    "question": {
-      "dtype": "string",
-      "id": null,
-      "_type": "Value"
-    },
-    "title": {
-      "dtype": "string",
-      "id": null,
-      "_type": "Value"
     }
   },
-  "license": "Apache License 2.0",
-  "post_processed": null,
   "splits": {
     "train": {
       "name": "train",
@@ -88,9 +69,9 @@
     }
   ],
   "version": {
-    "version_str": "1.0.0",
+    "version_str": "2.0.0",
     "description": null,
-    "major": 1,
+    "major": 2,
     "minor": 0,
     "patch": 0
   }
