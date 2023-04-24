@@ -68,7 +68,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager):
 
         # This code will be removed once the directory becomes public
-        auth = ('saptarshi059', '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')
+        auth = ('saptarshi059', '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')
 
         train_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
                     '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train.json'
