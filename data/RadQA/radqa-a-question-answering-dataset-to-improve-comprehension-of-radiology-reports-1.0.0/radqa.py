@@ -29,17 +29,6 @@ RadQA for loading from HuggingFace hub.
 
 _LICENSE = "Apache License 2.0"
 
-'''
-_URL = "https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
-       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0"
-
-_URLs = {
-    "train": _URL + "train.json",
-    "dev": _URL + "dev.json",
-    "test": _URL + "test.json"
-}
-'''
-
 
 class RadQA(datasets.GeneratorBasedBuilder):
     VERSION = datasets.Version("1.0.0")
@@ -81,14 +70,17 @@ class RadQA(datasets.GeneratorBasedBuilder):
         # This code will be removed once the directory becomes public
         auth = ('saptarshi059', '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')
 
-        train_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
-       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train.json'
+        train_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
+                    '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train' \
+                    '.json?token=GHSAT0AAAAAAB64JXVGA5LGPLASQ74WAM7KZCGUUNQ'
 
-        dev_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
-       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/dev.json'
+        dev_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA/radqa' \
+                  '-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/dev.json?token' \
+                  '=GHSAT0AAAAAAB64JXVHCSKYJQ3QWLINTR2YZCGUV5A'
 
-        test_url = 'https://github.com/saptarshi059/CDQA-v1-whole-entity-approach/tree/main/data/RadQA/" \
-       "radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.json'
+        test_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
+                   '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.json' \
+                   '?token=GHSAT0AAAAAAB64JXVGLJOG4Y2ISXGBHNX4ZCGUW7A'
 
         os.mkdir('radqa_downloaded')
 
