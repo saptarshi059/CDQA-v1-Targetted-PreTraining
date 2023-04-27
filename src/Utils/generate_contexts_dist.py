@@ -16,11 +16,11 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline, set_seed
 
 
 class PromptDataset(Dataset):
-    def __init__(self, entities, n_context_per_entity):
+    def __init__(self, entities, prompt_string, n_context_per_entity):
         self.items = []
         for entity in entities:
             for _ in range(n_context_per_entity):
-                self.items.append([entity, 'Title: {}'.format(entity)])
+                self.items.append([entity, prompt_string.format(entity)])
 
     def __len__(self):
         return len(self.items)
@@ -37,6 +37,7 @@ if __name__ == '__main__':
     parser.add_argument('--entity_file', default="../../data/COVID-QA/ents_spacy.pkl", type=str)
     parser.add_argument('--context_max_len', default=2048, type=int)
     parser.add_argument('--n_context_per_entity', default=1, type=int)
+    parser.add_argument('--prompt_string', default='Title: {}', type=str)
 
     parser.add_argument('--world_size', default=1, type=int)
     parser.add_argument('--rank', default=0, type=int, help='zero-indexed')
@@ -78,7 +79,8 @@ if __name__ == '__main__':
     generator.tokenizer.pad_token_id = generator_model.config.eos_token_id
 
     print('[rank {}] Making dataset...'.format(args.rank))
-    dataset = PromptDataset(entities=rank_ents, n_context_per_entity=args.n_context_per_entity)
+    dataset = PromptDataset(entities=rank_ents, prompt_string=args.prompt_string,
+                            n_context_per_entity=args.n_context_per_entity)
     print('[rank {}] len(dataset): {}'.format(args.rank, len(dataset)))
     n_iters = int(math.ceil(len(dataset) / args.batch_size))
 
