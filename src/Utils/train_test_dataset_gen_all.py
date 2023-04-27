@@ -23,7 +23,8 @@ def main(dataset_name, corpus_file):
     test_subset.to_parquet(f'{dataset_name}_test_subset.parquet')
 
     print('Generating entities...')
-    ent_gen(f'{dataset_name}_train_subset.parquet', f'{dataset_name}_train_subset_ents_spacy.pkl', 'local', False)
+    ent_gen(f'{dataset_name}_train_subset.parquet', f'{dataset_name}_train_subset_ents_spacy.pkl', 'local', False,
+            'parquet')
 
     with open(f'{dataset_name}_train_subset_ents_spacy.pkl', 'rb') as f:
         train_subset_ents = pickle.load(f)
