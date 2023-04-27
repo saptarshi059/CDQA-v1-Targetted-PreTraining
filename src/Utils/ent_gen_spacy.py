@@ -21,7 +21,7 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
-def ent_gen(dataset_name, op_file, location, do_filter):
+def ent_gen(dataset_name, op_file, location, do_filter, local_dataset_format):
     print('Loading spacy model...')
     spacy.prefer_gpu(gpu_id=0)
     nlp = spacy.load("en_core_sci_sm")
@@ -29,10 +29,25 @@ def ent_gen(dataset_name, op_file, location, do_filter):
     if location == 'remote':
         dataset = load_dataset(dataset_name)
     else:
-        dataset = load_dataset('parquet', data_files=dataset_name)
+        if local_dataset_format == 'parquet':
+            dataset = load_dataset('parquet', data_files=dataset_name)
+        else:
+            dataset = load_dataset('json', data_files='../../data/RadQA'
+                                                      '/radqa-a-question-answering-dataset-to-improve-comprehension'
+                                                      '-of-radiology-reports-1.0.0'
+                                                      '/train.json', field='data')
 
-    all_contexts = list(set(dataset['train']['context']))
-    all_questions = dataset['train']['question']
+    if local_dataset_format == 'parquet':
+        all_contexts = list(set(dataset['train']['context']))
+        all_questions = dataset['train']['question']
+    else:
+        all_contexts = set()
+        all_questions = set()
+        for row in dataset['train']['paragraphs']:
+            for dictionary in row:
+                all_contexts.add(dictionary["context"])
+                for qas in dictionary['qas']:
+                    all_questions.add(qas["question"])
 
     ques_ents = []
     ctx_ents = []
@@ -94,7 +109,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', default='Saptarshi7/covid_qa_cleaned_CS', type=str)
     parser.add_argument('--dataset_location', default='remote', type=str)
+    parser.add_argument('--local_dataset_format', default='parquet', type=str)
     parser.add_argument('--do_filter', default=False, type=str2bool)
     parser.add_argument('--output_file_name', default='ents_spacy.pkl', type=str)
     args = parser.parse_args()
-    ent_gen(args.dataset, args.output_file_name, args.dataset_location, args.do_filter)
+    ent_gen(args.dataset, args.output_file_name, args.dataset_location, args.do_filter, args.local_dataset_format)
