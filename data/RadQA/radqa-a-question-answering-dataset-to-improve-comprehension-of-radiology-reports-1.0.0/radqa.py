@@ -71,41 +71,42 @@ class RadQA(datasets.GeneratorBasedBuilder):
         auth = ('saptarshi059', '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')
 
         train_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
-                    '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train.json'
+                    '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/train' \
+                    '.jsonl'
 
         dev_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA/radqa' \
-                  '-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/dev.json'
+                  '-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/devl.json'
 
         test_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
-                   '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.json' \
+                   '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.jsonl'
 
         os.mkdir('radqa_downloaded')
 
         train_request = requests.get(train_url, auth=auth)
-        with open('radqa_downloaded/train.json', 'w') as f:
+        with open('radqa_downloaded/train.jsonl', 'w') as f:
             json.dump(train_request.json(), f)
 
         dev_request = requests.get(dev_url, auth=auth)
-        with open('radqa_downloaded/dev.json', 'w') as f:
+        with open('radqa_downloaded/dev.jsonl', 'w') as f:
             json.dump(dev_request.json(), f)
 
         test_request = requests.get(test_url, auth=auth)
-        with open('radqa_downloaded/test.json', 'w') as f:
+        with open('radqa_downloaded/test.jsonl', 'w') as f:
             json.dump(test_request.json(), f)
 
         return [
-            datasets.SplitGenerator(name=datasets.Split.TRAIN, gen_kwargs={"filepath": 'radqa_downloaded/train.json'}),
+            datasets.SplitGenerator(name=datasets.Split.TRAIN, gen_kwargs={"filepath": 'radqa_downloaded/train.jsonl'}),
             datasets.SplitGenerator(name=datasets.Split.VALIDATION, gen_kwargs={"filepath": 'radqa_downloaded'
-                                                                                            '/dev.json'}),
-            datasets.SplitGenerator(name=datasets.Split.TEST, gen_kwargs={"filepath": 'radqa_downloaded/test.json'}),
+                                                                                            '/dev.jsonl'}),
+            datasets.SplitGenerator(name=datasets.Split.TEST, gen_kwargs={"filepath": 'radqa_downloaded/test.jsonl'}),
         ]
 
     def _generate_examples(self, filepath):
         """This function returns the examples in the raw (text) form."""
         logger.info("generating examples from = %s", filepath)
         with open(filepath, encoding="utf-8") as f:
-            squad = json.load(f)
-            for example in squad["data"]:
+            radqa = json.load(f)
+            for example in radqa["data"]:
                 title = example.get("title", "")
                 for paragraph in example["paragraphs"]:
                     context = paragraph["context"]  # do not strip leading blank spaces GH-2585
