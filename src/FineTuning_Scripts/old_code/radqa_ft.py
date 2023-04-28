@@ -7,7 +7,7 @@ import random
 import numpy as np
 import torch
 from accelerate import Accelerator
-from datasets import load_dataset, DatasetDict
+from datasets import load_dataset, DatasetDict, load_metric
 from evaluate import load
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
@@ -281,7 +281,7 @@ else:
                                                                   remove_columns=validation_dataset_raw[
                                                                       'validation'].column_names)
 
-metric = load("squad_v2")  # Using v2 of squad since dataset contains impossible questions.
+metric = load_metric("squad_v2")  # Using v2 of squad since dataset contains impossible questions.
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
