@@ -75,7 +75,7 @@ class RadQA(datasets.GeneratorBasedBuilder):
                     '.jsonl'
 
         dev_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA/radqa' \
-                  '-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/devl.json'
+                  '-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/dev.jsonl'
 
         test_url = 'https://raw.githubusercontent.com/saptarshi059/CDQA-v1-whole-entity-approach/main/data/RadQA' \
                    '/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/test.jsonl'
