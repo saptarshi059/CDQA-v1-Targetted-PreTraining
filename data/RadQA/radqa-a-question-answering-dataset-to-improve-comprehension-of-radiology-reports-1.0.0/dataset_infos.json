@@ -42,21 +42,21 @@
   "splits": {
     "train": {
       "name": "train",
-      "num_bytes": 65151262,
-      "num_examples": 803,
-      "dataset_name": "RadQA"
+      "num_bytes": 3523166,
+      "num_examples": 4878,
+      "dataset_name": "radqa"
     },
     "test": {
       "name": "test",
-      "num_bytes": 65151262,
-      "num_examples": 104,
-      "dataset_name": "RadQA"
+      "num_bytes": 368957,
+      "num_examples": 614,
+      "dataset_name": "radqa"
     },
     "validation": {
       "name": "validation",
-      "num_bytes": 65151262,
-      "num_examples": 102,
-      "dataset_name": "RadQA"
+      "num_bytes": 402722,
+      "num_examples": 656,
+      "dataset_name": "radqa"
     }
   },
   "supervised_keys": null,
@@ -69,9 +69,9 @@
     }
   ],
   "version": {
-    "version_str": "2.0.0",
+    "version_str": "1.0.0",
     "description": null,
-    "major": 2,
+    "major": 1,
     "minor": 0,
     "patch": 0
   }
