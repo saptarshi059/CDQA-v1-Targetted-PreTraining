@@ -7,7 +7,7 @@ import random
 import numpy as np
 import torch
 from accelerate import Accelerator
-from datasets import load_dataset, DatasetDict, load_metric
+from datasets import load_dataset, DatasetDict
 from evaluate import load
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
@@ -193,11 +193,10 @@ def compute_metrics(start_logits, end_logits, features, examples):
         # Select the answer with the best score
         if len(answers) > 0:
             best_answer = max(answers, key=lambda x: x["logit_score"])
-            predicted_answers.append(
-                {"id": example_id, "prediction_text": best_answer["text"]}
-            )
+            predicted_answers.append({"id": example_id, "prediction_text": best_answer["text"],
+                                      "no_answer_probability": 0.0})
         else:
-            predicted_answers.append({"id": example_id, "prediction_text": ""})
+            predicted_answers.append({"id": example_id, "prediction_text": "", "no_answer_probability": 1.0})
 
     theoretical_answers = [{"id": ex["id"], "answers": ex["answers"]} for ex in examples]
     return metric.compute(predictions=predicted_answers, references=theoretical_answers)
@@ -281,7 +280,7 @@ else:
                                                                   remove_columns=validation_dataset_raw[
                                                                       'validation'].column_names)
 
-metric = load_metric("squad_v2")  # Using v2 of squad since dataset contains impossible questions.
+metric = load("squad_v2")  # Using v2 of squad since dataset contains impossible questions.
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
