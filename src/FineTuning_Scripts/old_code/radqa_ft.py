@@ -7,7 +7,7 @@ import random
 import numpy as np
 import torch
 from accelerate import Accelerator
-from datasets import load_dataset
+from datasets import load_dataset, DatasetDict
 from evaluate import load
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
@@ -258,23 +258,28 @@ pad_on_right = tokenizer.padding_side == "right"
 
 if args.trial_mode:
     print('Running Code in Trial Mode to see if everything works properly...')
-    raw_datasets = load_dataset('../../../data/RadQA'
-                                '/radqa-a-question-answering-dataset-to-improve-comprehension-of'
-                                '-radiology-reports-1.0.0'
-                                '/radqa.py', split=['train[:160]', 'validation[:10]'])
+    raw_datasets = load_dataset('json', data_files='../../../data/RadQA'
+                                                   '/radqa-a-question-answering-dataset-to-improve-comprehension-of'
+                                                   '-radiology-reports-1.0.0'
+                                                   '/train.jsonl', split=['train[:160]', 'train[:10]'])
     train_dataset = raw_datasets[0].map(prepare_train_features, batched=True,
                                         remove_columns=raw_datasets[0].column_names)
     validation_dataset = raw_datasets[1].map(prepare_validation_features, batched=True,
                                              remove_columns=raw_datasets[1].column_names)
 else:
-    raw_datasets = load_dataset('../../../data/RadQA'
-                                '/radqa-a-question-answering-dataset-to-improve-comprehension-of'
-                                '-radiology-reports-1.0.0'
-                                '/radqa.py')
-    train_dataset = raw_datasets['train'].map(prepare_train_features, batched=True,
-                                              remove_columns=raw_datasets['train'].column_names)
-    validation_dataset = raw_datasets['validation'].map(prepare_validation_features, batched=True,
-                                                        remove_columns=raw_datasets['validation'].column_names)
+    train_dataset_raw = load_dataset('json', data_files='../../../data/RadQA'
+                                                        '/radqa-a-question-answering-dataset-to-improve-comprehension'
+                                                        '-of-radiology-reports-1.0.0/train.jsonl')
+    train_dataset = train_dataset_raw['train'].map(prepare_train_features, batched=True,
+                                                   remove_columns=train_dataset_raw['train'].column_names)
+
+    validation_dataset_raw = load_dataset('json', data_files='../../../data/RadQA'
+                                                             '/radqa-a-question-answering-dataset-to-improve'
+                                                             '-comprehension-of-radiology-reports-1.0.0/dev.jsonl')
+    validation_dataset_raw = DatasetDict({"validation": validation_dataset_raw["train"]})
+    validation_dataset = validation_dataset_raw['validation'].map(prepare_validation_features, batched=True,
+                                                                  remove_columns=validation_dataset_raw[
+                                                                      'validation'].column_names)
 
 metric = load("squad_v2")  # Using v2 of squad since dataset contains impossible questions.
 
@@ -336,7 +341,7 @@ for epoch in range(num_train_epochs):
     if args.trial_mode:
         metrics = compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets[1])
     else:
-        metrics = compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets['validation'])
+        metrics = compute_metrics(start_logits, end_logits, validation_dataset, validation_dataset_raw['validation'])
 
     print(f"epoch {epoch}:", metrics)
 
