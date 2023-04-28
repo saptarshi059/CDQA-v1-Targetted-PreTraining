@@ -258,16 +258,19 @@ pad_on_right = tokenizer.padding_side == "right"
 
 if args.trial_mode:
     print('Running Code in Trial Mode to see if everything works properly...')
-    raw_datasets = load_dataset('json', data_files='../../data/RadQA' 
-                                                   '/radqa-a-question-answering-dataset-to-improve-comprehension-of'
-                                                   '-radiology-reports-1.0.0' 
-                                                   '/train.json', field='data', split=['train[:160]','validation[:10]'])
+    raw_datasets = load_dataset('../../data/RadQA' 
+                                '/radqa-a-question-answering-dataset-to-improve-comprehension-of'
+                                '-radiology-reports-1.0.0' 
+                                '/radqa.py', split=['train[:160]','validation[:10]'])
     train_dataset = raw_datasets[0].map(prepare_train_features, batched=True,
                                         remove_columns=raw_datasets[0].column_names)
     validation_dataset = raw_datasets[1].map(prepare_validation_features, batched=True,
                                              remove_columns=raw_datasets[1].column_names)
 else:
-    raw_datasets = load_dataset("squad_v2" if squad_v2 else "squad")
+    raw_datasets = load_dataset('../../data/RadQA' 
+                                '/radqa-a-question-answering-dataset-to-improve-comprehension-of'
+                                '-radiology-reports-1.0.0' 
+                                '/radqa.py')
     train_dataset = raw_datasets['train'].map(prepare_train_features, batched=True,
                                               remove_columns=raw_datasets['train'].column_names)
     validation_dataset = raw_datasets['validation'].map(prepare_validation_features, batched=True,
@@ -286,12 +289,6 @@ eval_dataloader = DataLoader(validation_set, collate_fn=data_collator, batch_siz
 
 model = AutoModelForQuestionAnswering.from_pretrained(model_checkpoint)
 output_dir = args.trained_model_name
-
-if args.freeze_PT_layers == True:
-    print('Freezing base layers and only training span head...')
-    base_module_name = list(model.named_children())[0][0]
-    for param in getattr(model, base_module_name).parameters():
-        param.requires_grad = False
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
@@ -336,7 +333,7 @@ for epoch in range(num_train_epochs):
     start_logits = start_logits[: len(validation_dataset)]
     end_logits = end_logits[: len(validation_dataset)]
 
-    if args.trial_mode == True:
+    if args.trial_mode:
         metrics = compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets[1])
     else:
         metrics = compute_metrics(start_logits, end_logits, validation_dataset, raw_datasets['validation'])

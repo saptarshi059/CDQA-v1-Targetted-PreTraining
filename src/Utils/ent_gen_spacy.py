@@ -32,22 +32,13 @@ def ent_gen(dataset_name, op_file, location, do_filter, local_dataset_format):
         if local_dataset_format == 'parquet':
             dataset = load_dataset('parquet', data_files=dataset_name)
         else:
-            dataset = load_dataset('json', data_files='../../data/RadQA'
-                                                      '/radqa-a-question-answering-dataset-to-improve-comprehension'
-                                                      '-of-radiology-reports-1.0.0'
-                                                      '/train.json', field='data')
+            dataset = load_dataset('../../data/RadQA'
+                                   '/radqa-a-question-answering-dataset-to-improve-comprehension'
+                                   '-of-radiology-reports-1.0.0'
+                                   '/radqa.py')
 
-    if local_dataset_format == 'parquet':
-        all_contexts = list(set(dataset['train']['context']))
-        all_questions = dataset['train']['question']
-    else:
-        all_contexts = set()
-        all_questions = set()
-        for row in dataset['train']['paragraphs']:
-            for dictionary in row:
-                all_contexts.add(dictionary["context"])
-                for qas in dictionary['qas']:
-                    all_questions.add(qas["question"])
+    all_contexts = list(set(dataset['train']['context']))
+    all_questions = list(set(dataset['train']['question']))
 
     ques_ents = []
     ctx_ents = []
