@@ -264,7 +264,7 @@ else:
     train_dataset = raw_datasets['train'].map(prepare_train_features, batched=True, remove_columns=raw_datasets['train'].column_names)
     validation_dataset = raw_datasets['validation'].map(prepare_validation_features, batched=True, remove_columns=raw_datasets['validation'].column_names)
 
-metric = load("squad_v2")
+metric = load_metric("squad_v2")
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size, worker_init_fn=seed_worker, generator=g)
