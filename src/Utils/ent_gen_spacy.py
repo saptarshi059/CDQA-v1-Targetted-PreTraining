@@ -6,6 +6,7 @@ import argparse
 import scispacy
 import spacy
 import re
+import os
 
 
 def str2bool(v):
@@ -32,9 +33,10 @@ def ent_gen(dataset_name, op_file, location, do_filter, local_dataset_format):
         if local_dataset_format == 'parquet':
             dataset = load_dataset('parquet', data_files=dataset_name)
         else:
-            dataset = load_dataset('json', data_files='../../../data/RadQA'
-                                                      '/radqa-a-question-answering-dataset-to-improve-comprehension'
-                                                      '-of-radiology-reports-1.0.0/train.jsonl')
+            dataset = load_dataset('json', data_files=os.path.abspath('../../data/RadQA'
+                                                                      '/radqa-a-question-answering-dataset-to-improve'
+                                                                      '-comprehension-of-radiology-reports-1.0.0'
+                                                                      '/train.jsonl'))
 
     all_contexts = list(set(dataset['train']['context']))
     all_questions = list(set(dataset['train']['question']))
