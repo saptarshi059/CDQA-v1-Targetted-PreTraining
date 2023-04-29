@@ -215,7 +215,7 @@ parser.add_argument('--trained_model_name', default="distilbert-base-uncased-rad
 parser.add_argument('--batch_size', default=16, type=int)
 parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
-parser.add_argument('--learning_rate', default=2e-5, type=float)
+parser.add_argument('--learning_rate', default=3e-5, type=float)
 parser.add_argument('--weight_decay', default=0.01, type=float)
 parser.add_argument('--epochs', default=3, type=int)
 parser.add_argument('--n_best', default=20, type=int)
