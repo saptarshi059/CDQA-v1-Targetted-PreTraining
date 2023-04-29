@@ -24,7 +24,7 @@ def str2bool(v):
 def ent_gen(dataset_name, op_file, location, do_filter, local_dataset_format):
     print('Loading spacy model...')
     spacy.prefer_gpu(gpu_id=0)
-    nlp = spacy.load("en_core_sci_sm")
+    nlp = spacy.load("en_core_sci_lg")
 
     if location == 'remote':
         dataset = load_dataset(dataset_name)
@@ -32,10 +32,9 @@ def ent_gen(dataset_name, op_file, location, do_filter, local_dataset_format):
         if local_dataset_format == 'parquet':
             dataset = load_dataset('parquet', data_files=dataset_name)
         else:
-            dataset = load_dataset('../../data/RadQA'
-                                   '/radqa-a-question-answering-dataset-to-improve-comprehension'
-                                   '-of-radiology-reports-1.0.0'
-                                   '/radqa.py')
+            dataset = load_dataset('json', data_files='../../../data/RadQA'
+                                                      '/radqa-a-question-answering-dataset-to-improve-comprehension'
+                                                      '-of-radiology-reports-1.0.0/train.jsonl')
 
     all_contexts = list(set(dataset['train']['context']))
     all_questions = list(set(dataset['train']['question']))
