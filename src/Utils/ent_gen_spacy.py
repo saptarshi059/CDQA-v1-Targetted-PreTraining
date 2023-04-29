@@ -25,7 +25,7 @@ def str2bool(v):
 def ent_gen(dataset_name, op_file, location, do_filter, local_dataset_format):
     print('Loading spacy model...')
     spacy.prefer_gpu(gpu_id=0)
-    nlp = spacy.load("en_core_sci_lg")
+    nlp = spacy.load("en_core_sci_sm")
 
     if location == 'remote':
         dataset = load_dataset(dataset_name)
