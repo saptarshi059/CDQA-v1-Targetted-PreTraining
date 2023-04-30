@@ -71,9 +71,9 @@ if __name__ == '__main__':
     if 'json' not in args.dataset:
         ds = QADataset(args.dataset)
     else:
-        ds = load_dataset('json', data_files=os.path.abspath('../../data/RadQA/radqa-a-question-answering-dataset-to'
-                                                             '-improve-comprehension-of-radiology-reports-1.0.0/dev'
-                                                             '.jsonl'))
+        ds = QADataset(load_dataset('json', data_files=os.path.abspath('../../data/RadQA/radqa-a-question-answering'
+                                                                       '-dataset-to-improve-comprehension-of'
+                                                                       '-radiology-reports-1.0.0/dev.jsonl')))
 
     data_loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, collate_fn=default_data_collator,
                              worker_init_fn=seed_worker, generator=g)
