@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     gold_answers = [x['text'] for x in ds.samples['answers']]
     questions = ds.questions
-
+    print(len(gold_answers), len(questions))
     predicted_answers = []
     for batch in tqdm(data_loader):
         # QA_input = {'question': batch['question'], 'context': batch['context']}
