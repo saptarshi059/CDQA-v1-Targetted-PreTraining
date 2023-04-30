@@ -77,8 +77,7 @@ if __name__ == '__main__':
 
     ds = QADataset(args.dataset_location)
 
-    data_loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, collate_fn=default_data_collator,
-                             worker_init_fn=seed_worker, generator=g)
+    data_loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, worker_init_fn=seed_worker, generator=g)
 
     gold_answers = [x['text'] for x in ds.samples['answers']]
     questions = ds.questions
