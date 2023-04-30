@@ -91,5 +91,7 @@ if __name__ == '__main__':
                                          handle_impossible_answer=args.handle_impossible_answer))
 
     print('Saving predictions...')
+    ds_name = 'squad_v2' if args.dataset_location == 'remote' else 'radqa'
+
     pd.DataFrame(zip(questions, predicted_answers, gold_answers), columns=['question', 'predictions', 'gold_answers']). \
-        to_pickle(f'{args.model_checkpoint.replace("/", "_")}_{args.dataset.replace("/", "_")}_predictions.pkl')
+        to_pickle(f'{args.model_checkpoint.replace("/", "_")}_{ds_name}_predictions.pkl')
