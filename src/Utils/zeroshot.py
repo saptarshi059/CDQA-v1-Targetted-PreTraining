@@ -48,7 +48,7 @@ class QADataset(Dataset):
         return len(self.samples)
 
     def __getitem__(self, idx):
-        return self.questions[idx], self.contexts[idx]
+        return {'question': self.questions[idx], 'context': self.contexts[idx]}
 
 
 if __name__ == '__main__':
@@ -93,5 +93,5 @@ if __name__ == '__main__':
     print('Saving predictions...')
     ds_name = 'squad_v2' if args.dataset_location == 'remote' else 'radqa'
 
-    pd.DataFrame(zip(questions, predicted_answers, gold_answers), columns=['question', 'predictions', 'gold_answers']). \
+    pd.DataFrame(zip(questions, predicted_answers, gold_answers), columns=['question', 'predictions', 'gold_answers']).\
         to_pickle(f'{args.model_checkpoint.replace("/", "_")}_{ds_name}_predictions.pkl')
