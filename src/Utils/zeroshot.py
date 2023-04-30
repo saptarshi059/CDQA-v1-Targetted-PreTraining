@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     predicted_answers = []
     for batch in tqdm(data_loader):
-        QA_input = {'question': [x for x in batch[0]], 'context': [x for x in batch[1]]}
+        QA_input = {'question': batch['question'], 'context': batch['context']}
         with torch.no_grad():
             predicted_answers.append(nlp(QA_input, max_seq_len=args.max_length, doc_stride=args.stride,
                                          max_answer_length=args.max_answer_length,
