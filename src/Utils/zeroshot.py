@@ -1,7 +1,7 @@
 from torch.utils.data import Dataset, DataLoader
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering, QuestionAnsweringPipeline, set_seed, \
     default_data_collator
-from datasets import load_dataset
+from datasets import load_dataset, DatasetDict
 import torch
 import random
 import argparse
@@ -31,8 +31,15 @@ def str2bool(v):
 
 
 class QADataset(Dataset):
-    def __init__(self, dataset_name):
-        self.dataset = load_dataset(dataset_name)
+    def __init__(self, dataset_location):
+        if dataset_location == 'remote':
+            self.dataset = load_dataset('squad_v2')
+        else:
+            self.dataset = DatasetDict({"validation": load_dataset('json', data_files=os.path.abspath(
+                '../../data/RadQA/radqa-a-question-answering'
+                '-dataset-to-improve-comprehension-of'
+                '-radiology-reports-1.0.0/dev.jsonl'))['train']})
+
         self.samples = self.dataset['validation']
         self.questions = self.samples['question']
         self.contexts = self.samples['context']
@@ -47,7 +54,7 @@ class QADataset(Dataset):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_checkpoint', default='distilbert-base-uncased', type=str)
-    parser.add_argument('--dataset', default='squad_v2', type=str)
+    parser.add_argument('--dataset_location', default='remote', type=str)
     parser.add_argument('--batch_size', default=16, type=int)
     parser.add_argument('--max_length', default=384, type=int)
     parser.add_argument('--stride', default=128, type=int)
@@ -68,12 +75,7 @@ if __name__ == '__main__':
     tokenizer = AutoTokenizer.from_pretrained(args.model_checkpoint)
     nlp = QuestionAnsweringPipeline(model=model, tokenizer=tokenizer, device=0)
 
-    if 'json' not in args.dataset:
-        ds = QADataset(args.dataset)
-    else:
-        ds = QADataset(load_dataset('json', data_files=os.path.abspath('../../data/RadQA/radqa-a-question-answering'
-                                                                       '-dataset-to-improve-comprehension-of'
-                                                                       '-radiology-reports-1.0.0/dev.jsonl')))
+    ds = QADataset(args.dataset_location)
 
     data_loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, collate_fn=default_data_collator,
                              worker_init_fn=seed_worker, generator=g)
@@ -90,5 +92,5 @@ if __name__ == '__main__':
                                          handle_impossible_answer=args.handle_impossible_answer))
 
     print('Saving predictions...')
-    pd.DataFrame(zip(questions, predicted_answers, gold_answers), columns=['question', 'predictions', 'gold_answers']).\
+    pd.DataFrame(zip(questions, predicted_answers, gold_answers), columns=['question', 'predictions', 'gold_answers']). \
         to_pickle(f'{args.model_checkpoint.replace("/", "_")}_{args.dataset.replace("/", "_")}_predictions.pkl')
