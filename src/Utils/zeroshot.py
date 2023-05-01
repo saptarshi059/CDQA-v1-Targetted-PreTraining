@@ -89,7 +89,7 @@ if __name__ == '__main__':
             predicted_answers.extend(nlp(question=batch['question'], context=batch['context'],
                                          max_seq_len=args.max_length, doc_stride=args.stride,
                                          max_answer_length=args.max_answer_length,
-                                         handle_impossible_answer=args.handle_impossible_answer))
+                                         handle_impossible_answer=args.handle_impossible_answer)['answer'])
 
     print('Saving predictions...')
     ds_name = 'squad_v2' if args.dataset_location == 'remote' else 'radqa'
