@@ -8,7 +8,7 @@ import numpy as np
 import torch
 import os
 from accelerate import Accelerator
-from datasets import load_dataset, DatasetDict, load_metric
+from datasets import load_dataset, DatasetDict
 from evaluate import load
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
@@ -218,9 +218,9 @@ parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
 parser.add_argument('--learning_rate', default=3e-5, type=float)
 parser.add_argument('--weight_decay', default=0.01, type=float)
-parser.add_argument('--epochs', default=3, type=int)
+parser.add_argument('--epochs', default=1, type=int)
 parser.add_argument('--n_best', default=20, type=int)
-parser.add_argument('--max_answer_length', default=30, type=int)
+parser.add_argument('--max_answer_length', default=1000, type=int)
 parser.add_argument('--trial_mode', default=False, type=str2bool)
 parser.add_argument('--random_state', default=42, type=int)
 
@@ -241,7 +241,7 @@ batch_size = args.batch_size
 accelerator = Accelerator()
 device = accelerator.device
 
-if model_checkpoint == 'studio-ousia/luke-base':
+if 'luke' in model_checkpoint:
     tokenizer = AutoTokenizer.from_pretrained(
         'roberta-base')  # since luke doesn't have a fast implementation & it has the same vocab as roberta
 else:
@@ -284,7 +284,7 @@ else:
                                                                   remove_columns=validation_dataset_raw[
                                                                       'validation'].column_names)
 
-metric = load_metric("squad_v2")  # Using v2 of squad since dataset contains impossible questions.
+metric = load("squad_v2")  # Using v2 of squad since dataset contains impossible questions.
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
