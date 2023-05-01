@@ -258,7 +258,7 @@ pad_on_right = tokenizer.padding_side == "right"
 
 if args.trial_mode:
     print('Running Code in Trial Mode to see if everything works properly...')
-    raw_datasets = load_dataset('json', data_files=os.path.abspath('../../data/RadQA'
+    raw_datasets = load_dataset('json', data_files=os.path.abspath('../../../data/RadQA'
                                                                    '/radqa-a-question-answering-dataset-to-improve'
                                                                    '-comprehension-of-radiology-reports-1.0.0'
                                                                    '/train.jsonl'), split=['train[:160]', 'train[:10]'])
@@ -267,14 +267,14 @@ if args.trial_mode:
     validation_dataset = raw_datasets[1].map(prepare_validation_features, batched=True,
                                              remove_columns=raw_datasets[1].column_names)
 else:
-    train_dataset_raw = load_dataset('json', data_files=os.path.abspath('../../data/RadQA'
+    train_dataset_raw = load_dataset('json', data_files=os.path.abspath('../../../data/RadQA'
                                                                         '/radqa-a-question-answering-dataset-to'
                                                                         '-improve-comprehension-of-radiology-reports'
                                                                         '-1.0.0/train.jsonl'))
     train_dataset = train_dataset_raw['train'].map(prepare_train_features, batched=True,
                                                    remove_columns=train_dataset_raw['train'].column_names)
 
-    validation_dataset_raw = load_dataset('json', data_files=os.path.abspath('../../data/RadQA'
+    validation_dataset_raw = load_dataset('json', data_files=os.path.abspath('../../../data/RadQA'
                                                                              '/radqa-a-question-answering-dataset-to'
                                                                              '-improve'
                                                                              '-comprehension-of-radiology-reports-1.0'

@@ -33,7 +33,7 @@ def ent_gen(dataset_name, op_file, location, do_filter, local_dataset_format):
         if local_dataset_format == 'parquet':
             dataset = load_dataset('parquet', data_files=dataset_name)
         else:
-            dataset = load_dataset('json', data_files=os.path.abspath('../../data/RadQA'
+            dataset = load_dataset('json', data_files=os.path.abspath('../../../data/RadQA'
                                                                       '/radqa-a-question-answering-dataset-to-improve'
                                                                       '-comprehension-of-radiology-reports-1.0.0'
                                                                       '/train.jsonl'))
