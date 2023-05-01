@@ -36,7 +36,7 @@ class QADataset(Dataset):
             self.dataset = load_dataset('squad_v2')
         else:
             self.dataset = DatasetDict({"validation": load_dataset('json', data_files=os.path.abspath(
-                '../../data/RadQA/radqa-a-question-answering'
+                '../../../data/RadQA/radqa-a-question-answering'
                 '-dataset-to-improve-comprehension-of'
                 '-radiology-reports-1.0.0/dev.jsonl'))['train']})
 
@@ -84,7 +84,6 @@ if __name__ == '__main__':
 
     predicted_answers = []
     for batch in tqdm(data_loader):
-        # QA_input = {'question': batch['question'], 'context': batch['context']}
         with torch.no_grad():
             predicted_answers.extend([x['answer'] for x in nlp(question=batch['question'], context=batch['context'],
                                                                max_seq_len=args.max_length, doc_stride=args.stride,
