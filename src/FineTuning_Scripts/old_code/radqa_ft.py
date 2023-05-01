@@ -213,6 +213,8 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('--model_checkpoint', default="distilbert-base-uncased", type=str)
 parser.add_argument('--trained_model_name', default="distilbert-base-uncased-radqa", type=str)
+parser.add_argument('--dataset_location', default="../../../data/RadQA/radqa-a-question-answering-dataset-to-improve"
+                                                  "-comprehension-of-radiology-reports-1.0.0/", type=str)
 parser.add_argument('--batch_size', default=16, type=int)
 parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
@@ -258,27 +260,18 @@ pad_on_right = tokenizer.padding_side == "right"
 
 if args.trial_mode:
     print('Running Code in Trial Mode to see if everything works properly...')
-    raw_datasets = load_dataset('json', data_files=os.path.abspath('../../../data/RadQA'
-                                                                   '/radqa-a-question-answering-dataset-to-improve'
-                                                                   '-comprehension-of-radiology-reports-1.0.0'
-                                                                   '/train.jsonl'), split=['train[:160]', 'train[:10]'])
+    raw_datasets = load_dataset('json', data_files=os.path.abspath(f'{args.dataset_location}/train.jsonl'),
+                                split=['train[:160]', 'train[:10]'])
     train_dataset = raw_datasets[0].map(prepare_train_features, batched=True,
                                         remove_columns=raw_datasets[0].column_names)
     validation_dataset = raw_datasets[1].map(prepare_validation_features, batched=True,
                                              remove_columns=raw_datasets[1].column_names)
 else:
-    train_dataset_raw = load_dataset('json', data_files=os.path.abspath('../../../data/RadQA'
-                                                                        '/radqa-a-question-answering-dataset-to'
-                                                                        '-improve-comprehension-of-radiology-reports'
-                                                                        '-1.0.0/train.jsonl'))
+    train_dataset_raw = load_dataset('json', data_files=os.path.abspath(f'{args.dataset_location}/train.jsonl'))
     train_dataset = train_dataset_raw['train'].map(prepare_train_features, batched=True,
                                                    remove_columns=train_dataset_raw['train'].column_names)
 
-    validation_dataset_raw = load_dataset('json', data_files=os.path.abspath('../../../data/RadQA'
-                                                                             '/radqa-a-question-answering-dataset-to'
-                                                                             '-improve'
-                                                                             '-comprehension-of-radiology-reports-1.0'
-                                                                             '.0/dev.jsonl'))
+    validation_dataset_raw = load_dataset('json', data_files=os.path.abspath(f'{args.dataset_location}/dev.jsonl'))
     validation_dataset_raw = DatasetDict({"validation": validation_dataset_raw["train"]})
     validation_dataset = validation_dataset_raw['validation'].map(prepare_validation_features, batched=True,
                                                                   remove_columns=validation_dataset_raw[
