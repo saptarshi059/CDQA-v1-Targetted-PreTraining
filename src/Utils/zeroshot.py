@@ -40,6 +40,8 @@ class QADataset(Dataset):
                 '-dataset-to-improve-comprehension-of'
                 '-radiology-reports-1.0.0/test.jsonl'))['train']})
 
+        self.dataset = self.dataset.with_format("torch")
+
         self.samples = self.dataset['validation']
         self.questions = self.samples['question']
         self.contexts = self.samples['context']
