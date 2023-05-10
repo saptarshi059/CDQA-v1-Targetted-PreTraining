@@ -38,7 +38,7 @@ class QADataset(Dataset):
             self.dataset = DatasetDict({"validation": load_dataset('json', data_files=os.path.abspath(
                 '../../../data/RadQA/radqa-a-question-answering'
                 '-dataset-to-improve-comprehension-of'
-                '-radiology-reports-1.0.0/dev.jsonl'))['train']})
+                '-radiology-reports-1.0.0/test.jsonl'))['train']})
 
         self.samples = self.dataset['validation']
         self.questions = self.samples['question']
