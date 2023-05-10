@@ -50,7 +50,7 @@ class QADataset(Dataset):
         return len(self.samples)
 
     def __getitem__(self, idx):
-        return {'question': self.samples['questions'][idx], 'context': self.samples['contexts'][idx]}
+        return {'question': self.samples['question'][idx], 'context': self.samples['context'][idx]}
 
 
 if __name__ == '__main__':
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     data_loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, worker_init_fn=seed_worker, generator=g)
 
     gold_answers = [x['text'] for x in ds.samples['answers']]
-    questions = ds.questions
+    questions = ds.samples['question']
 
     predicted_answers = []
     for batch in tqdm(data_loader):
