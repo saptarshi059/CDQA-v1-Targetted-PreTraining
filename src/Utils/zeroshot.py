@@ -81,8 +81,8 @@ if __name__ == '__main__':
 
     data_loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, worker_init_fn=seed_worker, generator=g)
 
-    gold_answers = [x['text'] for x in ds.dataset['answers']]
-    questions = ds.dataset['question']
+    gold_answers = [x['text'] for x in ds.dataset['validation']['answers']]
+    questions = ds.dataset['validation']['question']
 
     predicted_answers = []
     for batch in tqdm(data_loader):
