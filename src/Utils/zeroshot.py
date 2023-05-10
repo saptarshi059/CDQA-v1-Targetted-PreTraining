@@ -42,16 +42,15 @@ class QADataset(Dataset):
 
         self.dataset = self.dataset.with_format("torch")
 
-        # self.samples = self.dataset['validation']
-        # self.questions = self.samples['question']
-        # self.contexts = self.samples['context']
+        self.samples = self.dataset['validation']
+        self.questions = self.samples['question']
+        self.contexts = self.samples['context']
 
     def __len__(self):
-        return len(self.dataset['validation'])
+        return len(self.samples)
 
     def __getitem__(self, idx):
-        return {'question': self.dataset['validation']['question'][idx],
-                'context': self.dataset['validation']['context'][idx]}
+        return {'question': self.questions[idx], 'context': self.contexts[idx]}
 
 
 if __name__ == '__main__':
@@ -82,8 +81,8 @@ if __name__ == '__main__':
 
     data_loader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, worker_init_fn=seed_worker, generator=g)
 
-    gold_answers = [x['text'] for x in ds.dataset['validation']['answers']]
-    questions = ds.dataset['validation']['question']
+    gold_answers = [x['text'] for x in ds.samples['answers']]
+    questions = ds.questions
 
     predicted_answers = []
     for batch in tqdm(data_loader):
