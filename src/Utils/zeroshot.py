@@ -1,14 +1,14 @@
-from torch.utils.data import Dataset, DataLoader
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering, QuestionAnsweringPipeline, set_seed, \
-    default_data_collator
-from datasets import load_dataset, DatasetDict
-import torch
-import random
 import argparse
+import os
+import random
+
 import numpy as np
 import pandas as pd
-import os
+import torch
+from datasets import load_dataset, DatasetDict
+from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering, QuestionAnsweringPipeline, set_seed
 
 
 def seed_worker(worker_id):
@@ -43,14 +43,14 @@ class QADataset(Dataset):
         self.dataset = self.dataset.with_format("torch")
 
         self.samples = self.dataset['validation']
-        self.questions = self.samples['question']
-        self.contexts = self.samples['context']
+        # self.questions = self.samples['question']
+        # self.contexts = self.samples['context']
 
     def __len__(self):
         return len(self.samples)
 
     def __getitem__(self, idx):
-        return {'question': self.questions[idx], 'context': self.contexts[idx]}
+        return {'question': self.samples['questions'][idx], 'context': self.samples['contexts'][idx]}
 
 
 if __name__ == '__main__':
