@@ -50,7 +50,8 @@ class QADataset(Dataset):
         return len(self.dataset['validation'])
 
     def __getitem__(self, idx):
-        return {'question': self.dataset['question'][idx], 'context': self.dataset['context'][idx]}
+        return {'question': self.dataset['validation']['question'][idx],
+                'context': self.dataset['validation']['context'][idx]}
 
 
 if __name__ == '__main__':
