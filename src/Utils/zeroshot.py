@@ -47,7 +47,7 @@ class QADataset(Dataset):
         # self.contexts = self.samples['context']
 
     def __len__(self):
-        return len(self.samples)
+        return len(self.dataset['validation'])
 
     def __getitem__(self, idx):
         return {'question': self.dataset['question'][idx], 'context': self.dataset['context'][idx]}
