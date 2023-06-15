@@ -17,7 +17,10 @@ def create_chunks(sample, chunk_size, stride):
     blk = []
     for chunk in token_chunks:
         formatted_str = 'Question: ' + sample['question'] + ' Context: ' + tokenizer.decode(chunk) + ' Answer: '
-        blk.append((sample['question'], sample['answers']['text'][0], len(token_chunks), formatted_str))
+        if len(sample['answers']['text']) != 0:
+            blk.append((sample['question'], sample['answers']['text'][0], len(token_chunks), formatted_str))
+        else:
+            blk.append((sample['question'], [], len(token_chunks), formatted_str))
 
     return blk
 
