@@ -33,9 +33,12 @@ class QADataset(Dataset):
                 f'.0.0/{dataset_split_for_radqa}.jsonl'))
 
         self.blocks = []
+        c =0
         for entry in tqdm(self.raw_dataset['train']):
             self.blocks.extend(create_chunks(entry, chunk_size, stride))
-
+            c+=1
+            if c==2:
+                break
     def __len__(self):
         return len(self.blocks)
 
@@ -65,7 +68,7 @@ if __name__ == '__main__':
         with init_empty_weights():
             model = AutoModelForCausalLM.from_config(config)
         model.tie_weights()
-        model = load_checkpoint_and_dispatch(model, os.path.abspath('../../../../MedLLaMA_13B'), device_map="auto",
+        model = load_checkpoint_and_dispatch(model, os.path.abspath('../../../MedLLaMA_13B'), device_map="auto",
                                              no_split_module_classes=["LlamaDecoderLayer"])
 
     print(f'Model:{checkpoint} loaded...')
