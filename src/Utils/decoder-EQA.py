@@ -33,12 +33,8 @@ class QADataset(Dataset):
                 f'.0.0/{dataset_split_for_radqa}.jsonl'))
 
         self.blocks = []
-        c = 0
         for entry in tqdm(self.raw_dataset['train']):
             self.blocks.extend(create_chunks(entry, chunk_size, stride))
-            c += 1
-            if c == 2:
-                break
 
     def __len__(self):
         return len(self.blocks)
