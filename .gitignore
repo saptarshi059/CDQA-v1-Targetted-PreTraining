@@ -1,6 +1,4 @@
-data/deprecated/
+data/
 src/Notebooks/deprecated/
 scibert_ent_corpus_dont_use/
 on_47k/
-data/COVID-QA/covidqa-corpora
-data/RadQA
