@@ -150,7 +150,6 @@ if __name__ == '__main__':
         df['EM_has_ans'] = EM_has_ans
         df['F1_has_ans'] = F1_has_ans
 
-# For best EM/F1 computation
 curr_row = 0
 
 max_EM = []
