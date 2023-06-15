@@ -3,6 +3,7 @@ import argparse
 import os
 
 import pandas as pd
+import torch
 from accelerate import init_empty_weights, load_checkpoint_and_dispatch
 from datasets import load_dataset, load_metric
 from torch.utils.data import Dataset, DataLoader
@@ -33,12 +34,13 @@ class QADataset(Dataset):
                 f'.0.0/{dataset_split_for_radqa}.jsonl'))
 
         self.blocks = []
-        c =0
+        c = 0
         for entry in tqdm(self.raw_dataset['train']):
             self.blocks.extend(create_chunks(entry, chunk_size, stride))
-            c+=1
-            if c==2:
+            c += 1
+            if c == 2:
                 break
+
     def __len__(self):
         return len(self.blocks)
 
@@ -92,8 +94,9 @@ if __name__ == '__main__':
         no_chunks.extend(batch['number_of_chunks'].tolist())
 
         set_seed(42)
-        generations = generator(batch['formatted_chunks'], renormalize_logits=True, do_sample=True, max_new_tokens=50,
-                                top_p=0.9, temperature=0.9, use_cache=True)
+        with torch.no_grad():
+            generations = generator(batch['formatted_chunks'], renormalize_logits=True, do_sample=True,
+                                    max_new_tokens=50, top_p=0.9, temperature=0.9, use_cache=True)
 
         for gen in generations:
             pred_answers.append(gen[0]['generated_text'].split('Answer:', 1)[1].strip())
