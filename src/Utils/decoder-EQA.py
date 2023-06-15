@@ -65,9 +65,8 @@ if __name__ == '__main__':
         with init_empty_weights():
             model = AutoModelForCausalLM.from_config(config)
         model.tie_weights()
-
-    model = load_checkpoint_and_dispatch(model, os.path.abspath('../../../../MedLLaMA_13B'), device_map="auto",
-                                         no_split_module_classes=["LlamaDecoderLayer"])
+        model = load_checkpoint_and_dispatch(model, os.path.abspath('../../../../MedLLaMA_13B'), device_map="auto",
+                                             no_split_module_classes=["LlamaDecoderLayer"])
 
     print(f'Model:{checkpoint} loaded...')
     generator = pipeline('text-generation', model=model, tokenizer=tokenizer, device=0)
