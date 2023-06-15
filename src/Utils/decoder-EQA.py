@@ -20,7 +20,7 @@ def create_chunks(sample, chunk_size, stride):
         if len(sample['answers']['text']) != 0:
             blk.append((sample['question'], sample['answers']['text'][0], len(token_chunks), formatted_str))
         else:
-            blk.append((sample['question'], [], len(token_chunks), formatted_str))
+            blk.append((sample['question'], '', len(token_chunks), formatted_str))
 
     return blk
 
