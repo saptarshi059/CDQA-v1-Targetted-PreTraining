@@ -3,7 +3,6 @@ import argparse
 import os
 
 import pandas as pd
-import torch
 from accelerate import init_empty_weights, load_checkpoint_and_dispatch
 from datasets import load_dataset, load_metric
 from torch.utils.data import Dataset, DataLoader
@@ -94,9 +93,8 @@ if __name__ == '__main__':
         no_chunks.extend(batch['number_of_chunks'].tolist())
 
         set_seed(42)
-        with torch.no_grad():
-            generations = generator(batch['formatted_chunks'], renormalize_logits=True, do_sample=True,
-                                    max_new_tokens=50, top_p=0.9, temperature=0.9, use_cache=True)
+        generations = generator(batch['formatted_chunks'], renormalize_logits=True, do_sample=True,
+                                max_new_tokens=50, top_p=0.9, temperature=0.9, use_cache=True)
 
         for gen in generations:
             pred_answers.append(gen[0]['generated_text'].split('Answer:', 1)[1].strip())
