@@ -121,67 +121,41 @@ if __name__ == '__main__':
         df['EM'] = EM
         df['F1'] = F1
 
+        curr_row = 0
+
+        max_EM = []
+        max_F1 = []
+
+        while curr_row < df.shape[0]:
+            offset = df.iloc[curr_row]['no_chunks']
+            sub_df = df.iloc[curr_row:curr_row + offset]
+            max_values = sub_df.max(axis='rows', numeric_only=True)
+            max_EM.append(max_values['EM'])
+            max_F1.append(max_values['F1'])
+            curr_row = curr_row + offset
+
+        print(f'Avg. EM: {df.loc[:, "EM"].mean()} | Avg. F1: {df.loc[:, "F1"].mean()} | '
+              f'Avg. best EM:{statistics.fmean(max_EM)} | '
+              f'Avg. best F1: {statistics.fmean(max_F1)}')
+
     else:
         metric = load_metric('squad_v2')
-
-        EM = []
-        F1 = []
-        EM_has_ans = []
-        F1_has_ans = []
-
+        pred = []
+        true = []
         for row in df.itertuples():
             if len(str(row.predictions)) == 0:
-                pred = [{"id": str(row.Index), "prediction_text": "", 'no_answer_probability': 1.}]
+                pred.append({"id": str(row.Index), "prediction_text": "", 'no_answer_probability': 1.})
             else:
-                pred = [{"id": str(row.Index), "prediction_text": row.predictions, 'no_answer_probability': 0.}]
+                pred.append({"id": str(row.Index), "prediction_text": row.predictions, 'no_answer_probability': 0.})
 
             if len(row.gold_answers) == 0:
-                true = [{"id": str(row.Index), "answers": {'answer_start': [1], 'text': []}}]
+                true.append({"id": str(row.Index), "answers": {'answer_start': [1], 'text': []}})
             else:
-                true = [{"id": str(row.Index), "answers": {'answer_start': [1 for i in range(len(row.gold_answers))],
-                                                           'text': row.gold_answers}}]
+                true.append({"id": str(row.Index),
+                             "answers": {'answer_start': [1 for i in range(len(row.gold_answers))],
+                                         'text': row.gold_answers}})
 
-            metrics = metric.compute(predictions=pred, references=true)
+        metrics = metric.compute(predictions=pred, references=true)
 
-            EM.append(metrics['exact'])
-            F1.append(metrics['f1'])
-            EM_has_ans.append(metrics['HasAns_exact'])
-            F1_has_ans.append(metrics['HasAns_f1'])
-
-        df['EM'] = EM
-        df['F1'] = F1
-        df['EM_has_ans'] = EM_has_ans
-        df['F1_has_ans'] = F1_has_ans
-
-curr_row = 0
-
-max_EM = []
-max_F1 = []
-max_EM_has_ans = []
-max_F1_has_ans = []
-
-while curr_row < df.shape[0]:
-    offset = df.iloc[curr_row]['no_chunks']
-    sub_df = df.iloc[curr_row:curr_row + offset]
-    max_values = sub_df.max(axis='rows', numeric_only=True)
-    if 'EM_has_ans' in df.columns and 'F1_has_ans' in df.columns:
-        max_EM_has_ans.append(max_values['EM_has_ans'])
-        max_F1_has_ans.append(max_values['F1_has_ans'])
-    max_EM.append(max_values['EM'])
-    max_F1.append(max_values['F1'])
-    curr_row = curr_row + offset
-
-if 'EM_has_ans' in df.columns and 'F1_has_ans' in df.columns:
-    print(f'Avg. EM: {df.loc[:, "EM"].mean()} | '
-          f'Avg. F1: {df.loc[:, "F1"].mean()} | '
-          f'Avg. EM_has_ans: {df.loc[:, "EM_has_ans"].mean()} | '
-          f'Avg. F1_has_ans: {df.loc[:, "F1_has_ans"].mean()}')
-    print(f'Avg. best EM:{statistics.fmean(max_EM)} | '
-          f'Avg. best F1: {statistics.fmean(max_F1)} | '
-          f'Avg. best EM_has_ans: {statistics.fmean(max_EM_has_ans)} | '
-          f'Ave. best F1_has_ans: {statistics.fmean(max_F1_has_ans)}')
-else:
-    print(f'Avg. EM: {df.loc[:, "EM"].mean()} | '
-          f'Avg. F1: {df.loc[:, "F1"].mean()} | '
-          f'Avg. best EM:{statistics.fmean(max_EM)} | '
-          f'Avg. best F1: {statistics.fmean(max_F1)}')
+        print(f'EM: {metrics["exact"]} | F1: {metrics["f1"]} | '
+              f'EM_has_ans: {metrics["HasAns_exact"]} | F1_has_ans: {metrics["HasAns_f1"]}')
