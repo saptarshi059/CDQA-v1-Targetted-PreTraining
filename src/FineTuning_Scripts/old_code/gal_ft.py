@@ -93,11 +93,11 @@ batch_size = 1
 accelerator = Accelerator()
 # device = accelerator.device
 
-model._fsdp_wrap = True
+#model._fsdp_wrap = True
 model = accelerator.prepare(model)
 
 # FSDP wrap
-fsdp_wrapped_gal = FSDP(model, use_orig_params=False)
+#fsdp_wrapped_gal = FSDP(model, use_orig_params=False)
 
 data_collator = default_data_collator
 
@@ -147,10 +147,10 @@ for epoch in range(num_train_epochs):
     accelerator.print("Evaluation!")
     predicted_tensors = []
     for step, batch in tqdm(enumerate(eval_dataloader)):
-        with torch.no_grad():
-            fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
-        with FSDP.summon_full_params(recurse=False):
-            predicted_tensors.extend(fsdp_wrapped_gal.generate(input_ids=batch['input_ids'],
+        #with torch.no_grad():
+        #    fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
+        #with FSDP.summon_full_params(recurse=False):
+        predicted_tensors.extend(model.generate(input_ids=batch['input_ids'],
                                                                attention_mask=batch['attention_mask'],
                                                                max_new_tokens=30))
 
