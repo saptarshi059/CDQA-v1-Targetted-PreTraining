@@ -60,6 +60,19 @@ def _auto_wrap_policy(module: torch.nn.Module, recurse: bool, nonwrapped_numel: 
     return False
 
 
+model_checkpoint = "facebook/galactica-1.3b"
+
+# initialize dist
+dist.initialize_dist(None)
+
+# load base model and tokenizer from Hugging Face
+model = AutoModelForCausalLM.from_pretrained(model_checkpoint)
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
+tokenizer.bos_token = '<s>'
+tokenizer.pad_token = '<pad>'
+tokenizer.eos_token = '</s>'
+
 train_dataset_raw = DatasetDict({'train': load_dataset('json', data_files='../../../data/RadQA/radqa-a-question'
                                                                           '-answering-dataset-to-improve'
                                                                           '-comprehension-of-radiology-reports-1.0.0'
@@ -88,18 +101,18 @@ eval_dataloader = DataLoader(validation_dataset, collate_fn=data_collator, batch
 metric = load("squad")
 theoretical_answers = [{"id": ex["id"], "answers": ex["answers"]} for ex in dev_dataset_raw['validation']]
 
-model_checkpoint = "facebook/galactica-1.3b"
 
-# initialize dist
-dist.initialize_dist(None)
 
-# load base model and tokenizer from Hugging Face
-model = AutoModelForCausalLM.from_pretrained(model_checkpoint)
-tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 
-tokenizer.bos_token = '<s>'
-tokenizer.pad_token = '<pad>'
-tokenizer.eos_token = '</s>'
+
+
+
+
+
+
+
+
+
 
 model._fsdp_wrap = True
 
