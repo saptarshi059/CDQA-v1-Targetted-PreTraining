@@ -101,19 +101,6 @@ eval_dataloader = DataLoader(validation_dataset, collate_fn=data_collator, batch
 metric = load("squad")
 theoretical_answers = [{"id": ex["id"], "answers": ex["answers"]} for ex in dev_dataset_raw['validation']]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 model._fsdp_wrap = True
 
 # move model to gpu
@@ -153,8 +140,8 @@ for epoch in range(num_train_epochs):
             fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
 
         with FSDP.summon_full_params(fsdp_wrapped_gal, recurse=False):
-            predicted_tensors.extend(fsdp_wrapped_gal.generate(input_ids=batch['input_ids'],
-                                                               attention_mask=batch['attention_mask'],
+            predicted_tensors.extend(fsdp_wrapped_gal.generate(input_ids=batch['input_ids'].to(torch.cuda.current_device()),
+                                                               attention_mask=batch['attention_mask'].to(torch.cuda.current_device()),
                                                                max_new_tokens=30))
 
     metrics = compute_metrics(predicted_tensors)
