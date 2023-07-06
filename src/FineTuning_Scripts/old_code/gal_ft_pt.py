@@ -98,7 +98,7 @@ validation_dataset = dev_dataset_raw['validation'].map(encodeCLM,
                                                        batched=True)
 
 data_collator = default_data_collator
-batch_size = 40
+batch_size = 20
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
@@ -117,9 +117,9 @@ model.to(torch.cuda.current_device())
 # FSDP wrap
 fsdp_wrapped_gal = FSDP(model, auto_wrap_policy=_auto_wrap_policy, use_orig_params=False)
 
-optimizer = AdamW(model.parameters(), lr=2e-5)
+optimizer = AdamW(model.parameters(), lr=3e-5)
 
-num_train_epochs = 3
+num_train_epochs = 1
 num_update_steps_per_epoch = len(train_dataloader)
 num_training_steps = num_train_epochs * num_update_steps_per_epoch
 
