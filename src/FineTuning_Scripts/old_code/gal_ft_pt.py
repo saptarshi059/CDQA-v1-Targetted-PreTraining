@@ -2,7 +2,6 @@ import random
 
 import numpy as np
 import torch
-from accelerate import Accelerator, DeepSpeedPlugin
 from datasets import load_dataset, DatasetDict
 from evaluate import load
 from torch.optim import AdamW
@@ -73,6 +72,8 @@ tokenizer.bos_token = '<s>'
 tokenizer.pad_token = '<pad>'
 tokenizer.eos_token = '</s>'
 
+'''
+#For testing code
 train_dataset_raw = DatasetDict({'train': load_dataset('json', data_files='../../../data/RadQA/radqa-a-question'
                                                                           '-answering-dataset-to-improve'
                                                                           '-comprehension-of-radiology-reports-1.0.0'
@@ -81,6 +82,14 @@ dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='..
                                                                              '-answering-dataset-to-improve'
                                                                              '-comprehension-of-radiology-reports-1.0.0'
                                                                              '/dev.jsonl')['train'].select([0])})
+'''
+
+train_dataset_raw = load_dataset('json', data_files='../../../data/RadQA/radqa-a-question-answering-dataset-to'
+                                                    '-improve-comprehension-of-radiology-reports-1.0.0/train.jsonl')
+dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='../../../data/RadQA/radqa-a-question'
+                                                                             '-answering-dataset-to-improve'
+                                                                             '-comprehension-of-radiology-reports-1.0.0'
+                                                                             '/dev.jsonl')['train']})
 
 train_dataset = train_dataset_raw['train'].map(encodeCLM, remove_columns=train_dataset_raw['train'].column_names,
                                                batched=True)
