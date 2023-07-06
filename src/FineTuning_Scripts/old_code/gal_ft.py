@@ -149,7 +149,7 @@ for epoch in range(num_train_epochs):
     for step, batch in tqdm(enumerate(eval_dataloader)):
         #with torch.no_grad():
         #    fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
-        with FSDP.summon_full_params(recurse=False):
+        with FSDP.summon_full_params(model, recurse=False):
             predicted_tensors.extend(model.generate(input_ids=batch['input_ids'],
                                                                attention_mask=batch['attention_mask'],
                                                                max_new_tokens=30))
