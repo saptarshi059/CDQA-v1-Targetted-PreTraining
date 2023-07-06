@@ -90,7 +90,7 @@ def compute_metrics(pred_tensors):
 
 batch_size = 1
 
-deepspeed_plugin = DeepSpeedPlugin(zero_stage=2)
+deepspeed_plugin = DeepSpeedPlugin()
 deepspeed_plugin.deepspeed_config['train_micro_batch_size_per_gpu'] = 1
 
 accelerator = Accelerator(mixed_precision='fp16', deepspeed_plugin=deepspeed_plugin)
