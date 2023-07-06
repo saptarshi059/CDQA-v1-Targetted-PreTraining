@@ -94,7 +94,7 @@ accelerator = Accelerator()
 # device = accelerator.device
 
 #model._fsdp_wrap = True
-#model = accelerator.prepare(model)
+model = accelerator.prepare(model)
 
 # FSDP wrap
 #fsdp_wrapped_gal = FSDP(model, use_orig_params=False)
@@ -116,7 +116,7 @@ eval_dataloader = DataLoader(validation_dataset, collate_fn=data_collator, batch
 
 optimizer = AdamW(model.parameters(), lr=2e-5)
 
-model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader, eval_dataloader)
+# model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader, eval_dataloader)
 
 num_train_epochs = 3
 num_update_steps_per_epoch = len(train_dataloader)
@@ -124,7 +124,8 @@ num_training_steps = num_train_epochs * num_update_steps_per_epoch
 
 lr_scheduler = get_scheduler("linear", optimizer=optimizer, num_warmup_steps=0, num_training_steps=num_training_steps)
 
-#optimizer, train_dataloader, eval_dataloader, lr_scheduler = accelerator.prepare(optimizer, train_dataloader, eval_dataloader, lr_scheduler)
+optimizer, train_dataloader, eval_dataloader, lr_scheduler = accelerator.prepare(optimizer, train_dataloader,
+                                                                                 eval_dataloader, lr_scheduler)
 
 progress_bar = tqdm(range(num_training_steps))
 
@@ -148,8 +149,8 @@ for epoch in range(num_train_epochs):
     for step, batch in tqdm(enumerate(eval_dataloader)):
         #with torch.no_grad():
         #    fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
-        #with FSDP.summon_full_params(recurse=False):
-        predicted_tensors.extend(model.generate(input_ids=batch['input_ids'],
+        with FSDP.summon_full_params(recurse=False):
+            predicted_tensors.extend(model.generate(input_ids=batch['input_ids'],
                                                                attention_mask=batch['attention_mask'],
                                                                max_new_tokens=30))
 
