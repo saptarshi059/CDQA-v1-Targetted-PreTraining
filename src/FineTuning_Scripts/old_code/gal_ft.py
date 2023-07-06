@@ -131,9 +131,9 @@ progress_bar = tqdm(range(num_training_steps))
 
 for epoch in range(num_train_epochs):
     # Training
-    model.train()
+    fsdp_wrapped_gal.train()
     for step, batch in tqdm(enumerate(train_dataloader)):
-        outputs = model(**batch)
+        outputs = fsdp_wrapped_gal(**batch)
         loss = outputs.loss
         accelerator.backward(loss)
 
@@ -143,13 +143,13 @@ for epoch in range(num_train_epochs):
         progress_bar.update(1)
 
     # Evaluation
-    model.eval()
+    fsdp_wrapped_gal.eval()
     accelerator.print("Evaluation!")
     predicted_tensors = []
     for step, batch in tqdm(enumerate(eval_dataloader)):
         #with torch.no_grad():
         #    fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
-        with FSDP.summon_full_params(model, recurse=False):
+        with FSDP.summon_full_params(fsdp_wrapped_gal, recurse=False):
             predicted_tensors.extend(fsdp_wrapped_gal.generate(input_ids=batch['input_ids'],
                                                                attention_mask=batch['attention_mask'],
                                                                max_new_tokens=30))
