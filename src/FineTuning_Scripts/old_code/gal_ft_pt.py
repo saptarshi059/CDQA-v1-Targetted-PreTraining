@@ -98,7 +98,7 @@ validation_dataset = dev_dataset_raw['validation'].map(encodeCLM,
                                                        batched=True)
 
 data_collator = default_data_collator
-batch_size = 10
+batch_size = 5
 
 train_dataset.set_format("torch")
 train_dataloader = DataLoader(train_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size,
