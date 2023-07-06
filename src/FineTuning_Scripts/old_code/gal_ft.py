@@ -39,8 +39,14 @@ def seed_worker(worker_id):
 # train_dataset_raw = load_dataset('json', data_files='train.jsonl')
 # dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='dev.jsonl')['train']})
 
-train_dataset_raw = DatasetDict({'train': load_dataset('json', data_files='train.jsonl')['train'].select([0])})
-dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='dev.jsonl')['train'].select([0])})
+train_dataset_raw = DatasetDict({'train': load_dataset('json', data_files='../../../data/RadQA/radqa-a-question'
+                                                                          '-answering-dataset-to-improve'
+                                                                          '-comprehension-of-radiology-reports-1.0.0'
+                                                                          '/train.jsonl')['train'].select([0])})
+dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='../../../data/RadQA/radqa-a-question'
+                                                                             '-answering-dataset-to-improve'
+                                                                             '-comprehension-of-radiology-reports-1.0.0'
+                                                                             '/dev.jsonl')['train'].select([0])})
 
 dist.initialize_dist(None)
 
