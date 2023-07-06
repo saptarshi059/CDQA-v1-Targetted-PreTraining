@@ -48,7 +48,7 @@ dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='..
                                                                              '-comprehension-of-radiology-reports-1.0.0'
                                                                              '/dev.jsonl')['train'].select([0])})
 
-#dist.initialize_dist(None)
+dist.initialize_dist(None)
 
 model_checkpoint = "facebook/galactica-1.3b"
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
@@ -93,7 +93,7 @@ batch_size = 1
 accelerator = Accelerator()
 # device = accelerator.device
 
-#model._fsdp_wrap = True
+model._fsdp_wrap = True
 model = accelerator.prepare(model)
 
 # FSDP wrap
@@ -148,11 +148,11 @@ for epoch in range(num_train_epochs):
     predicted_tensors = []
     for step, batch in tqdm(enumerate(eval_dataloader)):
         with torch.no_grad():
-        #    fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
-        #with FSDP.summon_full_params(model, recurse=False):
-            predicted_tensors.extend(model.generate(input_ids=batch['input_ids'],
+            fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
+        with FSDP.summon_full_params(model, recurse=False):
+            predicted_tensors.extend(fsdp_wrapped_gal.generate(input_ids=batch['input_ids'],
                                                                attention_mask=batch['attention_mask'],
-                                                               max_new_tokens=15))
+                                                               max_new_tokens=30))
 
     metrics = compute_metrics(predicted_tensors)
 
