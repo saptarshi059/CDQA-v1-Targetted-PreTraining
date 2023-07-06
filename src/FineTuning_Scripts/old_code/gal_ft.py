@@ -2,7 +2,7 @@ import random
 
 import numpy as np
 import torch
-from accelerate import Accelerator
+from accelerate import Accelerator, DeepSpeedPlugin
 from datasets import load_dataset, DatasetDict
 from evaluate import load
 from torch.optim import AdamW
@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 from composer.utils import dist
 from transformers import AutoTokenizer, AutoModelForCausalLM, logging, default_data_collator, get_scheduler, set_seed
-from torch.distributed.fsdp.fully_sharded_data_parallel import FullyShardedDataParallel as FSDP
+from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
 
 logging.set_verbosity(50)
 
@@ -48,7 +48,7 @@ dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='..
                                                                              '-comprehension-of-radiology-reports-1.0.0'
                                                                              '/dev.jsonl')['train'].select([0])})
 
-dist.initialize_dist(None)
+#dist.initialize_dist(None)
 
 model_checkpoint = "facebook/galactica-1.3b"
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
@@ -90,14 +90,15 @@ def compute_metrics(pred_tensors):
 
 batch_size = 1
 
-accelerator = Accelerator()
+deepspeed_plugin = DeepSpeedPlugin(zero_stage=2)
+accelerator = Accelerator(mixed_precision='fp16', deepspeed_plugin=deepspeed_plugin)
 # device = accelerator.device
 
 #model._fsdp_wrap = True
 model = accelerator.prepare(model)
 
 # FSDP wrap
-#fsdp_wrapped_gal = FSDP(model, use_orig_params=False)
+fsdp_wrapped_gal = FSDP(model, use_orig_params=False)
 
 data_collator = default_data_collator
 
