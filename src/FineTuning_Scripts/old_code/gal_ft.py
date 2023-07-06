@@ -152,7 +152,7 @@ for epoch in range(num_train_epochs):
         #with FSDP.summon_full_params(model, recurse=False):
             predicted_tensors.extend(model.generate(input_ids=batch['input_ids'],
                                                                attention_mask=batch['attention_mask'],
-                                                               max_new_tokens=30))
+                                                               max_new_tokens=15))
 
     metrics = compute_metrics(predicted_tensors)
 
