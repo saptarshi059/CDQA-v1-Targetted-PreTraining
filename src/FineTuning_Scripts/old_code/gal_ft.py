@@ -97,7 +97,7 @@ model._fsdp_wrap = True
 model = accelerator.prepare(model)
 
 # FSDP wrap
-fsdp_wrapped_gal = FSDP(model, use_orig_params=True)
+fsdp_wrapped_gal = FSDP(model, use_orig_params=False)
 
 data_collator = default_data_collator
 
