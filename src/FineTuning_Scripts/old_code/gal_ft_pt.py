@@ -30,7 +30,7 @@ def seed_worker(worker_id):
 def encodeCLM(examples):
     samples = []
     for q, c in zip(examples['question'], examples['context']):
-        samples.append(f'Question: {q} Context: {c} Answer: ')
+        samples.append(f'question: {q} context: {c} answer: ')
     input_text_tokenized = tokenizer(samples, return_tensors='pt', padding='max_length', max_length=1800,
                                      truncation=True)
 
