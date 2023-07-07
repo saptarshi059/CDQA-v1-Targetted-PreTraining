@@ -43,7 +43,7 @@ def encodeCLM(examples):
 
 def compute_metrics(pred_tensors):
     decoded_preds = tokenizer.batch_decode(pred_tensors, skip_special_tokens=True)
-
+    print(decoded_preds)
     predicted_answers = []
     for sample, pred_text in zip(theoretical_answers, decoded_preds):
         predicted_answers.append({"id": sample["id"], "prediction_text": pred_text})
