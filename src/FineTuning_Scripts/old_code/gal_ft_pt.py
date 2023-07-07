@@ -20,6 +20,7 @@ torch.manual_seed(42)
 random.seed(42)
 set_seed(42)
 
+
 def seed_worker(worker_id):
     worker_seed = torch.initial_seed() % 2 ** 32
     np.random.seed(worker_seed)
@@ -33,7 +34,16 @@ def encodeCLM(examples):
     input_text_tokenized = tokenizer(samples, return_tensors='pt', padding='max_length', max_length=1800,
                                      truncation=True)
 
-    answers = [x['text'][0] if x['text'] != [] else 'Ġ' for x in examples['answers']]
+    answers = []
+    for x in examples['answers']:
+        formatted_answer = ''
+        if x['text']:
+            for item in x['text']:
+                formatted_answer = item + ', ' + formatted_answer
+            answers.append(formatted_answer)
+        else:
+            answers.append('Ġ')
+
     answers_tokenized = tokenizer(answers, return_tensors='pt', padding='max_length', max_length=1800, truncation=True)
 
     return {'input_ids': input_text_tokenized['input_ids'],
@@ -43,9 +53,12 @@ def encodeCLM(examples):
 
 def compute_metrics(pred_tensors):
     decoded_preds = tokenizer.batch_decode(pred_tensors, skip_special_tokens=True)
-    print(decoded_preds)
+    decoded_answers = []
+    for generation in decoded_preds:
+        decoded_answers.append(generation.split('answer:', 1)[1].strip())
+
     predicted_answers = []
-    for sample, pred_text in zip(theoretical_answers, decoded_preds):
+    for sample, pred_text in zip(theoretical_answers, decoded_answers):
         predicted_answers.append({"id": sample["id"], "prediction_text": pred_text})
 
     return metric.compute(predictions=predicted_answers, references=theoretical_answers)
@@ -108,7 +121,12 @@ eval_dataloader = DataLoader(validation_dataset, collate_fn=data_collator, batch
                              worker_init_fn=seed_worker, generator=g)
 
 metric = load("squad")
-theoretical_answers = [{"id": ex["id"], "answers": ex["answers"]} for ex in dev_dataset_raw['validation']]
+theoretical_answers = []
+for ex in dev_dataset_raw['validation']:
+    if not ex['answers']['text']:
+        theoretical_answers.append({"id": ex["id"], "answers": {'answer_start': [], 'text': ['Ġ']}})
+    else:
+        theoretical_answers.append({"id": ex["id"], "answers": ex["answers"]})
 
 model._fsdp_wrap = True
 
@@ -150,13 +168,11 @@ for epoch in range(num_train_epochs):
             fsdp_wrapped_gal.forward(input_ids=batch['input_ids'])
 
         with FSDP.summon_full_params(fsdp_wrapped_gal, recurse=False):
-            predicted_tensors.extend(fsdp_wrapped_gal.generate(input_ids=batch['input_ids'].to(torch.cuda.current_device()),
-                                                               attention_mask=batch['attention_mask'].to(torch.cuda.current_device()),
-                                                               max_new_tokens=30))
+            predicted_tensors.extend(
+                fsdp_wrapped_gal.generate(input_ids=batch['input_ids'].to(torch.cuda.current_device()),
+                                          attention_mask=batch['attention_mask'].to(torch.cuda.current_device()),
+                                          max_new_tokens=30))
 
     metrics = compute_metrics(predicted_tensors)
 
     print(f"epoch {epoch}:", metrics)
-
-
-
