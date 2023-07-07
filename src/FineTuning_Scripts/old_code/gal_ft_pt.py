@@ -30,7 +30,7 @@ def seed_worker(worker_id):
 def encodeCLM(examples):
     samples = []
     for q, c in zip(examples['question'], examples['context']):
-        samples.append(f'question: {q} context: {c} answer: ')
+        samples.append(f'Question: {q} Context: {c} Answer: ')
     input_text_tokenized = tokenizer(samples, return_tensors='pt', padding='max_length', max_length=1800,
                                      truncation=True)
 
@@ -55,7 +55,7 @@ def compute_metrics(pred_tensors):
     decoded_preds = tokenizer.batch_decode(pred_tensors, skip_special_tokens=True)
     decoded_answers = []
     for generation in decoded_preds:
-        decoded_answers.append(generation.split('answer:', 1)[1].strip())
+        decoded_answers.append(generation.split('Answer:', 1)[1].strip())
 
     predicted_answers = []
     for sample, pred_text in zip(theoretical_answers, decoded_answers):
