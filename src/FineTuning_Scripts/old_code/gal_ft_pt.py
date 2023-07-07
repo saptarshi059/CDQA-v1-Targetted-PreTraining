@@ -129,6 +129,7 @@ progress_bar = tqdm(range(num_training_steps))
 
 for epoch in range(num_train_epochs):
     # Training
+    '''
     fsdp_wrapped_gal.train()
     for step, batch in tqdm(enumerate(train_dataloader)):
         outputs = fsdp_wrapped_gal(**batch)
@@ -139,7 +140,7 @@ for epoch in range(num_train_epochs):
         lr_scheduler.step()
         optimizer.zero_grad()
         progress_bar.update(1)
-
+    '''
     # Evaluation
     fsdp_wrapped_gal.eval()
     print("Evaluation!")
