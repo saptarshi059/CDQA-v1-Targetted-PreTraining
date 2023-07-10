@@ -64,7 +64,7 @@ def compute_metrics(pred_tensors):
 
     print(predicted_answers)
     print(theoretical_answers)
-    pd.DataFrame(zip(predicted_answers, theoretical_answers), columns=['pred', 'true']).to_csv('output.csv')
+    pd.DataFrame(zip(predicted_answers, theoretical_answers), columns=['pred', 'true']).to_pickle('output.pkl')
 
     return metric.compute(predictions=predicted_answers, references=theoretical_answers)
 
