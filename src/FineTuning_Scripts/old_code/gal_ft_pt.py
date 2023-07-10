@@ -10,6 +10,7 @@ from tqdm.auto import tqdm
 from composer.utils import dist
 from transformers import AutoTokenizer, AutoModelForCausalLM, logging, default_data_collator, get_scheduler, set_seed
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
+import pandas as pd
 
 logging.set_verbosity(50)
 
@@ -61,6 +62,8 @@ def compute_metrics(pred_tensors):
     for sample, pred_text in zip(theoretical_answers, decoded_answers):
         predicted_answers.append({"id": sample["id"], "prediction_text": pred_text})
 
+    pd.DataFrame([predicted_answers, theoretical_answers], columns=['pred', 'true']).to_csv('output.csv')
+
     return metric.compute(predictions=predicted_answers, references=theoretical_answers)
 
 
@@ -85,7 +88,7 @@ tokenizer.bos_token = '<s>'
 tokenizer.pad_token = '<pad>'
 tokenizer.eos_token = '</s>'
 
-'''
+
 #For testing code
 train_dataset_raw = DatasetDict({'train': load_dataset('json', data_files='../../../data/RadQA/radqa-a-question'
                                                                           '-answering-dataset-to-improve'
@@ -103,7 +106,7 @@ dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='..
                                                                              '-answering-dataset-to-improve'
                                                                              '-comprehension-of-radiology-reports-1.0.0'
                                                                              '/dev.jsonl')['train']})
-
+'''
 train_dataset = train_dataset_raw['train'].map(encodeCLM, remove_columns=train_dataset_raw['train'].column_names,
                                                batched=True)
 validation_dataset = dev_dataset_raw['validation'].map(encodeCLM,
