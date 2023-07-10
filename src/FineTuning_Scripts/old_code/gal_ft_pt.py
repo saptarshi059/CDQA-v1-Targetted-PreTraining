@@ -55,7 +55,7 @@ def compute_metrics(pred_tensors):
     decoded_preds = tokenizer.batch_decode(pred_tensors, skip_special_tokens=True)
     decoded_answers = []
     for generation in decoded_preds:
-        decoded_answers.append(generation.split('Answer:', 1)[1].strip())
+        decoded_answers.append(generation.split('answer:', 1)[1].strip())
 
     predicted_answers = []
     for sample, pred_text in zip(theoretical_answers, decoded_answers):
