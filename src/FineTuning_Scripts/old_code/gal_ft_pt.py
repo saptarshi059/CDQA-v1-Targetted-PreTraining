@@ -62,8 +62,8 @@ def compute_metrics(pred_tensors):
     for sample, pred_text in zip(theoretical_answers, decoded_answers):
         predicted_answers.append({"id": sample["id"], "prediction_text": pred_text})
 
-    print(predicted_answers)
-    print(theoretical_answers)
+    #print(predicted_answers)
+    #print(theoretical_answers)
     pd.DataFrame(zip(predicted_answers, theoretical_answers), columns=['pred', 'true']).to_pickle('output.pkl')
 
     return metric.compute(predictions=predicted_answers, references=theoretical_answers)
@@ -90,7 +90,7 @@ tokenizer.bos_token = '<s>'
 tokenizer.pad_token = '<pad>'
 tokenizer.eos_token = '</s>'
 
-
+'''
 #For testing code
 train_dataset_raw = DatasetDict({'train': load_dataset('json', data_files='../../../data/RadQA/radqa-a-question'
                                                                           '-answering-dataset-to-improve'
@@ -108,7 +108,7 @@ dev_dataset_raw = DatasetDict({'validation': load_dataset('json', data_files='..
                                                                              '-answering-dataset-to-improve'
                                                                              '-comprehension-of-radiology-reports-1.0.0'
                                                                              '/dev.jsonl')['train']})
-'''
+
 train_dataset = train_dataset_raw['train'].map(encodeCLM, remove_columns=train_dataset_raw['train'].column_names,
                                                batched=True)
 validation_dataset = dev_dataset_raw['validation'].map(encodeCLM,
@@ -129,7 +129,7 @@ metric = load("squad")
 theoretical_answers = []
 for ex in dev_dataset_raw['validation']:
     if not ex['answers']['text']:
-        theoretical_answers.append({"id": ex["id"], "answers": {'answer_start': [], 'text': ['Ġ']}})
+        theoretical_answers.append({"id": ex["id"], "answers": {'answer_start': [0], 'text': ['']}})
     else:
         theoretical_answers.append({"id": ex["id"], "answers": ex["answers"]})
 
