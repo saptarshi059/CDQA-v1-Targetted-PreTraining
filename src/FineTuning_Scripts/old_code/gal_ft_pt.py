@@ -62,6 +62,8 @@ def compute_metrics(pred_tensors):
     for sample, pred_text in zip(theoretical_answers, decoded_answers):
         predicted_answers.append({"id": sample["id"], "prediction_text": pred_text})
 
+    print(predicted_answers)
+    print(theoretical_answers)
     pd.DataFrame([predicted_answers, theoretical_answers], columns=['pred', 'true']).to_csv('output.csv')
 
     return metric.compute(predictions=predicted_answers, references=theoretical_answers)
