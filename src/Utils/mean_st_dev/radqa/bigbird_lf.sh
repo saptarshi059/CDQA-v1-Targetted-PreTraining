@@ -9,7 +9,7 @@
 #SBATCH --mail-user=saptarshi.sengupta@l3s.de # Email address to send the email to
 
 #BigBird
-accelerate launch "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
+accelerate launch --main_process_port 15167 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
 --model_checkpoint "FredNajjar/bigbird-QA-squad_v2" \
 --trained_model_name "bigbird-squad2-radqa" \
 --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/"
@@ -17,7 +17,7 @@ python "../../zeroshot.py" --model_checkpoint "bigbird-squad2-radqa" --dataset_l
 python "../../eval.py" --pred_file "bigbird-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
 #LongFormer
-accelerate launch "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
+accelerate launch --main_process_port 15167 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
 --model_checkpoint "mrm8488/longformer-base-4096-finetuned-squadv2" \
 --trained_model_name "longformer-squad2-radqa" \
 --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/"
