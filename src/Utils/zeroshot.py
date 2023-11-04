@@ -36,9 +36,8 @@ class QADataset(Dataset):
             self.dataset = load_dataset('squad_v2')
         else:
             self.dataset = DatasetDict({"validation": load_dataset('json', data_files=os.path.abspath(
-                '../../data/RadQA/radqa-a-question-answering'
-                '-dataset-to-improve-comprehension-of'
-                '-radiology-reports-1.0.0/test.jsonl'))['train']})
+                "/home/saptarshi.sengupta/CDQA-v1-whole-entity-approach/data/RadQA/radqa-a-question-answering-dataset"
+                "-to-improve-comprehension-of-radiology-reports-1.0.0/test.jsonl"))['train']})
 
         self.dataset = self.dataset.with_format("torch")
 
