@@ -31,5 +31,6 @@ do
 
   python "../../eval.py" --pred_file "bert-base-wiki-squad-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
+  echo ".......................................................<><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
   a=$((a + 1))
 done

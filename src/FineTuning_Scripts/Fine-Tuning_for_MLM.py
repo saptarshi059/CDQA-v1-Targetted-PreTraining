@@ -13,6 +13,7 @@ import argparse
 import random
 import torch
 import math
+import os
 
 
 def str2bool(v):
@@ -97,7 +98,7 @@ model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 chunk_size = tokenizer.model_max_length
 batch_size = args.batch_size
 
-train_dataset = load_dataset("parquet", data_files=args.training_corpus)
+train_dataset = load_dataset("parquet", data_files=os.path.abspath(args.training_corpus))
 
 if ('prompt' in train_dataset['train'].column_names) and ('__index_level_0__' in train_dataset['train'].column_names):
     train_dataset = train_dataset.remove_columns(['prompt', '__index_level_0__'])
@@ -128,7 +129,7 @@ train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=batch_size
 print('Training Dataset processed...')
 
 # Eval Data
-eval_dataset = load_dataset("csv", data_files=args.eval_corpus)
+eval_dataset = load_dataset("csv", data_files=os.path.abspath(args.eval_corpus))
 print('Evaluation Corpus Loaded...')
 
 eval_dataset = eval_dataset['train'].map(tokenize_function, batched=True, remove_columns=['ent', 'text'])
