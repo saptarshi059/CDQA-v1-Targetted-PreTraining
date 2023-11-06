@@ -16,7 +16,7 @@ do
   "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
   --model_checkpoint "bert-base-cased" \
   --trained_model_name "bert-base-normal_prompt_filtered_ents" \
-  --training_corpus "../../../../data/RadQA/radqa-corpora/normal_prompt_filtered_ents_corpus_radqa.parquet" \
+  --training_corpus "../../../../data/RadQA/radqa-corpora/normal_prompt_filtered_ents.parquet" \
   --eval_corpus "../../../../data/RadQA/RadQA_for_PPL_eval.csv" --epochs 3
 
   accelerate launch --main_process_port 12585 --mixed_precision fp16 \
