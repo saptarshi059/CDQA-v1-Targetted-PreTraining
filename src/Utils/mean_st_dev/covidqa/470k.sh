@@ -14,15 +14,15 @@ number_of_trials=3
 while [ $a -lt $number_of_trials ]
 do
    accelerate launch --main_process_port 12527 --mixed_precision fp16 "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
-   --model_checkpoint bert-base-cased --trained_model_name bert-base-470k \
+   --model_checkpoint roberta-base --trained_model_name roberta-base-470k \
    --training_corpus "../../../../data/COVID-QA/covidqa-corpora/agg_gens_470k.parquet" \
    --eval_corpus "../../../../data/COVID-QA/Saptarshi7-covid_qa_cleaned_CS_for_PPL_eval.csv" --epochs 3
 
    accelerate launch --main_process_port 12527 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/squad_ft.py" \
-   --model_checkpoint bert-base-470k --trained_model_name bert-base-470k-squad --squad_version2 False
+   --model_checkpoint roberta-base-470k --trained_model_name roberta-base-470k-squad --squad_version2 False
 
    accelerate launch --main_process_port 12527 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
-   --model_checkpoint bert-base-470k-squad --trained_model_name bert-base-470k-squad-covidqa
+   --model_checkpoint roberta-base-470k-squad --trained_model_name roberta-base-470k-squad-covidqa
 
    a=$((a + 1))
 done
