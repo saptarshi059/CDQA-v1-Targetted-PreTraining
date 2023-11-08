@@ -8,24 +8,21 @@
 #SBATCH --mail-type=FAIL,BEGIN,END  # Send an email when the job starts, ends, or fails
 #SBATCH --mail-user=saptarshi.sengupta@l3s.de # Email address to send the email to
 
-export models="bert-base-cased roberta-base"
+export models="deepset/bert-base-cased-squad2 deepset/roberta-base-squad2"
 for base_model in $models;
 do
-    a=0
-    number_of_trials=3
-    while [ $a -lt $number_of_trials ]
-    do
-      accelerate launch --main_process_port 12580 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
-      --model_checkpoint "${base_model}-wiki-squad" --trained_model_name "${base_model}-wiki-squad-radqa" \
-      --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/"
+  output_name=$(echo "$base_model" | tr / _)
 
-      python "../../zeroshot.py" --model_checkpoint "${base_model}-wiki-squad-radqa" --dataset_location "local"
+  accelerate launch --main_process_port 12580 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
+  --model_checkpoint "$base_model" --trained_model_name "${output_name}-radqa" \
+  --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/"
 
-      python "../../eval.py" --pred_file "${base_model}-wiki-squad-radqa_radqa_predictions.pkl" --metric "squad_v2"
+  python "../../zeroshot.py" --model_checkpoint "${output_name}-radqa" --dataset_location "local"
 
-      echo ".......................................................<><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-      a=$((a + 1))
-    done
+  python "../../eval.py" --pred_file "${output_name}-radqa_radqa_predictions.pkl" --metric "squad_v2"
+
+  echo ".......................................................<><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  a=$((a + 1))
 done
 
 

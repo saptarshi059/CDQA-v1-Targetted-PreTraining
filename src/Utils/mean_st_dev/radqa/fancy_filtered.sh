@@ -1,13 +1,5 @@
 #!/bin/sh
 
-#SBATCH --nodes=1                   # Number of nodes to request
-#SBATCH --gpus-per-node=1           # Number of GPUs per node to request
-#SBATCH --job-name="fancy_prompt_filtered_ents FT radqa"  # A nice readable name of your job, to see it in the queue, instead of numbers
-#SBATCH --output=jobName.%J.out     # Store the output console text to a file called jobName.<assigned job number>.out
-#SBATCH --error=jobName.%J.err      # Store the error messages to a file called jobName.<assigned job number>.err
-#SBATCH --mail-type=FAIL,BEGIN,END  # Send an email when the job starts, ends, or fails
-#SBATCH --mail-user=saptarshi.sengupta@l3s.de # Email address to send the email to
-
 a=0
 number_of_trials=3
 while [ $a -lt $number_of_trials ]
