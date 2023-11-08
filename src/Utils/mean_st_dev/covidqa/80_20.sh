@@ -38,10 +38,11 @@ do
 
   accelerate launch "../../src/FineTuning_Scripts/old_code/covidqa_ft_for_subset.py" \
   --model_checkpoint roberta-base-gal47k_subset-squad --trained_model_name roberta-base-gal47k_subset-squad-covidqa-subset \
-  --epochs $epoch
+  --epochs $epoch --batch_size 40
 
   accelerate launch "../../src/FineTuning_Scripts/old_code/covidqa_ft_for_subset.py" \
-  --model_checkpoint csarron/roberta-base-squad-v1 --trained_model_name roberta-squad-covidqa-subset --epochs $epoch
+  --model_checkpoint csarron/roberta-base-squad-v1 --trained_model_name roberta-squad-covidqa-subset --epochs $epoch \
+  --batch_size 40
 
   echo ".............................<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
   epoch=$((epoch + 1))
