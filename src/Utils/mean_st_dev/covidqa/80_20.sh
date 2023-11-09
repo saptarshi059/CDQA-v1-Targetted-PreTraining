@@ -7,6 +7,9 @@ epoch=1
 while [ $epoch -le 3 ]
 do
   accelerate launch "../../src/FineTuning_Scripts/old_code/covidqa_ft_for_subset.py" \
+  --model_checkpoint "../biobaselines/luke-squad" --trained_model_name "luke-squad-covidqa-subset" --epochs $epoch
+
+  accelerate launch "../../src/FineTuning_Scripts/old_code/covidqa_ft_for_subset.py" \
   --model_checkpoint "../biobaselines/biobert-squad" --trained_model_name "biobert-squad-covidqa-subset" --epochs $epoch
 
   accelerate launch "../../src/FineTuning_Scripts/old_code/covidqa_ft_for_subset.py" \
