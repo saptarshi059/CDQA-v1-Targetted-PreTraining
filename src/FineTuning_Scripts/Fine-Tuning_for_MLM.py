@@ -163,7 +163,7 @@ print('Evaluation Dataset processed...')
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
-accelerator = Accelerator()
+accelerator = Accelerator(gradient_accumulation_steps=args.gradient_accumulation_steps)
 model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader,
                                                                           eval_dataloader)
 
@@ -177,40 +177,19 @@ output_dir = args.trained_model_name
 
 progress_bar = tqdm(range(num_training_steps))
 
-accumulation_steps = args.gradient_accumulation_steps
-current_accumulation = 0
-total_loss = 0
-
 for epoch in range(num_train_epochs):
     # Training
     model.train()
     for batch in train_dataloader:
-        outputs = model(**batch)
-        loss = outputs.loss
-        loss = loss / accumulation_steps  # Divide the loss by accumulation steps
+        with accelerator.accumulate(model):
+            outputs = model(**batch)
+            loss = outputs.loss
+            accelerator.backward(loss)
 
-        accelerator.backward(loss)
-
-        total_loss += loss.item()
-        current_accumulation += 1
-
-        if current_accumulation == accumulation_steps:
-            # Perform an optimizer step when the accumulation steps are reached
             optimizer.step()
             lr_scheduler.step()
             optimizer.zero_grad()
-            current_accumulation = 0
-            total_loss = 0
-
-    # Ensure any remaining accumulated gradients are processed
-    if current_accumulation > 0:
-        optimizer.step()
-        lr_scheduler.step()
-        optimizer.zero_grad()
-        current_accumulation = 0
-        total_loss = 0
-
-    progress_bar.update(1)
+            progress_bar.update(1)
 
     # Evaluation
     model.eval()
