@@ -82,6 +82,7 @@ parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--learning_rate', default=5e-5, type=float)
 parser.add_argument('--epochs', default=3, type=int)
+parser.add_argument('--gradient_accumulation_steps', default=1, type=int)
 
 args = parser.parse_args()
 
@@ -176,18 +177,40 @@ output_dir = args.trained_model_name
 
 progress_bar = tqdm(range(num_training_steps))
 
+accumulation_steps = args.gradient_accumulation_steps
+current_accumulation = 0
+total_loss = 0
+
 for epoch in range(num_train_epochs):
     # Training
     model.train()
     for batch in train_dataloader:
         outputs = model(**batch)
         loss = outputs.loss
+        loss = loss / accumulation_steps  # Divide the loss by accumulation steps
+
         accelerator.backward(loss)
 
+        total_loss += loss.item()
+        current_accumulation += 1
+
+        if current_accumulation == accumulation_steps:
+            # Perform an optimizer step when the accumulation steps are reached
+            optimizer.step()
+            lr_scheduler.step()
+            optimizer.zero_grad()
+            current_accumulation = 0
+            total_loss = 0
+
+    # Ensure any remaining accumulated gradients are processed
+    if current_accumulation > 0:
         optimizer.step()
         lr_scheduler.step()
         optimizer.zero_grad()
-        progress_bar.update(1)
+        current_accumulation = 0
+        total_loss = 0
+
+    progress_bar.update(1)
 
     # Evaluation
     model.eval()
