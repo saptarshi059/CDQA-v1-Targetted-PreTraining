@@ -82,7 +82,6 @@ parser.add_argument('--random_state', default=42, type=int)
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--learning_rate', default=5e-5, type=float)
 parser.add_argument('--epochs', default=3, type=int)
-parser.add_argument('--gradient_accumulation_steps', default=1, type=int)
 
 args = parser.parse_args()
 
@@ -163,7 +162,7 @@ print('Evaluation Dataset processed...')
 
 optimizer = AdamW(model.parameters(), lr=args.learning_rate)
 
-accelerator = Accelerator(gradient_accumulation_steps=args.gradient_accumulation_steps)
+accelerator = Accelerator()
 model, optimizer, train_dataloader, eval_dataloader = accelerator.prepare(model, optimizer, train_dataloader,
                                                                           eval_dataloader)
 
@@ -181,15 +180,14 @@ for epoch in range(num_train_epochs):
     # Training
     model.train()
     for batch in train_dataloader:
-        with accelerator.accumulate(model):
-            outputs = model(**batch)
-            loss = outputs.loss
-            accelerator.backward(loss)
+        outputs = model(**batch)
+        loss = outputs.loss
+        accelerator.backward(loss)
 
-            optimizer.step()
-            lr_scheduler.step()
-            optimizer.zero_grad()
-            progress_bar.update(1)
+        optimizer.step()
+        lr_scheduler.step()
+        optimizer.zero_grad()
+        progress_bar.update(1)
 
     # Evaluation
     model.eval()
