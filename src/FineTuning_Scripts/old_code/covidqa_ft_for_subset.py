@@ -12,6 +12,7 @@ import numpy as np
 import argparse
 import random
 import torch
+import os
 
 logging.set_verbosity(50)
 
@@ -214,6 +215,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--model_checkpoint', default="csarron/roberta-base-squad-v1", type=str)
 parser.add_argument('--trained_model_name', default="test-covidqa-trained-saptarshiconnor",
                     type=str)  # So that we can KNOW for sure which folder is what.
+parser.add_argument('--dataset_location', type=str)
 parser.add_argument('--batch_size', default=40, type=int)
 parser.add_argument('--max_length', default=384, type=int)
 parser.add_argument('--stride', default=128, type=int)
@@ -250,10 +252,16 @@ else:
 
 pad_on_right = tokenizer.padding_side == "right"
 
-raw_dataset = DatasetDict({'train': load_dataset('parquet', data_files='Saptarshi7_covid_qa_cleaned_CS_'
-                                                                       'train_subset.parquet')['train'],
-                           'validation': load_dataset('parquet', data_files='Saptarshi7_covid_qa_cleaned_CS_'
-                                                                            'test_subset.parquet')['train']})
+dataset_location = os.path.abspath(args.dataset_location)
+
+raw_dataset = DatasetDict({'train': load_dataset('parquet',
+                                                 data_files=os.path.join(dataset_location,
+                                                                         'Saptarshi7_covid_qa_cleaned_CS_train'
+                                                                         '_subset.parquet'))['train'],
+                           'validation': load_dataset('parquet',
+                                                      data_files=os.path.join(dataset_location,
+                                                                              'Saptarshi7_covid_qa_cleaned_CS_test_'
+                                                                              'subset.parquet'))['train']})
 
 train_dataset = raw_dataset['train'].map(prepare_train_features, batched=True,
                                          remove_columns=raw_dataset['train'].column_names)
