@@ -174,7 +174,7 @@ do
   --model_checkpoint roberta-base-gal47k_subset-squad --trained_model_name roberta-base-gal47k_subset-squad-covidqa-subset \
   --epochs $epoch --batch_size 40 --dataset_location "80_20_all"
 
-  accelerate launch --mixed_precision fp16 --main_process_port 12456 "../../src/FineTuning_Scripts/old_code/covidqa_ft_for_subset.py" \
+  accelerate launch --mixed_precision fp16 --main_process_port 12456 "../../../FineTuning_Scripts/old_code/covidqa_ft_for_subset.py" \
   --model_checkpoint csarron/roberta-base-squad-v1 --trained_model_name roberta-squad-covidqa-subset --epochs $epoch \
   --batch_size 40 --dataset_location "80_20_all"
 
