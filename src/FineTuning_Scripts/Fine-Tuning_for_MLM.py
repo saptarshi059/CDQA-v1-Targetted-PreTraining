@@ -95,7 +95,10 @@ model_checkpoint = args.model_checkpoint
 
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
-chunk_size = tokenizer.model_max_length
+
+chunk_size = 512  # I'm bruteforcing it to 512 since it's the same for BERT/RoBERTa &
+# the other models don't have their max length set. They return 1000000000000000019884624838656 as max length.
+
 batch_size = args.batch_size
 
 train_dataset = load_dataset("parquet", data_files=os.path.abspath(args.training_corpus))
