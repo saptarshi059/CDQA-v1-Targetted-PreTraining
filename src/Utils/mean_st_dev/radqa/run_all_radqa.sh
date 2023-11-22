@@ -11,7 +11,7 @@
 #SBATCH --mail-user=saptarshi.sengupta@l3s.de # Email address to send the email to
 
 export models="roberta-base bert-base-cased"
-export random_seeds="64 12"
+export random_seeds="41 43"
 
 for base_model in $models;
 do
@@ -223,45 +223,63 @@ do
   python "../../zeroshot.py" --model_checkpoint "biobert-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "biobert-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint allenai/scibert_scivocab_uncased --trained_model_name scibert-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint scibert-squad2 --trained_model_name scibert-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "scibert-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "scibert-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext --trained_model_name pubmedbert-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint pubmedbert-squad2 --trained_model_name pubmedbert-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "pubmedbert-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "pubmedbert-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint bionlp/bluebert_pubmed_mimic_uncased_L-12_H-768_A-12 --trained_model_name bluebert-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint bluebert-squad2 --trained_model_name bluebert-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "bluebert-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "bluebert-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint GanjinZero/UMLSBert_ENG --trained_model_name umlsbert-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint umlsbert-squad2 --trained_model_name umlsbert-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "umlsbert-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "umlsbert-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint studio-ousia/luke-base --trained_model_name luke-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint luke-squad2 --trained_model_name luke-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "luke-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "luke-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint zzxslp/RadBERT-RoBERTa-4m --trained_model_name radbert-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint radbert-squad2 --trained_model_name radbert-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "radbert-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "radbert-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint emilyalsentzer/Bio_ClinicalBERT --trained_model_name clinicalbert-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint clinicalbert-squad2 --trained_model_name clinicalbert-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "clinicalbert-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "clinicalbert-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/squad_ft.py" --squad_version2 True --model_checkpoint allenai/biomed_roberta_base --trained_model_name biomedroberta-squad2 --random_state $seed
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" --model_checkpoint biomedroberta-squad2 --trained_model_name biomedroberta-squad2-radqa --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "biomedroberta-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "biomedroberta-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch --main_process_port 15467 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
   --model_checkpoint "FredNajjar/bigbird-QA-squad_v2" \
@@ -271,6 +289,8 @@ do
   python "../../zeroshot.py" --model_checkpoint "bigbird-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "bigbird-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch --main_process_port 15167 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
   --model_checkpoint "mrm8488/longformer-base-4096-finetuned-squadv2" \
   --trained_model_name "longformer-squad2-radqa" \
@@ -278,4 +298,6 @@ do
   --random_state $seed
   python "../../zeroshot.py" --model_checkpoint "longformer-squad2-radqa" --dataset_location "local" --random_state $seed
   python "../../eval.py" --pred_file "longformer-squad2-radqa_radqa_predictions.pkl" --metric "squad_v2"
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 done

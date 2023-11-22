@@ -11,7 +11,7 @@
 #SBATCH --mail-user=saptarshi.sengupta@l3s.de # Email address to send the email to
 
 export models="roberta-base bert-base-cased"
-export random_seeds="64 12"
+export random_seeds="41 43"
 
 #Biobaselines-main
 echo "Main Biobaselines + vanilla trials...................................."
@@ -24,15 +24,21 @@ do
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
   --model_checkpoint biobert-squad --trained_model_name biobert-squad-covidqa --random_state $seed
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint allenai/scibert_scivocab_uncased \
   --trained_model_name scibert-squad --random_state $seed
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" --model_checkpoint scibert-squad \
   --trained_model_name scibert-squad-covidqa --random_state $seed
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint lordtt13/COVID-SciBERT \
   --trained_model_name covidscibert-squad --random_state $seed
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" --model_checkpoint covidscibert-squad \
   --trained_model_name covidscibert-squad-covidqa --random_state $seed
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch "../../../FineTuning_Scripts/old_code/squad_ft.py" \
   --model_checkpoint microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext \
@@ -40,36 +46,54 @@ do
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
   --model_checkpoint pubmedbert-squad --trained_model_name pubmedbert-squad-covidqa --random_state $seed
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch "../../../FineTuning_Scripts/old_code/squad_ft.py" \
   --model_checkpoint bionlp/bluebert_pubmed_mimic_uncased_L-12_H-768_A-12 \
   --trained_model_name bluebert-squad --random_state $seed
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" --model_checkpoint bluebert-squad \
   --trained_model_name bluebert-squad-covidqa --random_state $seed
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint GanjinZero/UMLSBert_ENG \
   --trained_model_name umlsbert-squad --random_state $seed
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" --model_checkpoint umlsbert-squad \
   --trained_model_name umlsbert-squad-covidqa --random_state $seed
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint studio-ousia/luke-base \
   --trained_model_name luke-squad --random_state $seed
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" --model_checkpoint luke-squad \
   --trained_model_name luke-squad-covidqa --random_state $seed
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
   --model_checkpoint arrafmousa/xlnet-base-cased-finetuned-squad --trained_model_name xlnet-squad-covidqa --random_state $seed
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
   --model_checkpoint valhalla/longformer-base-4096-finetuned-squadv1 --trained_model_name longformer-squad-covidqa --random_state $seed
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
   --model_checkpoint FredNajjar/NF-bigbird-squad --trained_model_name bigbird-squad-covidqa --random_state $seed
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
   --model_checkpoint batterydata/bert-base-cased-squad-v1 --trained_model_name "bert-squad-covidqa" --random_state $seed
 
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
   accelerate launch "../../../FineTuning_Scripts/old_code/covidqa_ft.py" \
   --model_checkpoint csarron/roberta-base-squad-v1 --trained_model_name "roberta-squad-covidqa" --random_state $seed
+
+  echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 done
 
 for base_model in $models;
@@ -79,7 +103,7 @@ do
     echo "47k trial......................."
     for seed in $random_seeds;
     do
-      echo "Random seed $seed"
+      echo "Random seed $seed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
       accelerate launch --mixed_precision fp16 --main_process_port 12456 "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
       --model_checkpoint $base_model --trained_model_name "$base_model-47k" \
@@ -97,7 +121,7 @@ do
     echo "47k-1k-maxlen trial............................"
     for seed in $random_seeds;
     do
-      echo "Random seed $seed"
+      echo "Random seed $seed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
       accelerate launch --mixed_precision fp16 --main_process_port 12456 "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
       --model_checkpoint $base_model --trained_model_name "$base_model-47k_1k_max_len" \
@@ -115,7 +139,7 @@ do
     echo "470k trial............................"
     for seed in $random_seeds;
     do
-      echo "Random seed $seed"
+      echo "Random seed $seed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
       accelerate launch --mixed_precision fp16 --main_process_port 12456 "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
       --model_checkpoint $base_model --trained_model_name "$base_model-470k" \
@@ -133,7 +157,7 @@ do
     echo "50k trial..........................................."
     for seed in $random_seeds;
     do
-      echo "Random seed $seed"
+      echo "Random seed $seed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
       accelerate launch --mixed_precision fp16 --main_process_port 12456 "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
       --model_checkpoint $base_model --trained_model_name "$base_model-50k" \
@@ -151,7 +175,7 @@ do
     echo "Wiki baseline......................................."
     for seed in $random_seeds;
     do
-      echo "Random seed $seed"
+      echo "Random seed $seed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
       accelerate launch --mixed_precision fp16 --main_process_port 12456 "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
       --model_checkpoint $base_model --trained_model_name "$base_model-wiki" \

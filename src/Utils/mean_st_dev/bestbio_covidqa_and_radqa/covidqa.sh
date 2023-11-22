@@ -9,7 +9,7 @@
 #SBATCH --mail-type=FAIL,BEGIN,END  # Send an email when the job starts, ends, or fails
 #SBATCH --mail-user=saptarshi.sengupta@l3s.de # Email address to send the email to
 
-export random_seeds="42 64 12"
+export random_seeds="41 43"
 
 #COVIDQA Best - PubMedBERT
 for seed in $random_seeds;
