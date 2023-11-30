@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
         set_seed(42)
         generations = generator(batch['formatted_chunks'], renormalize_logits=True, do_sample=True,
-                                max_new_tokens=50, top_p=0.9, temperature=0.9, use_cache=True)
+                                max_new_tokens=50, top_p=0.9, temperature=0.9, use_cache=True, pad_token_id=tokenizer.eos_token_id)
 
         for gen in generations:
             pred_answers.append(gen[0]['generated_text'].split('Answer:', 1)[1].strip())
