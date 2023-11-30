@@ -26,7 +26,6 @@ def create_chunks(sample, chunk_size, stride):
 
 
 class QADataset(Dataset):
-
     def __init__(self, dataset_location, dataset_split_for_radqa, chunk_size, stride):
         if dataset_location == 'remote':
             self.raw_dataset = load_dataset('Saptarshi7/covid_qa_cleaned_CS')
@@ -60,9 +59,11 @@ if __name__ == '__main__':
 
     checkpoint = args.model_checkpoint
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+    model = AutoModelForCausalLM.from_pretrained(checkpoint)
 
-    if checkpoint == 'facebook/galactica-1.3b':
-        model = AutoModelForCausalLM.from_pretrained(checkpoint)
+    #if checkpoint == 'facebook/galactica-1.3b':
+    #model = AutoModelForCausalLM.from_pretrained(checkpoint)
+    '''
     else:
         config = AutoConfig.from_pretrained(checkpoint)
         with init_empty_weights():
@@ -70,7 +71,7 @@ if __name__ == '__main__':
         model.tie_weights()
         model = load_checkpoint_and_dispatch(model, os.path.abspath('../../../MedLLaMA_13B'), device_map="auto",
                                              no_split_module_classes=["LlamaDecoderLayer"])
-
+    '''
     print(f'Model:{checkpoint} loaded...')
     generator = pipeline('text-generation', model=model, tokenizer=tokenizer, device=0)
 
