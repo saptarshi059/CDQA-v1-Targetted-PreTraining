@@ -58,8 +58,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     checkpoint = args.model_checkpoint
-    tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-    model = AutoModelForCausalLM.from_pretrained(checkpoint)
+    tokenizer = AutoTokenizer.from_pretrained(checkpoint, use_auth_token=True)
+    model = AutoModelForCausalLM.from_pretrained(checkpoint, use_auth_token=True)
 
     #if checkpoint == 'facebook/galactica-1.3b':
     #model = AutoModelForCausalLM.from_pretrained(checkpoint)
