@@ -59,21 +59,24 @@ if __name__ == '__main__':
 
     checkpoint = args.model_checkpoint
     tokenizer = AutoTokenizer.from_pretrained(checkpoint, use_auth_token=True)
-    model = AutoModelForCausalLM.from_pretrained(checkpoint, use_auth_token=True)
+    # model = AutoModelForCausalLM.from_pretrained(checkpoint, use_auth_token=True)
 
-    #if checkpoint == 'facebook/galactica-1.3b':
-    #model = AutoModelForCausalLM.from_pretrained(checkpoint)
+    # if checkpoint == 'facebook/galactica-1.3b':
+    # model = AutoModelForCausalLM.from_pretrained(checkpoint)
     '''
     else:
-        config = AutoConfig.from_pretrained(checkpoint)
-        with init_empty_weights():
-            model = AutoModelForCausalLM.from_config(config)
-        model.tie_weights()
-        model = load_checkpoint_and_dispatch(model, os.path.abspath('../../../MedLLaMA_13B'), device_map="auto",
-                                             no_split_module_classes=["LlamaDecoderLayer"])
     '''
+    config = AutoConfig.from_pretrained(checkpoint)
+    with init_empty_weights():
+        model = AutoModelForCausalLM.from_config(config)
+    model.tie_weights()
+    model = load_checkpoint_and_dispatch(model, os.path.abspath('/home/saptarshi.sengupta/.cache/huggingface/hub'
+                                                                '/models--epfl-llm--meditron-7b/snapshots'
+                                                                '/9f16d7596f37de958bd3e6812dc4584eaf86cd71'),
+                                         device_map="auto", no_split_module_classes=["LlamaDecoderLayer"])
+
     print(f'Model:{checkpoint} loaded...')
-    generator = pipeline('text-generation', model=model, tokenizer=tokenizer, device=0)
+    generator = pipeline('text-generation', model=model, tokenizer=tokenizer, device_map='auto')
 
     dataset = QADataset(args.dataset_location, args.dataset_split_for_radqa, args.chunk_size, args.stride)
     data_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False)
