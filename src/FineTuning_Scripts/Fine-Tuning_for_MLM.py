@@ -127,7 +127,7 @@ if args.use_new_tokens:
 
 train_dataset = train_dataset['train'].map(tokenize_function, batched=True, remove_columns=['ent', 'text'])
 train_dataset = train_dataset.map(group_texts, batched=True)
-data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
 if 'word_ids' in train_dataset.column_names:
     train_dataset = train_dataset.remove_columns(["word_ids"])
