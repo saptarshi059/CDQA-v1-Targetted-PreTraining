@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
+# Code adapted from https://huggingface.co/learn/nlp-course/en/chapter7/3
 
-from transformers import AutoModelForMaskedLM, AutoModelForSeq2SeqLM, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, \
+from transformers import AutoModelForMaskedLM, AutoModelForCausalLM, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, \
     default_data_collator, set_seed
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
@@ -95,7 +96,7 @@ model_checkpoint = args.model_checkpoint
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 
 if 't5' in model_checkpoint:
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_checkpoint)
+    model = AutoModelForCausalLM.from_pretrained(model_checkpoint)
 else:
     model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 
