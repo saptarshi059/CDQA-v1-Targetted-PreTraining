@@ -492,6 +492,9 @@ def main():
             extension = data_args.validation_file.split(".")[-1]
         if extension == "txt":
             extension = "text"
+
+        print(data_files)
+
         datasets = load_dataset(
             extension,
             data_files=data_files,
