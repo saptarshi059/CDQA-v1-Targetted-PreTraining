@@ -23,12 +23,18 @@ do
 
   # Fancy Unfiltered - from the best test RoBERTa
   echo "Fancy Prompt Unfiltered for $model_name >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-  accelerate launch --main_process_port 15467 --mixed_precision fp16 \
-  "../../../FineTuning_Scripts/Fine-Tuning_for_MLM.py" \
-  --model_checkpoint $model_name \
-  --trained_model_name "$output_name-fancy_prompt_unfiltered_ents" \
-  --training_corpus "../../../../data/RadQA/radqa-corpora/fancy_prompt_unfiltered_ents.parquet" \
-  --eval_corpus "../../../../data/RadQA/RadQA_for_PPL_eval.csv" --epochs 3 --random_state "$seed"
+  python "../../../FineTuning_Scripts/run_t5_mlm_flax.py" \
+	--output_dir="$output_name-fancy_prompt_unfiltered_ents" \
+	--model_name_or_path="$model_name" \
+	--train_file="/home/saptarshi.sengupta/CDQA-v1-whole-entity-approach/data/RadQA/radqa-corpora/fancy_prompt_unfiltered_ents.parquet" \
+	--validation_file="/home/saptarshi.sengupta/CDQA-v1-whole-entity-approach/data/RadQA/radqa_for_t5.parquet" \
+	--max_seq_length="512" \
+	--per_device_train_batch_size="40" \
+	--per_device_eval_batch_size="40" \
+	--adafactor \
+	--overwrite_output_dir \
+	--eval_steps="2500" \
+	--seed="$seed"
 
   accelerate launch --main_process_port 15467 --mixed_precision fp16 \
   "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents" \
