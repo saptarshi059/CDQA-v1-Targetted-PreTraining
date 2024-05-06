@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Code adapted from https://huggingface.co/learn/nlp-course/en/chapter7/3
 
-from transformers import AutoModelForMaskedLM, T5ForConditionalGeneration, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, \
+from transformers import AutoModelForMaskedLM, AutoTokenizer, DataCollatorForLanguageModeling, get_scheduler, \
     default_data_collator, set_seed
 from torch.utils.data import DataLoader
 from accelerate import Accelerator
@@ -95,10 +94,7 @@ set_seed(args.random_state)
 model_checkpoint = args.model_checkpoint
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 
-if 't5' in model_checkpoint:
-    model = T5ForConditionalGeneration.from_pretrained(model_checkpoint)
-else:
-    model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
+model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 
 chunk_size = 512  # I'm bruteforcing it to 512 since it's the same for BERT/RoBERTa &
 # the other models don't have their max length set. They return 1000000000000000019884624838656 as max length.
@@ -127,7 +123,7 @@ if args.use_new_tokens:
 
 train_dataset = train_dataset['train'].map(tokenize_function, batched=True, remove_columns=['ent', 'text'])
 train_dataset = train_dataset.map(group_texts, batched=True)
-data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm_probability=0.15)
 
 if 'word_ids' in train_dataset.column_names:
     train_dataset = train_dataset.remove_columns(["word_ids"])
