@@ -36,7 +36,7 @@ do
 	--eval_steps="2500" \
 	--seed="$seed"
 
-  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_prompt_unfiltered_ents"
+  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_prompt_unfiltered_ents" --save_encoder_only True
 
   accelerate launch --main_process_port 15467 --mixed_precision fp16 \
   "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents" \
@@ -65,7 +65,7 @@ do
 	--eval_steps="2500" \
 	--seed="$seed"
 
-  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_normal_combined_filtered"
+  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_normal_combined_filtered" --save_encoder_only True
 
   accelerate launch --main_process_port 15467 --mixed_precision fp16 \
   "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint "$output_name-fancy_normal_combined_filtered" \
