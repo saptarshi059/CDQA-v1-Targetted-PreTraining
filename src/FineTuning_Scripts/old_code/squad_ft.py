@@ -63,7 +63,10 @@ def prepare_train_features(examples):
     for i, offsets in enumerate(offset_mapping):
         # We will label impossible answers with the index of the CLS token.
         input_ids = tokenized_examples["input_ids"][i]
-        cls_index = input_ids.index(tokenizer.cls_token_id)
+        if 't5' not in model_checkpoint:
+            cls_index = input_ids.index(tokenizer.cls_token_id)
+        else:
+            cls_index = input_ids.index(tokenizer.pad_token_id)
 
         # Grab the sequence corresponding to that example (to know what is the context and what is the question).
         sequence_ids = tokenized_examples.sequence_ids(i)
