@@ -66,8 +66,7 @@ def prepare_train_features(examples):
         if 't5' not in model_checkpoint:
             cls_index = input_ids.index(tokenizer.cls_token_id)
         else:
-            print(input_ids)
-            cls_index = input_ids.index(tokenizer.pad_token_id)
+            cls_index = input_ids.index(tokenizer.eos_token_id)
 
         # Grab the sequence corresponding to that example (to know what is the context and what is the question).
         sequence_ids = tokenized_examples.sequence_ids(i)
