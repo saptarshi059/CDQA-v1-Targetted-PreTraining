@@ -39,7 +39,7 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 import optax
-from datasets import load_dataset
+from datasets import load_dataset, Value, DatasetDict
 from flax import jax_utils, traverse_util
 from flax.jax_utils import pad_shard_unpad
 from flax.training import train_state
@@ -597,6 +597,20 @@ def main():
                 num_proc=data_args.preprocessing_num_workers,
             )
     else:
+        train_dataset = load_dataset('parquet', data_files=data_args.train_file)
+        if (('prompt' in train_dataset['train'].column_names) and
+                ('__index_level_0__' in train_dataset['train'].column_names)):
+            train_dataset = train_dataset.remove_columns(['prompt', '__index_level_0__'])
+
+        if ('entity' in train_dataset['train'].column_names) and ('context' in train_dataset['train'].column_names):
+            train_dataset = train_dataset.rename_columns({'entity': 'ent', 'context': 'text'})
+
+        validation_dataset = load_dataset('parquet', data_files=data_args.validation_file)
+        validation_dataset['train'] = validation_dataset['train'].cast_column('ent', Value(dtype='string', id=None))
+
+        datasets = DatasetDict({"train": train_dataset['train'], "validation": validation_dataset['train']})
+
+        '''
         data_files = {}
         if data_args.train_file is not None:
             data_files["train"] = data_args.train_file
@@ -606,6 +620,7 @@ def main():
             extension = data_args.validation_file.split(".")[-1]
         if extension == "txt":
             extension = "text"
+        
         datasets = load_dataset(
             extension,
             data_files=data_files,
@@ -631,6 +646,7 @@ def main():
                 token=model_args.token,
                 num_proc=data_args.preprocessing_num_workers,
             )
+        '''
     # See more about loading any type of standard or custom dataset (from files, python dict, pandas DataFrame, etc) at
     # https://huggingface.co/docs/datasets/loading_datasets.
 
