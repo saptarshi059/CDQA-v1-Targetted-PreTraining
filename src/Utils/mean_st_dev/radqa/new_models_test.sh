@@ -36,19 +36,18 @@ do
 	--eval_steps="2500" \
 	--seed="$seed"
 
-  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_prompt_unfiltered_ents" \
-  --pytorch_model_checkpoint_folder "$output_name-fancy_prompt_unfiltered_ents-pt"
+  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_prompt_unfiltered_ents"
 
   accelerate launch --main_process_port 15467 --mixed_precision fp16 \
-  "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents-pt" \
-  --trained_model_name "$output_name-fancy_prompt_unfiltered_ents-pt-squad" --squad_version2 True --random_state "$seed"
+  "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents" \
+  --trained_model_name "$output_name-fancy_prompt_unfiltered_ents-squad" --squad_version2 True --random_state "$seed"
 
   accelerate launch --main_process_port 15467 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
-  --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents-pt-squad" --trained_model_name "$output_name-fancy_prompt_unfiltered_ents-pt-squad-radqa" \
+  --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents-squad" --trained_model_name "$output_name-fancy_prompt_unfiltered_ents-squad-radqa" \
   --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state "$seed"
 
-  python "../../zeroshot.py" --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents-pt-squad-radqa" --dataset_location "local" --random_state "$seed"
-  python "../../eval.py" --pred_file "$output_name-fancy_prompt_unfiltered_ents-pt-squad-radqa_radqa_predictions.pkl" --metric "squad_v2"
+  python "../../zeroshot.py" --model_checkpoint "$output_name-fancy_prompt_unfiltered_ents-squad-radqa" --dataset_location "local" --random_state "$seed"
+  python "../../eval.py" --pred_file "$output_name-fancy_prompt_unfiltered_ents-squad-radqa_radqa_predictions.pkl" --metric "squad_v2"
   echo ".......................................................<><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
   # Combined Filtered - from the best dev RoBERTa
@@ -66,19 +65,18 @@ do
 	--eval_steps="2500" \
 	--seed="$seed"
 
-  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_normal_combined_filtered" \
-  --pytorch_model_checkpoint_folder "$output_name-fancy_normal_combined_filtered-pt"
+  python "../../flax_to_pt.py" --flax_model_checkpoint_folder "$output_name-fancy_normal_combined_filtered"
 
   accelerate launch --main_process_port 15467 --mixed_precision fp16 \
-  "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint "$output_name-fancy_normal_combined_filtered-pt" \
-  --trained_model_name "$output_name-fancy_normal_combined_filtered-pt-squad" --squad_version2 True --random_state "$seed"
+  "../../../FineTuning_Scripts/old_code/squad_ft.py" --model_checkpoint "$output_name-fancy_normal_combined_filtered" \
+  --trained_model_name "$output_name-fancy_normal_combined_filtered-squad" --squad_version2 True --random_state "$seed"
 
   accelerate launch --main_process_port 15467 --mixed_precision fp16 "../../../FineTuning_Scripts/old_code/radqa_ft.py" \
-  --model_checkpoint "$output_name-fancy_normal_combined_filtered-pt-squad" --trained_model_name "$output_name-fancy_normal_combined_filtered-pt-squad-radqa" \
+  --model_checkpoint "$output_name-fancy_normal_combined_filtered-squad" --trained_model_name "$output_name-fancy_normal_combined_filtered-squad-radqa" \
   --dataset_location "../../../../data/RadQA/radqa-a-question-answering-dataset-to-improve-comprehension-of-radiology-reports-1.0.0/" --random_state "$seed"
 
-  python "../../zeroshot.py" --model_checkpoint "$output_name-fancy_normal_combined_filtered-pt-squad-radqa" --dataset_location "local" --random_state "$seed"
-  python "../../eval.py" --pred_file "$output_name-fancy_normal_combined_filtered-pt-squad-radqa_radqa_predictions.pkl" --metric "squad_v2"
+  python "../../zeroshot.py" --model_checkpoint "$output_name-fancy_normal_combined_filtered-squad-radqa" --dataset_location "local" --random_state "$seed"
+  python "../../eval.py" --pred_file "$output_name-fancy_normal_combined_filtered-squad-radqa_radqa_predictions.pkl" --metric "squad_v2"
   echo ".......................................................<><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 done
 
